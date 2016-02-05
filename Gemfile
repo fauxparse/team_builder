@@ -47,6 +47,7 @@ group :development, :test do
   gem 'rspec-support', github: 'rspec/rspec-support'
   gem 'rspec-core', github: 'rspec/rspec-core'
   gem 'rspec-rails', github: 'rspec/rspec-rails'
+  gem 'shoulda-matchers'
 end
 
 group :development do
