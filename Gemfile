@@ -31,6 +31,7 @@ gem 'redis', '~> 3.0'
 # gem 'capistrano-rails', group: :development
 
 gem 'haml'
+gem 'stringex'
 
 gem 'therubyracer'
 gem 'devise', github: 'plataformatec/devise'
@@ -48,6 +49,7 @@ group :development, :test do
   gem 'rspec-core', github: 'rspec/rspec-core'
   gem 'rspec-rails', github: 'rspec/rspec-rails'
   gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
 end
 
 gem 'codeclimate-test-reporter', group: :test, require: nil

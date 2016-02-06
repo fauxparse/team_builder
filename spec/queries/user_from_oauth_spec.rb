@@ -4,12 +4,13 @@ describe UserFromOauth do
   subject(:query) { UserFromOauth.new(auth) }
   let(:provider) { :google }
   let(:uid) { '0123456789ABCDEF'}
-  let(:name) { 'Poe Dameron' }
-  let(:email) { 'poe@resistance.org' }
-  let(:password) { 'finn <3<3<3' }
+  let(:user_attributes) { FactoryGirl.attributes_for(:user) }
+  let(:name) { user_attributes[:name] }
+  let(:email) { user_attributes[:email] }
+  let(:password) { user_attributes[:password] }
   let(:auth) { Struct.new(:provider, :uid, :info).new(provider, uid, info) }
   let(:info) { Struct.new(:name, :email).new(name, email) }
-  let(:user) { User.new(name: name, email: email, password: password) }
+  let(:user) { FactoryGirl.build(:user) }
 
   context 'without an existing user' do
     it 'creates a user' do
