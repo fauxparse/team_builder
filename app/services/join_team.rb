@@ -1,5 +1,5 @@
 class JoinTeam
-  attr_reader :user, :team, :admin
+  attr_reader :user, :team, :admin, :member
 
   def initialize(user, team, admin = false)
     @user = user
@@ -8,7 +8,7 @@ class JoinTeam
   end
 
   def call
-    @membership = Membership.create!(
+    @member = Member.create!(
       user: user,
       team: team,
       admin: admin

@@ -6,14 +6,14 @@ describe JoinTeam do
   let(:team) { FactoryGirl.create(:team) }
 
   describe '#call' do
-    it 'creates a membership' do
-      expect { service.call }.to change { Membership.count }.by(1)
+    it 'creates a member' do
+      expect { service.call }.to change { Member.count }.by(1)
     end
 
     context 'when the user is already a member' do
-      before { Membership.create!(user: user, team: team) }
+      before { Member.create!(user: user, team: team) }
 
-      it 'does not create a membership' do
+      it 'does not create a member' do
         expect(service.call).to be false
       end
     end

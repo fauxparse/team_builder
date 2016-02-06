@@ -1,5 +1,5 @@
 class Team < ApplicationRecord
-  has_many :memberships, dependent: :destroy
+  has_many :members, dependent: :destroy
 
   acts_as_url :name,
     url_attribute: :slug,
