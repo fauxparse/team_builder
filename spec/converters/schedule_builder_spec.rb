@@ -85,9 +85,9 @@ describe ScheduleBuilder do
 
     it 'repeats on the third Thursday of each month' do
       expect(occurrences).to eq([
-        Time.parse("2015-12-17 00:00:00 +1300"),
-        Time.parse("2016-01-21 00:00:00 +1300"),
-        Time.parse("2016-02-18 00:00:00 +1300")
+        Time.parse("2015-12-17 00:01:00 +1300"),
+        Time.parse("2016-01-21 00:01:00 +1300"),
+        Time.parse("2016-02-18 00:01:00 +1300")
       ])
     end
   end
@@ -116,8 +116,8 @@ describe ScheduleBuilder do
     it 'repeats annually on the same day' do
       expect(occurrences).to eq([
         event.starts_at,
-        Time.parse("2016-12-16 00:00:00 +1300"),
-        Time.parse("2017-12-17 00:00:00 +1300")
+        Time.parse("2016-12-16 00:01:00 +1300"),
+        Time.parse("2017-12-17 00:01:00 +1300")
       ])
     end
   end

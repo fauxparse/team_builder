@@ -1,6 +1,7 @@
 class Event < ApplicationRecord
   belongs_to :team
   has_many :recurrence_rules, dependent: :destroy
+  has_many :occurrences, dependent: :destroy
 
   acts_as_url :name,
     url_attribute: :slug,
@@ -40,6 +41,17 @@ class Event < ApplicationRecord
 
   def starts_at
     super.in_time_zone(time_zone)
+  end
+
+  def occurrences_between(start_time, stop_time)
+    existing = occurrences.oldest_first
+      .between(start_time, stop_time)
+      .index_by(&:starts_at)
+
+    schedule.occurrences_between(start_time, stop_time).map do |occurrence|
+      time = occurrence.start_time
+      existing[time] || occurrences.build(starts_at: time)
+    end
   end
 
   private

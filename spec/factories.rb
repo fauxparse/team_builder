@@ -15,7 +15,7 @@ FactoryGirl.define do
     team
     name "An Awakening"
     description "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    starts_at "2015-12-17 00:00:00 +1300"
+    starts_at "2015-12-17 00:01:00 +1300"
     stops_at nil
     duration 8100
     time_zone_name "Wellington"

@@ -31,4 +31,30 @@ RSpec.describe Event, type: :model do
       expect(event.time_zone_changed?).to be true
     end
   end
+
+  describe '#occurrences' do
+    subject(:occurrences) { event.occurrences_between(start, stop) }
+    let(:time_zone) { event.starts_at.time_zone }
+    let(:start) { time_zone.local(2015, 12, 1) }
+    let(:stop) { time_zone.local(2016, 1, 1) }
+
+    before do
+      event.recurrence_rules.create(repeat_type: :daily)
+    end
+
+    it 'generates occurrences according to the schedule' do
+      expect(occurrences.count).to eq(15)
+    end
+
+    context 'when some are saved' do
+      before do
+        occurrences.first.save!
+      end
+
+      it 'uses the saved versions' do
+        expect(event.occurrences_between(start, stop).first)
+          .to be_persisted
+      end
+    end
+  end
 end
