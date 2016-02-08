@@ -33,6 +33,8 @@ gem 'redis', '~> 3.0'
 gem 'haml'
 gem 'stringex'
 
+gem 'ice_cube'
+
 gem 'therubyracer'
 gem 'devise', github: 'plataformatec/devise'
 gem 'omniauth'
@@ -45,6 +47,7 @@ group :development, :test do
   gem 'rspec', github: 'rspec/rspec'
   gem 'rspec-mocks', github: 'rspec/rspec-mocks'
   gem 'rspec-expectations', github: 'rspec/rspec-expectations'
+  gem 'rspec-collection_matchers', github: 'rspec/rspec-collection_matchers'
   gem 'rspec-support', github: 'rspec/rspec-support'
   gem 'rspec-core', github: 'rspec/rspec-core'
   gem 'rspec-rails', github: 'rspec/rspec-rails'

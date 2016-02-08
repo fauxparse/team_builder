@@ -10,6 +10,13 @@ GIT
       warden (~> 1.2.3)
 
 GIT
+  remote: git://github.com/rspec/rspec-collection_matchers.git
+  revision: 226d81ce069a56bd59ff4b2608420e2a0d5ff603
+  specs:
+    rspec-collection_matchers (1.1.2)
+      rspec-expectations (>= 2.99.0.beta1)
+
+GIT
   remote: git://github.com/rspec/rspec-core.git
   revision: e9b99468cbfa45d2c0f38e69a0c9c9184814e327
   specs:
@@ -139,6 +146,7 @@ GEM
       tilt
     hashie (3.4.3)
     i18n (0.7.0)
+    ice_cube (0.13.3)
     jbuilder (2.4.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -285,6 +293,7 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails
   haml
+  ice_cube
   jbuilder (~> 2.0)
   jquery-rails
   letter_opener
@@ -297,6 +306,7 @@ DEPENDENCIES
   rails (>= 5.0.0.beta2, < 5.1)
   redis (~> 3.0)
   rspec!
+  rspec-collection_matchers!
   rspec-core!
   rspec-expectations!
   rspec-mocks!

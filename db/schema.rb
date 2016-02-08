@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160206080308) do
+ActiveRecord::Schema.define(version: 20160207002803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "event_recurrence_rules", force: :cascade do |t|
+    t.integer  "event_id"
+    t.integer  "repeat_type",   default: 0
+    t.integer  "interval",      default: 1
+    t.integer  "count"
+    t.datetime "stops_at"
+    t.integer  "weekdays",      default: [],              array: true
+    t.integer  "monthly_weeks", default: [],              array: true
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["event_id"], name: "index_event_recurrence_rules_on_event_id", using: :btree
+  end
 
   create_table "events", force: :cascade do |t|
     t.integer  "team_id"
@@ -78,6 +91,7 @@ ActiveRecord::Schema.define(version: 20160206080308) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "event_recurrence_rules", "events", on_delete: :cascade
   add_foreign_key "events", "teams", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade
   add_foreign_key "members", "teams", on_delete: :cascade

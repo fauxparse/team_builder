@@ -13,13 +13,22 @@ RSpec.describe Event, type: :model do
   end
 
   describe '#time_zone' do
-    it 'has a default' do
-      expect(event.time_zone).to eq(Time.zone)
+    context 'with the default timezone' do
+      subject(:event) { FactoryGirl.create(:event, time_zone_name: nil) }
+
+      it 'is the same as the Rails default' do
+        expect(event.time_zone).to eq(Time.zone)
+      end
     end
 
     it 'can be set' do
-      event.time_zone = ActiveSupport::TimeZone["Wellington"]
-      expect(event.time_zone.name).to eq("Wellington")
+      event.time_zone = ActiveSupport::TimeZone["Melbourne"]
+      expect(event.time_zone.name).to eq("Melbourne")
+    end
+
+    it 'knows it’s dirty' do
+      event.time_zone = ActiveSupport::TimeZone["Melbourne"]
+      expect(event.time_zone_changed?).to be true
     end
   end
 end

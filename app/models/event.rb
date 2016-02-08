@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
   belongs_to :team
+  has_many :recurrence_rules, dependent: :destroy
 
   acts_as_url :name,
     url_attribute: :slug,
@@ -21,12 +22,24 @@ class Event < ApplicationRecord
   end
 
   def time_zone
+    @time_zone = nil if time_zone_name_changed?
     @time_zone ||= ActiveSupport::TimeZone[time_zone_name]
   end
 
   def time_zone=(value)
     self.time_zone_name = value.name
-    @time_zone = nil
+  end
+
+  def time_zone_changed?
+    time_zone_name_changed?
+  end
+
+  def schedule
+    @schedule ||= ScheduleBuilder.new(self).schedule
+  end
+
+  def starts_at
+    super.in_time_zone(time_zone)
   end
 
   private

@@ -1,12 +1,4 @@
 FactoryGirl.define do
-  factory :event do
-    team
-    name "An Awakening"
-    description "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    starts_at "2015-12-18 00:00:00 +1300"
-    stops_at nil
-  end
-
   factory :team do
     name "JediStormPilot"
   end
@@ -17,5 +9,60 @@ FactoryGirl.define do
     password "Finn <3 <3 <3"
 
     before(:create) { |user| user.skip_confirmation! }
+  end
+
+  factory :event do
+    team
+    name "An Awakening"
+    description "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+    starts_at "2015-12-17 00:00:00 +1300"
+    stops_at nil
+    duration 8100
+    time_zone_name "Wellington"
+  end
+
+  factory :recurrence_rule, :class => 'Event::RecurrenceRule' do
+    event
+
+    trait :never_recurs do
+      repeat_type :never
+    end
+
+    trait :daily do
+      repeat_type :daily
+    end
+
+    trait :weekly do
+      repeat_type :weekly
+    end
+
+    trait :weekdays do
+      repeat_type :weekly
+      weekdays [1, 2, 3, 4, 5]
+    end
+
+    trait :monthly_by_day do
+      repeat_type :monthly_by_day
+    end
+
+    trait :monthly_by_week do
+      repeat_type :monthly_by_week
+    end
+
+    trait :yearly_by_date do
+      repeat_type :yearly_by_date
+    end
+
+    trait :yearly_by_day do
+      repeat_type :yearly_by_day
+    end
+
+    trait :three_times do
+      count 3
+    end
+
+    trait :date_limited do
+      stops_at { event.starts_at + 1.month }
+    end
   end
 end
