@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208012856) do
+ActiveRecord::Schema.define(version: 20160209014508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,10 +36,10 @@ ActiveRecord::Schema.define(version: 20160208012856) do
     t.text     "description"
     t.datetime "starts_at"
     t.datetime "stops_at"
+    t.string   "time_zone_name"
     t.integer  "duration"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.string   "time_zone_name"
     t.index ["team_id", "slug"], name: "index_events_on_team_id_and_slug", unique: true, using: :btree
     t.index ["team_id"], name: "index_events_on_team_id", using: :btree
   end
@@ -74,6 +74,15 @@ ActiveRecord::Schema.define(version: 20160208012856) do
     t.index ["event_id"], name: "index_occurrences_on_event_id", using: :btree
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.integer  "team_id"
+    t.string   "name"
+    t.string   "plural"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_roles_on_team_id", using: :btree
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
@@ -106,4 +115,5 @@ ActiveRecord::Schema.define(version: 20160208012856) do
   add_foreign_key "members", "teams", on_delete: :cascade
   add_foreign_key "members", "users", on_delete: :cascade
   add_foreign_key "occurrences", "events"
+  add_foreign_key "roles", "teams"
 end

@@ -21,6 +21,19 @@ FactoryGirl.define do
     time_zone_name "Wellington"
   end
 
+  factory :role do
+    team
+
+    factory :pilot_role do
+      name "pilot"
+    end
+
+    factory :jedi_role do
+      name "Jedi"
+      plural "Jedi"
+    end
+  end
+
   factory :recurrence_rule, :class => 'Event::RecurrenceRule' do
     event
 
