@@ -35,6 +35,8 @@ gem 'stringex'
 
 gem 'ice_cube'
 
+gem 'acts_as_list', github: 'fauxparse/acts_as_list'
+
 gem 'therubyracer'
 gem 'devise', github: 'plataformatec/devise'
 gem 'omniauth'

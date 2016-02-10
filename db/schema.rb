@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209014508) do
+ActiveRecord::Schema.define(version: 20160209023104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "allocations", force: :cascade do |t|
+    t.integer  "occurrence_id"
+    t.integer  "role_id"
+    t.integer  "minimum",       default: 0
+    t.integer  "maximum"
+    t.integer  "position"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["occurrence_id", "role_id"], name: "index_allocations_on_occurrence_id_and_role_id", using: :btree
+    t.index ["occurrence_id"], name: "index_allocations_on_occurrence_id", using: :btree
+    t.index ["role_id"], name: "index_allocations_on_role_id", using: :btree
+  end
 
   create_table "event_recurrence_rules", force: :cascade do |t|
     t.integer  "event_id"
@@ -109,6 +122,8 @@ ActiveRecord::Schema.define(version: 20160209014508) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "allocations", "occurrences", on_delete: :cascade
+  add_foreign_key "allocations", "roles", on_delete: :cascade
   add_foreign_key "event_recurrence_rules", "events", on_delete: :cascade
   add_foreign_key "events", "teams", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade

@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/fauxparse/acts_as_list.git
+  revision: 312ac92a132b3cd795186b12bf56d779d3fda31f
+  specs:
+    acts_as_list (0.7.2)
+      activerecord (>= 3.0)
+
+GIT
   remote: git://github.com/plataformatec/devise.git
   revision: f0c39e08ca05b328f71d7d145468e841b0142b2e
   specs:
@@ -289,6 +296,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_list!
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   devise!
