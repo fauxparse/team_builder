@@ -24,4 +24,36 @@ RSpec.describe Event::RecurrenceRule, type: :model do
       expect(rule).to have(1).error_on(:monthly_weeks)
     end
   end
+
+  describe '#monthly?' do
+    subject { rule.monthly? }
+
+    it { is_expected.to be false }
+
+    context 'when repeat_type is monthly_by_day' do
+      before { rule.repeat_type = :monthly_by_day }
+      it { is_expected.to be true }
+    end
+
+    context 'when repeat_type is monthly_by_week' do
+      before { rule.repeat_type = :monthly_by_week }
+      it { is_expected.to be true }
+    end
+  end
+
+  describe '#yearly?' do
+    subject { rule.yearly? }
+
+    it { is_expected.to be false }
+
+    context 'when repeat_type is yearly_by_day' do
+      before { rule.repeat_type = :yearly_by_day }
+      it { is_expected.to be true }
+    end
+
+    context 'when repeat_type is yearly_by_date' do
+      before { rule.repeat_type = :yearly_by_date }
+      it { is_expected.to be true }
+    end
+  end
 end
