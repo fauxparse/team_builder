@@ -19,6 +19,12 @@ FactoryGirl.define do
     stops_at nil
     duration 8100
     time_zone_name "Wellington"
+
+    trait :weekly do
+      recurrence_rules do
+        [FactoryGirl.build(:recurrence_rule, :weekly, :date_limited)]
+      end
+    end
   end
 
   factory :role do

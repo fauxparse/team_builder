@@ -55,6 +55,39 @@ RSpec.describe Event, type: :model do
         expect(event.occurrences_between(start, stop).first)
           .to be_persisted
       end
+
+      context 'and the time zone is changed' do
+        before do
+          event.update!(time_zone_name: "Sydney")
+        end
+
+        it 'fixes the saved occurrences’ time zones' do
+          expect(occurrences.first.starts_at)
+            .to eq Time.zone.parse("2015-12-17T00:01:00+11:00")
+        end
+      end
+
+      context 'and the start time is changed' do
+        before do
+          event.update!(starts_at: "2015-12-17 09:00:00 +1300")
+        end
+
+        it 'fixes the occurrences’ times' do
+          expect(occurrences.first.starts_at)
+            .to eq event.time_zone.parse("2015-12-17T09:00:00+13:00")
+        end
+      end
+
+      context 'and there are old occurrences hanging around' do
+        before do
+          event.occurrences.create(starts_at: event.starts_at - 1.week)
+        end
+
+        it 'prunes them away' do
+          expect { event.update!(starts_at: "2015-12-17 09:00:00 +1300") }
+            .to change { Occurrence.count }.by(-1)
+        end
+      end
     end
   end
 end

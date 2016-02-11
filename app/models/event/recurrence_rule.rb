@@ -14,6 +14,9 @@ class Event::RecurrenceRule < ApplicationRecord
   validate :validate_weekdays
   validate :validate_monthly_weeks
 
+  after_update :prune_event_occurrences
+  after_destroy :prune_event_occurrences
+
   def monthly?
     monthly_by_day? || monthly_by_week?
   end
@@ -49,5 +52,9 @@ class Event::RecurrenceRule < ApplicationRecord
     unless monthly_weeks.all? { |d| [-1, 1, 2, 3, 4, 5].include?(d) }
       errors.add(:monthly_weeks, :invalid)
     end
+  end
+
+  def prune_event_occurrences
+    PruneEventOccurrences.new(event).call
   end
 end
