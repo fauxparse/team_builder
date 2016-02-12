@@ -6,12 +6,4 @@ class Availability < ApplicationRecord
 
   validates :occurrence_id, :member_id, :enthusiasm,
     presence: { allow_blank: false }
-
-  def possible?
-    !unavailable?
-  end
-
-  def available?
-    [:available, :keen].include?(enthusiasm)
-  end
 end
