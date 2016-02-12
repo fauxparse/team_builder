@@ -2,6 +2,7 @@ class Event < ApplicationRecord
   belongs_to :team
   has_many :recurrence_rules, dependent: :destroy, autosave: true
   has_many :occurrences, dependent: :destroy
+  has_many :allocations, dependent: :destroy, autosave: true
 
   acts_as_url :name,
     url_attribute: :slug,

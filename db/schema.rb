@@ -11,22 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212013725) do
+ActiveRecord::Schema.define(version: 20160212044636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "allocations", force: :cascade do |t|
-    t.integer  "occurrence_id"
     t.integer  "role_id"
-    t.integer  "minimum",       default: 0
+    t.integer  "minimum",    default: 0
     t.integer  "maximum"
     t.integer  "position"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.index ["occurrence_id", "role_id"], name: "index_allocations_on_occurrence_id_and_role_id", using: :btree
-    t.index ["occurrence_id"], name: "index_allocations_on_occurrence_id", using: :btree
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "event_id"
+    t.index ["event_id", "role_id"], name: "index_allocations_on_event_id_and_role_id", using: :btree
+    t.index ["event_id"], name: "index_allocations_on_event_id", using: :btree
     t.index ["role_id"], name: "index_allocations_on_role_id", using: :btree
+  end
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "occurrence_id"
+    t.integer  "allocation_id"
+    t.integer  "member_id"
+    t.integer  "position"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["allocation_id"], name: "index_assignments_on_allocation_id", using: :btree
+    t.index ["member_id", "occurrence_id"], name: "assignments_by_member", unique: true, using: :btree
+    t.index ["member_id"], name: "index_assignments_on_member_id", using: :btree
+    t.index ["occurrence_id", "allocation_id", "member_id"], name: "assignments_by_ids", unique: true, using: :btree
+    t.index ["occurrence_id"], name: "index_assignments_on_occurrence_id", using: :btree
   end
 
   create_table "availabilities", force: :cascade do |t|
@@ -61,10 +75,10 @@ ActiveRecord::Schema.define(version: 20160212013725) do
     t.text     "description"
     t.datetime "starts_at"
     t.datetime "stops_at"
-    t.string   "time_zone_name"
     t.integer  "duration"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.string   "time_zone_name"
     t.index ["team_id", "slug"], name: "index_events_on_team_id_and_slug", unique: true, using: :btree
     t.index ["team_id"], name: "index_events_on_team_id", using: :btree
   end
@@ -134,8 +148,11 @@ ActiveRecord::Schema.define(version: 20160212013725) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "allocations", "occurrences", on_delete: :cascade
+  add_foreign_key "allocations", "events", on_delete: :cascade
   add_foreign_key "allocations", "roles", on_delete: :cascade
+  add_foreign_key "assignments", "allocations", on_delete: :cascade
+  add_foreign_key "assignments", "members", on_delete: :cascade
+  add_foreign_key "assignments", "occurrences", on_delete: :cascade
   add_foreign_key "availabilities", "members"
   add_foreign_key "availabilities", "occurrences"
   add_foreign_key "event_recurrence_rules", "events", on_delete: :cascade

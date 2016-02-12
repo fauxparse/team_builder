@@ -9,6 +9,16 @@ FactoryGirl.define do
     password "Finn <3 <3 <3"
 
     before(:create) { |user| user.skip_confirmation! }
+
+    factory :finn do
+      name "Finn"
+      email "finn@resistance.org"
+    end
+
+    factory :rey do
+      name "Rey"
+      email "rey@resistance.org"
+    end
   end
 
   factory :member do
@@ -28,6 +38,17 @@ FactoryGirl.define do
     trait :weekly do
       recurrence_rules do
         [FactoryGirl.build(:recurrence_rule, :weekly, :date_limited)]
+      end
+    end
+
+    trait :with_pilots do
+      transient do
+        pilot_count 2
+      end
+
+      after(:create) do |event, evaluator|
+        pilot = FactoryGirl.create(:pilot_role, team: event.team)
+        event.allocations.create(role: pilot, maximum: evaluator.pilot_count)
       end
     end
   end
