@@ -43,6 +43,10 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
+gem 'bourbon'
+gem 'neat'
+gem 'mithril_rails', github: 'fauxparse/mithril-rails'
+
 group :development, :test do
   gem 'dotenv-rails'
   gem 'pry-rails'

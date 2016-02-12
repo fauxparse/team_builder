@@ -1,0 +1,70 @@
+body {
+  overflow: hidden;
+}
+
+.container {
+  @include position(fixed, 0rem 0rem 0rem 0rem);
+
+  .container-inner {
+    @include position(absolute, 0rem 0rem 0rem 0rem);
+    @include transition-property(transform);
+    @include transition-duration(.5s);
+    @include transition-timing-function($ease-out-cubic);
+  }
+
+  .sidebar-toggle {
+    @include position(absolute, .5rem null null .5rem);
+    padding: .5rem;
+    color: white;
+    z-index: 1000;
+    margin: 0;
+    cursor: pointer;
+
+    &::after {
+      content: "menu";
+    }
+  }
+
+  main {
+    @include position(absolute, 0rem 0rem 0rem 0rem);
+    @include display(flex);
+    @include flex-direction(column);
+    overflow: hidden;
+  }
+
+  aside {
+    @include position(absolute, 0rem 100% 0rem null);
+    width: $sidebar-width;
+  }
+
+  .sidebar-scrim {
+    @include position(absolute, 0rem 0rem 0rem 0rem);
+    margin: 0;
+    z-index: 99;
+    background: black;
+    pointer-events: none;
+    opacity: 0;
+    @include transition(opacity 0.5s $base-timing);
+  }
+}
+
+#show-sidebar {
+  display: none;
+
+  &:checked ~ .container-inner {
+    @include transform(translateX($sidebar-width));
+
+    .sidebar-toggle::after {
+      content: "close";
+    }
+
+    .sidebar-scrim {
+      opacity: .5;
+      pointer-events: auto;
+    }
+
+    aside {
+      box-shadow: 0 0 1rem rgba(black, .15);
+    }
+  }
+}

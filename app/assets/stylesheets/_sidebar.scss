@@ -1,0 +1,4 @@
+aside {
+  @include scrollable;
+  padding: $small-spacing;
+}
