@@ -62,6 +62,10 @@ class Event < ApplicationRecord
     end
   end
 
+  def first_occurrence
+    occurrences_between(starts_at, starts_at).first
+  end
+
   private
 
   def set_default_time_zone

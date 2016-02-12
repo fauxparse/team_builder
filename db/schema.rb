@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209023104) do
+ActiveRecord::Schema.define(version: 20160212013725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(version: 20160209023104) do
     t.index ["occurrence_id", "role_id"], name: "index_allocations_on_occurrence_id_and_role_id", using: :btree
     t.index ["occurrence_id"], name: "index_allocations_on_occurrence_id", using: :btree
     t.index ["role_id"], name: "index_allocations_on_role_id", using: :btree
+  end
+
+  create_table "availabilities", force: :cascade do |t|
+    t.integer  "occurrence_id"
+    t.integer  "member_id"
+    t.integer  "enthusiasm",    default: 2
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["member_id", "occurrence_id"], name: "index_availabilities_on_member_id_and_occurrence_id", unique: true, using: :btree
+    t.index ["member_id"], name: "index_availabilities_on_member_id", using: :btree
+    t.index ["occurrence_id", "member_id"], name: "index_availabilities_on_occurrence_id_and_member_id", unique: true, using: :btree
+    t.index ["occurrence_id"], name: "index_availabilities_on_occurrence_id", using: :btree
   end
 
   create_table "event_recurrence_rules", force: :cascade do |t|
@@ -124,6 +136,8 @@ ActiveRecord::Schema.define(version: 20160209023104) do
 
   add_foreign_key "allocations", "occurrences", on_delete: :cascade
   add_foreign_key "allocations", "roles", on_delete: :cascade
+  add_foreign_key "availabilities", "members"
+  add_foreign_key "availabilities", "occurrences"
   add_foreign_key "event_recurrence_rules", "events", on_delete: :cascade
   add_foreign_key "events", "teams", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade

@@ -11,6 +11,11 @@ FactoryGirl.define do
     before(:create) { |user| user.skip_confirmation! }
   end
 
+  factory :member do
+    user
+    team
+  end
+
   factory :event do
     team
     name "An Awakening"

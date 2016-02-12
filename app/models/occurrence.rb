@@ -1,5 +1,6 @@
 class Occurrence < ApplicationRecord
   belongs_to :event
+  has_many :availabilities, dependent: :destroy, autosave: true
 
   validates :starts_at,
     presence: { allow_blank: false },
