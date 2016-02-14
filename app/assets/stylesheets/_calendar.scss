@@ -1,0 +1,71 @@
+.calendar {
+  overflow: hidden;
+
+  .weeks-container {
+    @include position(absolute, 50% 1rem null 1rem);
+    margin-top: -2.5rem;
+  }
+
+  .weeks {
+    @include position(absolute, 0rem 0rem null 0rem);
+  }
+
+  .week {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 5rem;
+    @include display(flex);
+    @include align-items(stretch);
+
+    .day {
+      @include flex(1 0 0);
+      position: relative;
+      max-width: (100% / 7);
+      border-top: $base-border;
+
+      .number {
+        @include position(absolute, .5rem 0rem null null);
+        width: 2rem;
+        height: 2rem;
+        line-height: 2rem;
+        padding: 0 .25rem;
+        vertical-align: middle;
+        text-align: center;
+        border-radius: 50%;
+        @include old-style-numbers;
+      }
+
+      &.weekend .number {
+        color: $medium-gray;
+      }
+    }
+
+    &.month-start {
+      @include justify-content(flex-end);
+
+      .day:first-child {
+        &::before {
+          @include position(absolute, -1rem null null 0rem);
+          @include ellipsis;
+          content: attr(data-month-name);
+          line-height: 1rem;
+          font-size: 0.75rem;
+          color: $medium-gray;
+          text-transform: uppercase;
+          vertical-align: middle;
+          max-width: none;
+          letter-spacing: .2em;
+        }
+
+        &[data-day="1"]::before { width: 700%; }
+        &[data-day="2"]::before { width: 600%; }
+        &[data-day="3"]::before { width: 500%; }
+        &[data-day="4"]::before { width: 400%; }
+        &[data-day="5"]::before { width: 300%; }
+        &[data-day="6"]::before { width: 200%; }
+        &[data-day="7"]::before { width: 100%; }
+      }
+    }
+  }
+}

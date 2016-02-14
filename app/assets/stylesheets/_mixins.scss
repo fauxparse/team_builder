@@ -2,3 +2,10 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+@mixin old-style-numbers {
+  font-variant-numeric: oldstyle-nums;
+  -moz-font-feature-settings: "onum";
+  -webkit-font-feature-settings: "onum";
+  font-feature-settings: "onum";
+}
