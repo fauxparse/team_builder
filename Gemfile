@@ -43,12 +43,13 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
+gem 'dotenv-rails'
+
 gem 'bourbon'
 gem 'neat'
 gem 'mithril_rails', github: 'fauxparse/mithril-rails'
 
 group :development, :test do
-  gem 'dotenv-rails'
   gem 'pry-rails'
   gem 'rspec', github: 'rspec/rspec'
   gem 'rspec-mocks', github: 'rspec/rspec-mocks'
