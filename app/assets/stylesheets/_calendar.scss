@@ -1,5 +1,31 @@
 .calendar {
   overflow: hidden;
+  @include position(absolute, 0rem 0rem 0rem 0rem);
+
+  > header {
+    @include position(absolute, 0rem 0rem null 0rem);
+    @include display(flex);
+    @include flex-direction(row);
+    @include align-items(center);
+    height: $header-height;
+    padding: 0 $header-height;
+    z-index: 10;
+    background: $action-color;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+
+    h2 {
+      @include flex(1);
+      margin: 0;
+      font-size: 1.25rem;
+      line-height: 1.5rem;
+      text-align: center;
+    }
+  }
+
+  .calendar-inner {
+    @include position(absolute, $header-height 0rem 0rem 0rem);
+  }
 
   .weeks-container {
     @include position(absolute, 50% 1rem null 1rem);
@@ -17,6 +43,13 @@
     height: 5rem;
     @include display(flex);
     @include align-items(stretch);
+    @include transition-property(transform);
+    @include transition-duration($base-duration * 2);
+    @include transition-timing-function($base-timing);
+
+    &.selected ~ .week {
+      @include transform(translateY(10rem));
+    }
 
     .day {
       @include flex(1 0 0);
@@ -25,19 +58,51 @@
       border-top: $base-border;
 
       .number {
-        @include position(absolute, .5rem 0rem null null);
+        display: block;
+        position: relative;
         width: 2rem;
         height: 2rem;
         line-height: 2rem;
-        padding: 0 .25rem;
+        margin: .5rem auto;
         vertical-align: middle;
         text-align: center;
-        border-radius: 50%;
         @include old-style-numbers;
+        cursor: pointer;
+
+        &::before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          left: 50%;
+          top: 50%;
+          margin: -50%;
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          @include transition(all $base-duration $base-timing);
+          @include transform(scale(0));
+          opacity: 0;
+        }
       }
 
       &.weekend .number {
         color: $medium-gray;
+      }
+
+      &.today .number::before,
+      &.selected .number::before {
+        opacity: 1;
+        @include transform(scale(1));
+        background-color: rgba(black, .1);
+      }
+
+      &.selected .number {
+        color: white;
+        -webkit-font-smoothing: antialiased;
+
+        &::before {
+          background-color: $action-color;
+        }
       }
     }
 
@@ -54,17 +119,16 @@
           color: $medium-gray;
           text-transform: uppercase;
           vertical-align: middle;
-          max-width: none;
           letter-spacing: .2em;
         }
 
-        &[data-day="1"]::before { width: 700%; }
-        &[data-day="2"]::before { width: 600%; }
-        &[data-day="3"]::before { width: 500%; }
-        &[data-day="4"]::before { width: 400%; }
-        &[data-day="5"]::before { width: 300%; }
-        &[data-day="6"]::before { width: 200%; }
-        &[data-day="7"]::before { width: 100%; }
+        &[data-day="1"]::before { width: 700%; max-width: 700%; }
+        &[data-day="2"]::before { width: 600%; max-width: 600%; }
+        &[data-day="3"]::before { width: 500%; max-width: 500%; }
+        &[data-day="4"]::before { width: 400%; max-width: 400%; }
+        &[data-day="5"]::before { width: 300%; max-width: 300%; }
+        &[data-day="6"]::before { width: 200%; max-width: 200%; }
+        &[data-day="7"]::before { width: 100%; max-width: 100%; }
       }
     }
   }
