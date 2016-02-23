@@ -1,26 +1,9 @@
 .calendar {
   overflow: hidden;
-  @include position(absolute, 0rem 0rem 0rem 0rem);
+  @include position(fixed, 0rem 0rem 0rem 0rem);
 
   > header {
-    @include position(absolute, 0rem 0rem null 0rem);
-    @include display(flex);
-    @include flex-direction(row);
-    @include align-items(center);
-    height: $header-height;
-    padding: 0 $header-height;
-    z-index: 10;
-    background: $action-color;
-    color: white;
-    -webkit-font-smoothing: antialiased;
-
-    h2 {
-      @include flex(1);
-      margin: 0;
-      font-size: 1.25rem;
-      line-height: 1.5rem;
-      text-align: center;
-    }
+    @include header;
   }
 
   .calendar-inner {
@@ -131,5 +114,9 @@
         &[data-day="7"]::before { width: 100%; max-width: 100%; }
       }
     }
+  }
+
+  .new-event-button {
+    @include unfolding-dialog;
   }
 }

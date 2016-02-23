@@ -9,14 +9,14 @@ class Calendar
     @_weekAt = {}
     @_vertical = {}
     @doScroll = $.throttle(16, @doScroll)
+    @title = m.prop("")
 
   view: ->
     @_today = moment().startOf("day")
+    @title(@weekAt(@index()).format("MMMM YYYY"))
 
     m("div", { class: "calendar" },
-      m("header",
-        m('h2', @weekAt(@index()).format("MMMM YYYY")),
-      ),
+      m.component(App.Components.Header, title: @title)
       m("div",
         {
           class: "calendar-inner",
@@ -34,7 +34,8 @@ class Calendar
         m("div", { class: "weeks-container" },
           m("div", { class: "weeks", style: "#{$.support.transform}: translateY(#{-@offset()}px);" }, @renderWeeks())
         )
-      )
+      ),
+      m.component(App.Components.NewEvent)
     )
 
   weekAt: (index) ->
@@ -198,8 +199,8 @@ class Calendar
           @selected(moment(day.data("date")))
 
 App.Components.Calendar =
-  controller: ->
-    new Calendar
+  controller: (props = {}) ->
+    new Calendar(props)
 
   view: (controller) ->
     controller.view()

@@ -12,19 +12,6 @@ body {
     @include transition-timing-function($ease-out-cubic);
   }
 
-  .sidebar-toggle {
-    @include position(absolute, .5rem null null .5rem);
-    padding: .5rem;
-    color: white;
-    z-index: 1000;
-    margin: 0;
-    cursor: pointer;
-
-    &::after {
-      content: "menu";
-    }
-  }
-
   main {
     @include position(absolute, 0rem 0rem 0rem 0rem);
     @include display(flex);
@@ -53,10 +40,6 @@ body {
 
   &:checked ~ .container-inner {
     @include transform(translateX($sidebar-width));
-
-    .sidebar-toggle::after {
-      content: "close";
-    }
 
     .sidebar-scrim {
       opacity: .5;

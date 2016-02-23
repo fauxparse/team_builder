@@ -1,0 +1,45 @@
+@mixin header {
+  @include position(absolute, 0rem 0rem null 0rem);
+  @include display(flex);
+  @include flex-direction(row);
+  @include align-items(center);
+  height: $header-height;
+  padding: .25rem;
+  z-index: 10;
+  background-color: $header-background-color;
+  color: $header-color;
+  -webkit-font-smoothing: antialiased;
+
+  button,
+  .button {
+    margin: 0;
+    @include flex(0);
+    display: block;
+    width: 3rem;
+    padding: .75rem;
+    background: none;
+    color: $header-color;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+
+    i {
+      display: block;
+      width: 1.5rem;
+      text-align: center;
+    }
+  }
+
+  h2 {
+    @include ellipsis;
+    @include flex(1);
+    margin: 0;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    text-align: center;
+
+    &:last-child {
+      padding-right: ($header-height - .25rem);
+    }
+  }
+}

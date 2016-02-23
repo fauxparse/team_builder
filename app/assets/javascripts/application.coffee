@@ -14,6 +14,7 @@
 #= require_tree ./lib
 #= require cable
 
+#= require models
 #= require components
 
 @App =

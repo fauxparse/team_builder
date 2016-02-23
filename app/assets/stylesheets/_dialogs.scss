@@ -1,0 +1,53 @@
+@mixin unfolding-dialog {
+  @include position(fixed, null 1rem 1rem null);
+  z-index: 200;
+  width: $floating-action-button-size;
+  height: $floating-action-button-size;
+  @include transition(all ($base-duration * 2) $base-timing);
+  background-color: $base-background-color;
+  border-radius: $floating-action-button-size / 2;
+
+  header {
+    @include header;
+    width: 100%;
+    height: $floating-action-button-size;
+    padding: .25rem;
+    border-radius: $floating-action-button-size / 2;
+    overflow: hidden;
+    @include transition(all ($base-duration * 2) $base-timing);
+
+    button:first-child {
+      width: $floating-action-button-size;
+      height: $floating-action-button-size;
+      margin: -.25rem 0 -.25rem -.25rem;
+      padding: 1rem;
+      @include transition(all $base-duration $base-timing);
+
+      i::before { content: "add"; }
+    }
+
+    > :not(:first-child) {
+      @include transition(opacity $base-duration $base-timing);
+      opacity: 0;
+    }
+  }
+
+  &.open {
+    right: 0;
+    width: 100%;
+    bottom: 0;
+    height: 100vh;
+
+    header {
+      border-radius: 0;
+
+      button:first-child {
+        i::before { content: "close"; }
+      }
+
+      > :not(:first-child) {
+        opacity: 1;
+      }
+    }
+  }
+}

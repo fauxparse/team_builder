@@ -8,7 +8,7 @@ class Application
       m("div", { class: "container-inner" },
         m.component(App.Components.Sidebar, {}),
         m.component(App.Components.Calendar, {}),
-        m("label", { for: "show-sidebar", class: "material-icons sidebar-toggle" }),
+        # m("label", { for: "show-sidebar", class: "material-icons sidebar-toggle" }),
         m("label", { for: "show-sidebar", class: "sidebar-scrim" })
       )
     ]
