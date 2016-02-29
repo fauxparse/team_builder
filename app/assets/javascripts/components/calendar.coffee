@@ -13,7 +13,7 @@ class Calendar
 
   view: ->
     @_today = moment().startOf("day")
-    @title(@weekAt(@index()).format("MMMM YYYY"))
+    @title((@selected() || @weekAt(@index())).format("MMMM YYYY"))
 
     m("div", { class: "calendar" },
       m.component(App.Components.Header, title: @title)
