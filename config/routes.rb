@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # TODO: these are temporary routes to get the UI working
   get '/calendar' => 'teams#index'
 
+  resources :teams
   root to: 'teams#index'
 
   # Serve websocket cable requests in-process

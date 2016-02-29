@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :omniauthable, :omniauth_providers => [:google_oauth2]
 
   has_many :identities, dependent: :destroy
+  has_many :members
+  has_many :teams, through: :members
 
   validates :name, presence: { allow_blank: false }
 end
