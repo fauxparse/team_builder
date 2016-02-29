@@ -14,9 +14,21 @@ body {
 
   main {
     @include position(absolute, 0rem 0rem 0rem 0rem);
-    @include display(flex);
-    @include flex-direction(column);
     overflow: hidden;
+    
+    > div {
+      @include display(flex);
+      @include flex-direction(column);
+      @include position(absolute, 0rem 0rem 0rem 0rem);
+      
+      > header {
+        @include header;
+        
+        + div {
+          @include flex(1);
+        }
+      }
+    }
   }
 
   aside {

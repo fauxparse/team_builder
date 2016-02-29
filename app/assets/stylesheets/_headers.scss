@@ -1,5 +1,5 @@
 @mixin header {
-  @include position(absolute, 0rem 0rem null 0rem);
+  @include flex(0 0 $header-height);
   @include display(flex);
   @include flex-direction(row);
   @include align-items(center);
