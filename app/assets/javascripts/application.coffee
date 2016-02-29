@@ -16,6 +16,7 @@
 
 #= require models
 #= require components
+#= require routes
 
 @App =
   Channels: {}

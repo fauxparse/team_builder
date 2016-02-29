@@ -1,4 +1,4 @@
-class Dashboard
+class Dashboard extends App.Components.Section
   constructor: (props) ->
 
   view: ->

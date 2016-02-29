@@ -4,4 +4,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!
+  after_action :render_blank_page, unless: :performed?
+
+  private
+
+  def render_blank_page
+    render nothing: true if request.format.html?
+  end
 end

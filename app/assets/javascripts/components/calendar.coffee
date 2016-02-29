@@ -1,4 +1,4 @@
-class Calendar
+class Calendar extends App.Components.Section
   constructor: (props) ->
     @origin = m.prop(@weekStart(moment()))
     @offset = m.prop(0)

@@ -7,6 +7,5 @@ class TeamsController < ApplicationController
   end
 
   def show
-    render nothing: true
   end
 end
