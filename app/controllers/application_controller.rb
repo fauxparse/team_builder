@@ -6,9 +6,25 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   after_action :render_blank_page, unless: :performed?
 
+  helper_method :current_member, :current_team
+
   private
 
   def render_blank_page
     render nothing: true if request.format.html?
+  end
+
+  def current_member
+    @current_member ||= begin
+      if id = cookies[:member_id]
+        current_user.members.find(id)
+      else
+        current_user.members.first
+      end
+    end
+  end
+
+  def current_team
+    current_member.team
   end
 end

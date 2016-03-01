@@ -69,7 +69,7 @@
       }
 
       &.weekend .number {
-        color: $medium-gray;
+        color: $secondary-font-color;
       }
 
       &.today .number::before,
@@ -99,7 +99,7 @@
           content: attr(data-month-name);
           line-height: 1rem;
           font-size: 0.75rem;
-          color: $medium-gray;
+          color: $secondary-font-color;
           text-transform: uppercase;
           vertical-align: middle;
           letter-spacing: .2em;

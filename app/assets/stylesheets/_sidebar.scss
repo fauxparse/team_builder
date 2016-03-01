@@ -1,4 +1,31 @@
-aside {
+aside.sidebar {
   @include scrollable;
-  padding: $small-spacing;
+
+  .profile {
+    height: 10rem;
+    background: $action-color;
+  }
+
+  section {
+    h3 {
+      color: $secondary-font-color;
+      font-weight: bold;
+      font-size: .875rem;
+      line-height: 1.5rem;
+      margin: 0 1rem;
+      padding: .5rem 0;
+
+      + ul {
+        padding-top: 0;
+      }
+    }
+
+    ul {
+      @include action-list;
+    }
+
+    &:not(:last-child) {
+      border-bottom: $base-border;
+    }
+  }
 }

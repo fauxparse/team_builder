@@ -10,12 +10,4 @@
     = stylesheet_link_tag "application", media: "all"
     %meta{name: "viewport", content: "width=device-width, initial-scale=1" }
   %body
-    .container
-      %input#show-sidebar{type: "checkbox", autocomplete: "off"}
-      .container-inner
-        = sidebar
-        %main
-        %label.sidebar-scrim{for: "show-sidebar"}
-
-    = javascript_include_tag "application"
     = yield

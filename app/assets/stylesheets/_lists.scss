@@ -1,0 +1,24 @@
+@mixin action-list {
+  padding: .5rem 0;
+
+  li {
+    a {
+      @include display(flex);
+      @include flex-direction(row);
+      color: $base-font-color;
+
+      > i {
+        @include flex(0 0);
+        @include align-self(flex-start);
+        padding: .75rem 1rem;
+      }
+
+      > span {
+        @include ellipsis;
+        @include flex(1);
+        @include align-self(center);
+        line-height: 1.5;
+      }
+    }
+  }
+}
