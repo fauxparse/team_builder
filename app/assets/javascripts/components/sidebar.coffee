@@ -17,7 +17,7 @@ class Sidebar
       ),
       m("section",
         m("ul",
-          @link("/", "Dashboard", "dashboard"),
+          @link("/", "Dashboard", "home"),
           @link("/calendar", "Calendar", "event"),
           @link("/users/sign_out", "Log out", "exit_to_app", { config: null, "data-method": "delete" })
         )

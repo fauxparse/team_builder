@@ -17,7 +17,8 @@
         @include ellipsis;
         @include flex(1);
         @include align-self(center);
-        line-height: 1.5;
+        line-height: 1.5rem;
+        font-weight: bold;
       }
     }
   }
