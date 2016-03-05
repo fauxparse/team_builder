@@ -54,7 +54,7 @@ class AutomaticallyFillAssignments
     @sorted_members[role.id] ||= available_members
       .group_by { |member| most_recent_assignment_for(member, role).try(:starts_at) }
       .sort { |(a, _), (b, _)| compare_times(a, b) }
-      .map { |date, members| members.shuffle }
+      .map { |_, members| members.shuffle }
       .flatten
   end
 
@@ -70,8 +70,7 @@ class AutomaticallyFillAssignments
 
   def filled?(allocation)
     return full if allocation.unlimited?
-    occurrence.assignments
-      .select { |assignment| assignment.allocation_id == allocation.id }
-      .size >= allocation.maximum
+    occurrence.assignments.to_a
+      .count { |assignment| assignment.allocation_id == allocation.id } >= allocation.maximum
   end
 end

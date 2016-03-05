@@ -3,7 +3,7 @@ require 'rails_helper'
 describe AutomaticallyFillAssignments do
   subject(:service) { AutomaticallyFillAssignments.new(occurrence) }
   let(:event) { FactoryGirl.create(:event, :weekly, :with_pilots) }
-  let(:occurrence) { occurrences.third }
+  let(:occurrence) { occurrences.fourth }
   let(:pilot) { event.allocations.first }
   let(:members) { [poe, finn, rey] }
 
@@ -89,8 +89,9 @@ describe AutomaticallyFillAssignments do
       let(:available_members) { [finn, poe, rey] }
 
       before do
-        assign!(poe, pilot, occurrences.first)
-        assign!(finn, pilot, occurrences.second)
+        assign!(finn, pilot, occurrences.first)
+        assign!(poe, pilot, occurrences.second)
+        assign!(finn, pilot, occurrences.third)
       end
 
       it 'prioritises people who haven’t had a go in a while' do
