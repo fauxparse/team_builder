@@ -13,6 +13,10 @@ class Member < ApplicationRecord
     inclusion: { in: [false] },
     unless: :user_id?
 
+  def <=>(other)
+    display_name <=> other.display_name
+  end
+
   def display_name
     super || user.try(:name)
   end

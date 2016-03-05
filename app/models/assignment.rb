@@ -12,4 +12,15 @@ class Assignment < ApplicationRecord
 
   validates :member_id,
     uniqueness: { scope: [:allocation_id, :occurrence_id] }
+
+  def self.most_recent_assignments_for(event)
+    joins(:occurrence, :allocation)
+      .select(:member_id, :role_id, "MAX(occurrences.starts_at) AS starts_at")
+      .where("occurrences.event_id = ?", event.id)
+      .group(:member_id, :role_id)
+  end
+
+  def full?
+    assignments.size >= max
+  end
 end

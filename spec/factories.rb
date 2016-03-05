@@ -10,6 +10,9 @@ FactoryGirl.define do
 
     before(:create) { |user| user.skip_confirmation! }
 
+    factory :poe do
+    end
+
     factory :finn do
       name "Finn"
       email "finn@resistance.org"
