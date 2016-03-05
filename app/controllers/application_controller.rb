@@ -10,10 +10,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def render_blank_page
-    render nothing: true if request.format.html?
-  end
-
   def current_member
     @current_member ||= begin
       if id = cookies[:member_id]
