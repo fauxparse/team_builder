@@ -74,6 +74,7 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'letter_opener'
   gem 'guard-rspec'
+  gem 'byebug'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
