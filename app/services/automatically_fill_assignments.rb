@@ -58,14 +58,10 @@ class AutomaticallyFillAssignments
       .flatten
   end
 
+  NEVER = Time.new(2000).freeze
+
   def compare_times(a, b)
-    if a.nil?
-      -1
-    elsif b.nil?
-      1
-    else
-      a <=> b
-    end
+    (a || NEVER) <=> (b || NEVER)
   end
 
   def filled?(allocation)
