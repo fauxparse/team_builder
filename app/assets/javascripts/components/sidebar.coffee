@@ -19,7 +19,8 @@ class Sidebar
         m("ul",
           @link("/", "Dashboard", "home"),
           @link("/calendar", "Calendar", "event"),
-          @link("/users/sign_out", "Log out", "exit_to_app", { config: null, "data-method": "delete" })
+          @link("/users/sign_out", "Log out", "exit_to_app",
+            { config: null, "data-method": "delete" })
         )
       )
     ]

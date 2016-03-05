@@ -4,5 +4,5 @@
 App.Components = {}
 
 class App.Components.Section
-  onunload: =>
+  onunload: ->
     $("#show-sidebar").prop("checked", false)

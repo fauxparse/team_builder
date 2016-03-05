@@ -32,7 +32,10 @@ class Calendar extends App.Components.Section
           )
         },
         m("div", { class: "weeks-container" },
-          m("div", { class: "weeks", style: "#{$.support.transform}: translateY(#{-@offset()}px);" }, @renderWeeks())
+          m("div", {
+            class: "weeks",
+            style: "#{$.support.transform}: translateY(#{-@offset()}px);"
+          }, @renderWeeks())
         )
       ),
       m.component(App.Components.NewEvent)
