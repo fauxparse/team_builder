@@ -19,8 +19,4 @@ class Assignment < ApplicationRecord
       .where("occurrences.event_id = ?", event.id)
       .group(:member_id, :role_id)
   end
-
-  def full?
-    assignments.size >= max
-  end
 end
