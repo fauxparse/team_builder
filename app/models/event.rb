@@ -85,13 +85,16 @@ class Event < ApplicationRecord
   def fix_occurrence_times
     offset = starts_at - starts_at_was
     @schedule = nil
+
     occurrences.select(&:persisted?).each do |existing|
-      if start_time = time_around(existing.starts_at + offset)
+      start_time = time_around(existing.starts_at + offset)
+      if start_time.present?
         existing.update!(starts_at: start_time)
       else
         existing.destroy!
       end
     end
+
     occurrences.reload
   end
 

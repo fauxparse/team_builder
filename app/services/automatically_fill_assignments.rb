@@ -58,7 +58,7 @@ class AutomaticallyFillAssignments
       .flatten
   end
 
-  NEVER = Time.new(2000).freeze
+  NEVER = Time.new(1970).freeze
 
   def compare_times(a, b)
     (a || NEVER) <=> (b || NEVER)
