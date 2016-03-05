@@ -33,10 +33,7 @@ class Event::RecurrenceRule < ApplicationRecord
 
   def monthly_weeks
     super.tap do |weeks|
-      if weeks.empty?
-        weekday = IceCube::TimeUtil::DAYS.invert[event.starts_at.wday]
-        weeks << (event.starts_at.day / 7.0).ceil
-      end
+      weeks << (event.starts_at.day / 7.0).ceil if weeks.empty?
     end
   end
 
