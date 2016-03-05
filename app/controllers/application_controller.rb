@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def current_member
     @current_member ||= begin
-      if id = cookies[:member_id]
+      if (id = cookies[:member_id])
         current_user.members.find(id)
       else
         current_user.members.first
