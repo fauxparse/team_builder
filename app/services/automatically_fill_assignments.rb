@@ -12,7 +12,7 @@ class AutomaticallyFillAssignments
       members = occurrence.available_members.to_a
       allocations = event.allocations.includes(:role)[0..-1]
 
-      while members.any? && allocations.any? { |allocation| !filled?(allocation) }
+      while allocations.any? { |allocation| !filled?(allocation) }
         available = sorted_members_for_role(allocations.first.role)
         available.select! { |member| members.include? member }
 
