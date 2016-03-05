@@ -6,12 +6,12 @@ class TeamsController < ApplicationController
   def index
     respond_to do |format|
       format.html { redirect_to current_team if current_team }
-      format.json { render json: current_user.teams }
+      format.json { render json: team_scope }
     end
   end
 
   def show
-    @team = current_user.teams.find_by!(slug: params[:id])
+    @team = team_scope.find_by!(slug: params[:id])
     respond_with @team
   end
 
@@ -23,5 +23,9 @@ class TeamsController < ApplicationController
         .find_by(user_id: current_user.id)
         .try(:id)
     end
+  end
+
+  def team_scope
+    policy_scope(Team)
   end
 end

@@ -252,6 +252,8 @@ GEM
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     puma (2.16.0)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.0.alpha)
       json
     rack-test (0.6.3)
@@ -369,6 +371,7 @@ DEPENDENCIES
   pg (~> 0.18)
   pry-rails
   puma
+  pundit
   rails (>= 5.0.0.beta3, < 5.1)
   rails-controller-testing
   redis (~> 3.0)

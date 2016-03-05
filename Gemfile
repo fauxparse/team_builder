@@ -51,6 +51,8 @@ gem 'mithril_rails', github: 'fauxparse/mithril-rails'
 
 gem 'active_model_serializers', '>= 0.10.0.rc3'
 
+gem 'pundit'
+
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec', github: 'rspec/rspec'
