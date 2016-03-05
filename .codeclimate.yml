@@ -4,6 +4,9 @@ engines:
     enabled: true
   bundler-audit:
     enabled: true
+    checks:
+      Insecure Source:
+        enabled: false  
   csslint:
     enabled: true
   coffeelint:
