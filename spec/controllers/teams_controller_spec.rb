@@ -9,12 +9,12 @@ RSpec.describe TeamsController, type: :controller do
 
   login
 
-  describe 'GET index' do
+  describe 'GET /teams' do
     context 'as HTML' do
       before { get :index }
 
-      it 'succeeds' do
-        expect(response).to be_success
+      it 'redirects to the team page' do
+        expect(response).to redirect_to("/teams/#{team.to_param}")
       end
     end
 
@@ -33,6 +33,20 @@ RSpec.describe TeamsController, type: :controller do
       it 'returns JSON' do
         expect(ActiveSupport::JSON.decode(response.body))
           .to eq expected_response
+      end
+    end
+  end
+
+  describe 'GET /teams/:id' do
+    context 'as HTML' do
+      before { get :show, params: { id: team.to_param } }
+
+      it 'assigns the team' do
+        expect(assigns(:team)).to eq team
+      end
+
+      it 'sets the current team' do
+        expect(cookies[:member_id]).to eq member.id.to_s
       end
     end
   end

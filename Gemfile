@@ -62,6 +62,7 @@ group :development, :test do
   gem 'rspec-rails', github: 'rspec/rspec-rails'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
+  gem 'rails-controller-testing'
 end
 
 gem 'codeclimate-test-reporter', group: :test, require: nil
