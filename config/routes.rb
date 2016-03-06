@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+  get 'calendar/index'
+
   devise_for :users,
     :controllers => { :omniauth_callbacks => 'omniauth' }
 
-  # TODO: these are temporary routes to get the UI working
-  get '/calendar' => 'teams#index'
+  get '/calendar(/:year(/:month))' => 'calendar#index'
 
   resources :teams do
     resources :events

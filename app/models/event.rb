@@ -67,6 +67,13 @@ class Event < ApplicationRecord
     occurrences_between(starts_at, starts_at).first
   end
 
+  def self.between(start_time, stop_time)
+    where(
+      "starts_at < :stop AND (stops_at IS NULL OR stops_at > :start)",
+      start: start_time, stop: stop_time
+    )
+  end
+
   private
 
   def set_default_time_zone
