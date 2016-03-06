@@ -109,6 +109,7 @@ class Calendar extends App.Components.Section
     klass += " weekend" if date.day() in [0, 6]
     klass += " today" if date.isSame(@_today, "day")
     klass += " selected" if date.isSame(@selected())
+    klass += " has-events" if @eventCount(date) > 0
     attrs = {
       class: klass,
       key: "D" + key,
@@ -200,6 +201,25 @@ class Calendar extends App.Components.Section
           @selected(null)
         else
           @selected(moment(day.data("date")))
+
+  eventCount: (date) ->
+    @_eventCounts ||= {}
+    key = date.format("YYYY-MM-DD")
+    if @_eventCounts[key]?
+      @_eventCounts[key]
+    else
+      @fetchEvents(date)
+      0
+
+  fetchEvents: (date) ->
+    @_fetchEvents ||= {}
+    @_fetchEvents[date.year() * 12 + date.month()] ||= m.request
+      method: "GET"
+      url: "/calendar/#{date.format("YYYY/MM")}"
+    .then (data) =>
+      m.computation =>
+        @_eventCounts ||= {}
+        $.extend(@_eventCounts, data)
 
 App.Components.Calendar =
   controller: (props = {}) ->

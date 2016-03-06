@@ -87,6 +87,16 @@
           background-color: $action-color;
         }
       }
+
+      &.has-events .number::after {
+        content: "";
+        @include position(absolute, 2.5rem null null 50%);
+        margin: 0 -.25rem;
+        width: .5rem;
+        height: .5rem;
+        border-radius: 50%;
+        background-color: $action-color;
+      }
     }
 
     &.month-start {

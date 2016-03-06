@@ -25,5 +25,7 @@ module TeamBuilder
     %w(converters queries services).each do |dir|
       config.autoload_paths << Rails.root.join('app', dir)
     end
+
+    Time.zone = "Wellington"
   end
 end
