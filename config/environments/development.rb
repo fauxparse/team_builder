@@ -57,6 +57,5 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  config.generators.stylesheets = false
-  config.generators.javascripts = false
+  config.generators.assets = false
 end
