@@ -4,11 +4,16 @@ RSpec.describe CalendarController, type: :controller do
   let(:logged_in_user) { member.user }
   let(:member) { FactoryGirl.create(:member) }
   let(:team) { member.team }
+  let(:json) { ActiveSupport::JSON.decode(response.body) }
 
   login
 
   def counts
-    ActiveSupport::JSON.decode(response.body).values
+    json.values
+  end
+
+  def keys
+    json.keys.sort
   end
 
   describe 'GET /calendar' do
@@ -21,17 +26,42 @@ RSpec.describe CalendarController, type: :controller do
     end
 
     context 'as JSON' do
+      let(:params) { {} }
+
       before do
         Timecop.freeze(Time.zone.local(2015, 12, 17))
         events
-        get :index, format: :json
+        get :index, params: params.merge(format: :json)
       end
 
-     context 'with no events' do
+      context 'with no events' do
         let(:events) { [] }
 
         it 'renders a list of zeroes' do
           expect(counts).to eq [0] * 31
+        end
+
+        it 'has the expected keys' do
+          start = Time.zone.now.beginning_of_month.to_date
+          stop = start + 1.month
+          expect(keys)
+            .to eq (start...stop).map { |date| date.strftime("%Y-%m-%d") }
+        end
+
+        context 'and a year set' do
+          let(:params) { { year: 2017 } }
+
+          it 'gets the right year' do
+            expect(keys.first).to eq "2017-01-01"
+          end
+
+          context 'and a month set' do
+            let(:params) { { year: 2017, month: 7 } }
+
+            it 'gets the right year' do
+              expect(keys.first).to eq "2017-07-01"
+            end
+          end
         end
       end
 
