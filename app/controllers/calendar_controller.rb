@@ -13,7 +13,13 @@ class CalendarController < ApplicationController
   private
 
   def range
-    start = Time.zone.local(params[:year], params[:month])
+    start = if params[:month]
+      Time.zone.local(params[:year], params[:month])
+    elsif params[:year]
+      Time.zone.local(params[:year])
+    else
+      Time.zone.now.beginning_of_month
+    end
     [start, start + 1.month]
   end
 end

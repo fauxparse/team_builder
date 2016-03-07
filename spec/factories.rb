@@ -40,7 +40,7 @@ FactoryGirl.define do
 
     trait :weekly do
       recurrence_rules do
-        [FactoryGirl.build(:recurrence_rule, :weekly, :date_limited)]
+        [Event::RecurrenceRule.new(repeat_type: :weekly, stops_at: "2016-01-17 00:01:00+1300")]
       end
     end
 
