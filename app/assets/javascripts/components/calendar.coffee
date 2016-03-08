@@ -1,6 +1,6 @@
 class Calendar extends App.Components.Section
   constructor: (props) ->
-    @origin = m.prop(@weekStart(moment()))
+    @origin = m.prop(@weekStart(@dateFromParams()))
     @offset = m.prop(0)
     @index = m.prop(0)
     @selected = m.prop(null)
@@ -13,8 +13,8 @@ class Calendar extends App.Components.Section
 
   view: ->
     @_today = moment().startOf("day")
-    @title((@selected() || @weekAt(@index())).format("MMMM YYYY"))
-
+    @updateSelected(@selected() || @weekAt(@index()))
+    
     m("div", { class: "calendar" },
       m.component(App.Components.Header, title: @title)
       m("div",
@@ -40,6 +40,20 @@ class Calendar extends App.Components.Section
       ),
       m.component(App.Components.NewEvent)
     )
+
+  updateSelected: (selected) ->
+    @title(selected.format("MMMM YYYY"))
+    path = "/calendar/" + selected.format("YYYY/MM")
+    history.replaceState({}, "", @_path = path) unless @_path == path
+
+  dateFromParams: ->
+    if year = m.route.param("year")
+      if month = m.route.param("month")
+        moment("#{year}-#{month}", "YYYY-MM")
+      else
+        moment(year, "YYYY")
+    else
+      moment()
 
   weekAt: (index) ->
     @_weekAt[index] ?= if index == 0
