@@ -3,8 +3,7 @@ class CalendarController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        # TODO: scope events properly
-        events = EventsBetween.new(*range)
+        events = EventsBetween.new(*range, scope)
         render json: events.counts_by_day
       end
     end
@@ -21,5 +20,13 @@ class CalendarController < ApplicationController
       Time.zone.now.beginning_of_month
     end
     [start, start + 1.month]
+  end
+
+  def scope
+    @scope ||= if params[:team_id]
+      policy_scope(Event.where(team_id: params[:team_id]))
+    else
+      policy_scope(Event)
+    end
   end
 end

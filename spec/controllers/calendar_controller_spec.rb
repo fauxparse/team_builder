@@ -96,6 +96,15 @@ RSpec.describe CalendarController, type: :controller do
             0, 0, 0, 0, 1
           ]
         end
+
+        context 'within a team context' do
+          let(:another_team) { FactoryGirl.create(:team) }
+          let(:params) { { team_id: another_team.id } }
+
+          it 'renders a list of zeroes' do
+            expect(counts).to eq [0] * 31
+          end
+        end
       end
     end
   end
