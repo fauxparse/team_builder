@@ -24,7 +24,6 @@ class AddMembers
   private
 
   def add(member)
-    member = team.members.build(display_name: member.name, email: member.email)
     if member.save
       invite_member(member)
     else

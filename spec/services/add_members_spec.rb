@@ -13,7 +13,7 @@ RSpec.describe AddMembers do
   end
 
   def member(name, email)
-    Struct.new(:name, :email).new(name, email)
+    team.members.build(display_name: name, email: email)
   end
 
   describe '#call' do
