@@ -29,4 +29,9 @@ class CalendarController < ApplicationController
       policy_scope(Event)
     end
   end
+
+  def team
+    @team ||= params[:team_id] &&
+      policy_scope(Team).find_by(slug: params[:team_id])
+  end
 end
