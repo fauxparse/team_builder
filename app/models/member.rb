@@ -3,6 +3,8 @@ class Member < ApplicationRecord
   belongs_to :user, optional: true
   has_many :invitations, dependent: :destroy
 
+  before_validation :sanitize_email, unless: :destroyed?
+
   validates :team_id, :display_name,
     presence: { allow_blank: false }
 
@@ -36,5 +38,13 @@ class Member < ApplicationRecord
 
   def admin_of?(team)
     self.team == team && admin?
+  end
+
+  private
+
+  def sanitize_email
+    if read_attribute(:email).present?
+      write_attribute(:email, read_attribute(:email).downcase)
+    end
   end
 end

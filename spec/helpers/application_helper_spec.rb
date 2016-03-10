@@ -4,7 +4,14 @@ describe ApplicationHelper do
   describe '#serialize' do
     subject(:serialize) { helper.serialize(member) }
     let(:member) { FactoryGirl.create(:member) }
-    let(:json) { { id: member.id, admin: false, name: member.display_name } }
+    let(:json) do
+      {
+        id: member.id,
+        admin: false,
+        email: member.email,
+        name: member.display_name
+      }
+    end
 
     it 'uses ActiveModel::Serializers' do
       expect(ActiveModel::Serializer)

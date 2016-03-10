@@ -13,6 +13,7 @@ describe SidebarHelper do
             member: {
               id: member.id,
               name: member.display_name,
+              email: member.email,
               admin: false
             },
             team: {

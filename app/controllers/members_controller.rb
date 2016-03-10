@@ -12,6 +12,6 @@ class MembersController < ApplicationController
   private
 
   def team
-    @team ||= policy_scope(Team).where(slug: params[:team_id])
+    @team ||= policy_scope(Team).find_by(slug: params[:team_id])
   end
 end

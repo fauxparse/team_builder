@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :teams do
     resources :events
+    resources :members
+
     get '/calendar(/:year(/:month))' => 'calendar#index'
   end
   root to: 'teams#index'
