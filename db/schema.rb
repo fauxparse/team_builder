@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212044636) do
+ActiveRecord::Schema.define(version: 20160310011855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,19 @@ ActiveRecord::Schema.define(version: 20160212044636) do
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
+  create_table "invitations", force: :cascade do |t|
+    t.integer  "member_id"
+    t.integer  "sponsor_id"
+    t.string   "code",       limit: 40
+    t.integer  "status",                default: 0
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "invitations", ["code"], name: "index_invitations_on_code", unique: true, using: :btree
+  add_index "invitations", ["member_id"], name: "index_invitations_on_member_id", using: :btree
+  add_index "invitations", ["sponsor_id"], name: "index_invitations_on_sponsor_id", using: :btree
+
   create_table "members", force: :cascade do |t|
     t.integer  "team_id"
     t.integer  "user_id"
@@ -105,6 +118,7 @@ ActiveRecord::Schema.define(version: 20160212044636) do
     t.boolean  "admin",        default: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "email"
   end
 
   add_index "members", ["team_id", "user_id"], name: "index_members_on_team_id_and_user_id", using: :btree
@@ -169,6 +183,8 @@ ActiveRecord::Schema.define(version: 20160212044636) do
   add_foreign_key "event_recurrence_rules", "events", on_delete: :cascade
   add_foreign_key "events", "teams", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade
+  add_foreign_key "invitations", "members"
+  add_foreign_key "invitations", "members", column: "sponsor_id", on_delete: :cascade
   add_foreign_key "members", "teams", on_delete: :cascade
   add_foreign_key "members", "users", on_delete: :cascade
   add_foreign_key "occurrences", "events"

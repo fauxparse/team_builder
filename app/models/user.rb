@@ -9,4 +9,8 @@ class User < ApplicationRecord
   has_many :teams, through: :members
 
   validates :name, presence: { allow_blank: false }
+
+  def is_admin_for?(team)
+    members.admin.exists?(team_id: team.id)
+  end
 end

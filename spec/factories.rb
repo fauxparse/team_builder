@@ -27,6 +27,12 @@ FactoryGirl.define do
   factory :member do
     user
     team
+
+    factory :newbie do
+      sequence(:email) { |n| "n00b-#{n}@resistance.org" }
+      display_name "Newbie"
+      user nil
+    end
   end
 
   factory :event do
