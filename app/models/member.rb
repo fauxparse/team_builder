@@ -33,4 +33,8 @@ class Member < ApplicationRecord
     # prefer user's global email address
     user.try(:email) || super
   end
+
+  def admin_of?(team)
+    self.team == team && admin?
+  end
 end

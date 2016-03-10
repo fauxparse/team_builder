@@ -33,6 +33,10 @@ FactoryGirl.define do
       display_name "Newbie"
       user nil
     end
+
+    trait :admin do
+      admin true
+    end
   end
 
   factory :event do
