@@ -98,7 +98,11 @@ RSpec.describe CalendarController, type: :controller do
         end
 
         context 'within a team context' do
-          let(:another_team) { FactoryGirl.create(:team) }
+          let(:another_team) do
+            FactoryGirl.create(:team).tap do |another|
+              Member.create!(user: logged_in_user, team: another)
+            end
+          end
           let(:params) { { team_id: another_team.slug } }
 
           it 'renders a list of zeroes' do

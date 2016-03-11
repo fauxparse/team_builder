@@ -24,7 +24,7 @@ class CalendarController < ApplicationController
 
   def scope
     @scope ||= if params[:team_id]
-      policy_scope(Event.where(team_id: params[:team_id]))
+      policy_scope(team.events)
     else
       policy_scope(Event)
     end
@@ -32,6 +32,6 @@ class CalendarController < ApplicationController
 
   def team
     @team ||= params[:team_id] &&
-      policy_scope(Team).find_by(slug: params[:team_id])
+      policy_scope(Team).find_by!(slug: params[:team_id])
   end
 end
