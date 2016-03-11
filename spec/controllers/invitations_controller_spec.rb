@@ -78,6 +78,22 @@ RSpec.describe InvitationsController, type: :controller do
           .to("accepted")
       end
     end
+
+    context 'when the invitation fails' do
+      before do
+        invitation.update!(status: :declined)
+      end
+
+      it 'renders with an error' do
+        request
+        expect(response).not_to redirect_to(team)
+      end
+
+      it 'does not change the status of the request' do
+        expect { request }
+          .not_to change { invitation.reload.status }
+      end
+    end
   end
 
   describe 'POST /invitations/:id/decline' do

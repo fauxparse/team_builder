@@ -22,11 +22,12 @@ class InvitationsController < ApplicationController
   def process_invitation(service_class, redirect_on_success)
     respond_to do |format|
       service = service_class.new(invitation, current_user)
-      
+
       format.html do
+        success = true
         service
           .on(:success) { redirect_to redirect_on_success }
-          .on(:failure) { render :show }
+          .on(:failure) { render :show, status: :not_acceptable }
           .call
       end
 
