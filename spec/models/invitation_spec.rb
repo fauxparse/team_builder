@@ -7,6 +7,7 @@ RSpec.describe Invitation, type: :model do
 
   it { is_expected.to be_valid }
   it { is_expected.to validate_uniqueness_of(:code) }
+  it { is_expected.to be_pending }
 
   context 'when the member and the sponsor are from different teams' do
     let(:sponsor) { FactoryGirl.create(:member) }

@@ -1,8 +1,9 @@
 class Invitation < ApplicationRecord
   belongs_to :member
   belongs_to :sponsor, class_name: "Member"
+  has_one :team, through: :member
 
-  enum state: [:pending, :accepted, :declined]
+  enum status: [:pending, :accepted, :declined]
 
   before_validation :generate_unique_code, unless: :code?
 

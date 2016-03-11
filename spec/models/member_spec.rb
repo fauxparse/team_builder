@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Member, type: :model do
+  let(:team) { member.team }
+
   context 'without an associated user' do
     subject(:member) { FactoryGirl.build(:newbie) }
 
@@ -57,6 +59,12 @@ RSpec.describe Member, type: :model do
       it 'uses the user’s email' do
         expect(member.email).to eq("poe@resistance.org")
       end
+    end
+
+    context 'who is already a member of the team' do
+      before { team.members.create(user: user) }
+
+      it { is_expected.not_to be_valid }
     end
   end
 end
