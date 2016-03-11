@@ -62,6 +62,22 @@ RSpec.describe InvitationsController, type: :controller do
           .to("accepted")
       end
     end
+
+    context 'as HTML' do
+      let(:request) { post :accept, params: { id: invitation.code } }
+
+      it 'redirects to the team page' do
+        request
+        expect(response).to redirect_to(team)
+      end
+
+      it 'accepts the invitation' do
+        expect { request }
+          .to change { invitation.reload.status }
+          .from("pending")
+          .to("accepted")
+      end
+    end
   end
 
   describe 'POST /invitations/:id/decline' do
