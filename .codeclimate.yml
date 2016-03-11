@@ -43,6 +43,7 @@ ratings:
 exclude_paths:
 - Gemfile.lock
 - config/
+- config/initializers/
 - db/
 - spec/
 - vendor/
