@@ -36,15 +36,10 @@ class Member < ApplicationRecord
     user.try(:email) || super
   end
 
-  def admin_of?(team)
-    self.team == team && admin?
-  end
-
   private
 
   def sanitize_email
-    if read_attribute(:email).present?
-      write_attribute(:email, read_attribute(:email).downcase)
-    end
+    write_attribute(:email, read_attribute(:email).downcase) \
+      if read_attribute(:email).present?
   end
 end
