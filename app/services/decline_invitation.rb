@@ -10,9 +10,10 @@ class DeclineInvitation
   end
 
   def call
-    invitation.update!(status: :declined)
-    publish!(:success)
-  rescue
-    publish!(:failure)
+    if invitation.update(status: :declined)
+      publish!(:success)
+    else
+      publish!(:failure)
+    end
   end
 end

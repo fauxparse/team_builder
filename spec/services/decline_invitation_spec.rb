@@ -34,5 +34,19 @@ RSpec.describe DeclineInvitation do
         .from(false)
         .to(true)
     end
+
+    context 'when the invitation is declined' do
+      before do
+        expect(invitation)
+          .to receive(:update)
+          .with(status: :declined)
+          .and_return(false)
+      end
+
+      it 'does not change the status of the invitation' do
+        expect { service.call }
+          .not_to change { invitation.reload.status }
+      end
+    end
   end
 end
