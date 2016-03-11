@@ -12,6 +12,14 @@ Rails.application.routes.draw do
 
     get '/calendar(/:year(/:month))' => 'calendar#index'
   end
+
+  resources :invitations, only: %i(show) do
+    member do
+      post :accept
+      post :decline
+    end
+  end
+
   root to: 'teams#index'
 
   # Serve websocket cable requests in-process
