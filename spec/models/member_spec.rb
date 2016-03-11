@@ -35,7 +35,8 @@ RSpec.describe Member, type: :model do
   end
 
   context 'with an associated user' do
-    subject(:member) { FactoryGirl.build(:member) }
+    subject(:member) { FactoryGirl.build(:member, user: user) }
+    let(:user) { FactoryGirl.create(:poe) }
     let(:display_name) { "Poe D." }
 
     it { is_expected.to be_valid }

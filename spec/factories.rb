@@ -4,13 +4,15 @@ FactoryGirl.define do
   end
 
   factory :user do
-    name "Poe Dameron"
-    email "poe@resistance.org"
-    password "Finn <3 <3 <3"
+    sequence(:name) { |n| "User #{n}" }
+    sequence(:email) { |n| "user-#{n}@resistance.org" }
+    password "p4$$w0rd"
 
     before(:create) { |user| user.skip_confirmation! }
 
     factory :poe do
+      name "Poe Dameron"
+      email "poe@resistance.org"
     end
 
     factory :finn do
