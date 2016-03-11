@@ -24,7 +24,6 @@ class InvitationsController < ApplicationController
       service = service_class.new(invitation, current_user)
 
       format.html do
-        success = true
         service
           .on(:success) { redirect_to redirect_on_success }
           .on(:failure) { render :show, status: :not_acceptable }

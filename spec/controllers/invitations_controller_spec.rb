@@ -77,21 +77,35 @@ RSpec.describe InvitationsController, type: :controller do
           .from("pending")
           .to("accepted")
       end
-    end
 
-    context 'when the invitation fails' do
-      before do
-        invitation.update!(status: :declined)
+      context 'when the invitation fails' do
+        before do
+          expect_any_instance_of(Invitation)
+            .to receive(:update!)
+            .with(status: :accepted)
+            .and_raise(ActiveRecord::RecordInvalid)
+        end
+
+        it 'renders with an error' do
+          request
+          expect(response).to have_http_status(:not_acceptable)
+        end
+
+        it 'does not change the status of the request' do
+          expect { request }
+            .not_to change { invitation.reload.status }
+        end
       end
 
-      it 'renders with an error' do
-        request
-        expect(response).not_to redirect_to(team)
-      end
+      context 'when the invitation is not pending' do
+        before do
+          invitation.update(status: :declined)
+        end
 
-      it 'does not change the status of the request' do
-        expect { request }
-          .not_to change { invitation.reload.status }
+        it 'raises an error' do
+          expect { request }
+            .to raise_error(ActiveRecord::RecordNotFound)
+        end
       end
     end
   end

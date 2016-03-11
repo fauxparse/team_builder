@@ -10,7 +10,7 @@ class AcceptInvitation
   end
 
   def call
-    publish!(:failure) && return unless invitation.pending?
+    raise ActiveRecord::RecordInvalid unless invitation.pending?
 
     member.transaction do
       member.update!(user: user)
