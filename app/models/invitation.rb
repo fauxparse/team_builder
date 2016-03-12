@@ -11,11 +11,15 @@ class Invitation < ApplicationRecord
   validates :member, :sponsor, presence: true
   validate :members_are_from_the_same_team
 
+  def to_param
+    code
+  end
+
   private
 
   def generate_unique_code
     loop do
-      self.code = SecureRandom.urlsafe_base64 
+      self.code = SecureRandom.urlsafe_base64
       break unless Invitation.exists?(code: code)
     end
   end

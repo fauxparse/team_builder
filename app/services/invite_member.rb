@@ -11,7 +11,7 @@ class InviteMember
   def call
     @invitation = member.invitations.build(sponsor: sponsor)
     if @invitation.save
-      # TODO: send invitation email
+      Notifications.invitation(invitation).deliver_later
       publish!(:success, invitation)
     else
       publish!(:failure, invitation)

@@ -1,0 +1,18 @@
+%p
+  Hi #{@invitation.member.display_name},
+
+%p
+  = @invitation.sponsor.display_name
+  has invited you to join
+  = @invitation.team.name
+  and make some awesome plans together.
+  How about it?
+
+%p
+  To accept their invitation,
+  = link_to "click here", @invitation
+  or copy and paste the link below into your browser.
+  Happy planning!
+
+%p
+  = link_to invitation_url(@invitation), @invitation

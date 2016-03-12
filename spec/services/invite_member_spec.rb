@@ -19,6 +19,15 @@ RSpec.describe InviteMember do
       expect { invite.call }.to change { Invitation.count }.by(1)
     end
 
+    it 'sends an invitation email' do
+      expect(Notifications)
+        .to receive(:invitation)
+        .at_least(:once)
+        .with(instance_of(Invitation))
+        .and_call_original
+      invite.call
+    end
+
     context 'when the sponsor and the member are from different teams' do
       let(:team) { FactoryGirl.create(:team) }
       let(:expected_status) { :failure }

@@ -65,6 +65,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rails-controller-testing'
   gem 'timecop'
+  gem 'email_spec'
 end
 
 gem 'codeclimate-test-reporter', group: :test, require: nil
