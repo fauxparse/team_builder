@@ -14,11 +14,11 @@ describe ApplicationController, type: :controller do
       end
     end
 
-    context 'when a membership has been selected' do
+    context 'when a team has been selected' do
       let(:another) { FactoryGirl.create(:member, user: member.user) }
 
       before do
-        @request.cookies[:member_id] = another.id
+        @request.cookies[:team_id] = another.team_id
       end
 
       it 'selects the correct membership' do
@@ -32,6 +32,19 @@ describe ApplicationController, type: :controller do
     it 'selects the correct team' do
       expect(subject.send(:current_team))
         .to eq member.team
+    end
+
+    context 'when a team has been selected' do
+      let(:another) { FactoryGirl.create(:member, user: member.user) }
+
+      before do
+        @request.cookies[:team_id] = another.team_id
+      end
+
+      it 'selects the correct membership' do
+        expect(subject.send(:current_team))
+          .to eq another.team
+      end
     end
   end
 end

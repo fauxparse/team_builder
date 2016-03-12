@@ -9,20 +9,17 @@ class ApplicationController < ActionController::Base
   after_action :render_blank_page, unless: :performed?
 
   helper_method :current_member, :current_team
+  helper_method :stored_location_for
 
   private
 
   def current_member
-    @current_member ||= begin
-      if (id = cookies[:member_id])
-        current_user.members.find(id)
-      else
-        current_user.members.first
-      end
-    end
+    @current_member ||= cookies[:team_id] &&
+      current_user.members.find_by(team_id: cookies[:team_id]) ||
+      current_user.members.first
   end
 
   def current_team
-    current_member.team
+    @current_team ||= current_member.try(&:team)
   end
 end

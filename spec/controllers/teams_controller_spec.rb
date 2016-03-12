@@ -46,7 +46,7 @@ RSpec.describe TeamsController, type: :controller do
       end
 
       it 'sets the current team' do
-        expect(cookies[:member_id]).to eq member.id.to_s
+        expect(cookies[:team_id]).to eq member.team_id.to_s
       end
     end
   end

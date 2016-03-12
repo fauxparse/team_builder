@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   get 'calendar/index'
 
   devise_for :users,
-    :controllers => { :omniauth_callbacks => 'omniauth' }
+    controllers: {
+      omniauth_callbacks: 'omniauth',
+      registrations: 'users/registrations',
+      sessions: 'users/sessions'
+    }
 
   get '/calendar(/:year(/:month))' => 'calendar#index'
 

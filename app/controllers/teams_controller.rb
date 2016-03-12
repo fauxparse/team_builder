@@ -5,7 +5,7 @@ class TeamsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.html { redirect_to current_team if current_team }
+      format.html { redirect_to current_team || new_team_path }
       format.json { render json: team_scope }
     end
   end
@@ -15,14 +15,15 @@ class TeamsController < ApplicationController
     respond_with @team
   end
 
+  def new
+    @team = Team.new
+    render layout: false
+  end
+
   private
 
   def set_current_team
-    if @team.present?
-      cookies[:member_id] = @team.members
-        .find_by(user_id: current_user.id)
-        .try(:id)
-    end
+    cookies[:team_id] = @team.id if @team.present?
   end
 
   def team_scope
