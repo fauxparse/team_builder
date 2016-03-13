@@ -26,7 +26,7 @@ engines:
   rubocop:
     enabled: true
     checks:
-      Rubocop/Lint/EndAlignment:
+      Lint/EndAlignment:
         enabled: true
         AlignWith: variable
 ratings:
