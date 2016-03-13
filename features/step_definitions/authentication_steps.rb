@@ -6,3 +6,9 @@ When(/^I sign up$/) do
   fill_in "Password confirmation", with: "p4$$w0rd"
   click_button "Sign up"
 end
+
+When(/^I sign in$/) do
+  fill_in "Email", with: user.email
+  fill_in "Password", with: user.password
+  click_button "Log in"
+end
