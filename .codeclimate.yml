@@ -25,6 +25,10 @@ engines:
     enabled: true
   rubocop:
     enabled: true
+    checks:
+      Rubocop/Lint/EndAlignment:
+        enabled: true
+        AlignWith: variable
 ratings:
   paths:
   - "**.erb"
