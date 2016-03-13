@@ -16,6 +16,12 @@ module MembershipHelpers
   def user
     @user ||= FactoryGirl.create(:user)
   end
+
+  def email
+    @user.try(:email) ||
+      @member.try(:email) ||
+      FactoryGirl.attributes_for(:user)[:email]
+  end
 end
 
 World(MembershipHelpers)
