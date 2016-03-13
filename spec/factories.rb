@@ -8,8 +8,6 @@ FactoryGirl.define do
     sequence(:email) { |n| "user-#{n}@resistance.org" }
     password "p4$$w0rd"
 
-    before(:create) { |user| user.skip_confirmation! }
-
     factory :poe do
       name "Poe Dameron"
       email "poe@resistance.org"
