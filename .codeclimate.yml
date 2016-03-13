@@ -47,7 +47,6 @@ ratings:
 exclude_paths:
 - Gemfile.lock
 - config/
-- config/initializers/fix_squiggly_heredoc.rb
 - db/
 - spec/
 - vendor/
