@@ -17,7 +17,6 @@ class TeamsController < ApplicationController
 
   def new
     @team = Team.new
-    render layout: false
   end
 
   private
