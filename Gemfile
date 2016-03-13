@@ -68,6 +68,7 @@ group :development, :test do
   gem 'email_spec'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+  gem 'rubocop'
 end
 
 gem 'codeclimate-test-reporter', group: :test, require: nil
