@@ -5,7 +5,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_sign_up_path_for(resource_or_scope)
-    stored_location_for(:user) || signed_in_root_path(:user)
+    stored_location_for(resource_or_scope) ||
+      signed_in_root_path(resource_or_scope)
   end
 
   def configure_sign_up_params
