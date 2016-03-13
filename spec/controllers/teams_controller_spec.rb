@@ -50,4 +50,14 @@ RSpec.describe TeamsController, type: :controller do
       end
     end
   end
+
+  describe 'GET /teams/new' do
+    context 'as HTML' do
+      before { get :new }
+
+      it 'assigns a new team' do
+        expect(assigns(:team)).to be_an_instance_of(Team)
+      end
+    end
+  end
 end
