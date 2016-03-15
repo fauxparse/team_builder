@@ -21,16 +21,17 @@ class TeamsController < ApplicationController
   end
 
   def create
-    @create = CreateTeam.new(current_user, team_params)
-    @create.call
-    respond_with @create.team
+    CreateTeam.new(current_user, team_params)
+      .on(:success) { |team| render json: team }
+      .on(:failure) { |team| render json: team, status: :unprocessable_entity }
+      .call
   end
 
   def check
     @team = params[:id] && Team.find(:id) || Team.new
     @team.attributes = team_params
     @team.validate
-    respond_with @team
+    render json: @team, status: @team.valid? ? :ok : :unprocessable_entity
   end
 
   private

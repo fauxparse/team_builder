@@ -5,4 +5,8 @@ class TeamSerializer < ActiveModel::Serializer
   def has_errors?
     object.errors.any?
   end
+
+  def errors
+    object.errors.full_messages
+  end
 end

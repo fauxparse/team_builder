@@ -1,12 +1,17 @@
 require 'rails_helper'
 
 describe CreateTeam do
-  subject(:service) { CreateTeam.new(user, attributes) }
+  subject(:service) do
+    CreateTeam.new(user, attributes).on(:success, :failure) {}
+  end
   let(:attributes) { FactoryGirl.attributes_for(:team) }
   let(:user) { FactoryGirl.create(:user) }
-  let(:member) { service.team.members.last }
 
   describe '#call' do
+    before do
+      service.on(:success) { |team| @member = team.members.last }
+    end
+
     it 'creates a team' do
       expect { service.call }.to change { Team.count }.by(1)
     end
@@ -17,12 +22,12 @@ describe CreateTeam do
 
     it 'adds the user to the team' do
       service.call
-      expect(member.user).to eq(user)
+      expect(@member.user).to eq(user)
     end
 
     it 'adds the user as an admin' do
       service.call
-      expect(member).to be_admin
+      expect(@member).to be_admin
     end
   end
 end

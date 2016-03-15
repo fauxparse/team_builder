@@ -1,5 +1,5 @@
 class CreateTeam
-  attr_reader :user, :attributes, :team
+  include Shout
 
   def initialize(user, attributes)
     @user = user
@@ -8,8 +8,14 @@ class CreateTeam
 
   def call
     Team.transaction do
-      @team = Team.create!(attributes)
-      JoinTeam.new(user, @team, true).call
+      begin
+        @team = Team.new(@attributes)
+        @team.save!
+        JoinTeam.new(@user, @team, true).call
+        publish!(:success, @team)
+      rescue
+        publish!(:failure, @team)
+      end
     end
   end
 end
