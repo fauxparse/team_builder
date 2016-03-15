@@ -1,5 +1,6 @@
 m.route.mode = "pathname"
 m.route $("main")[0], "/",
+  "/teams/new": App.Components.NewTeam
   "/teams/:team": App.Components.ToDo
   "/teams": App.Components.ToDo
   "/calendar/:year/:month": App.Components.Calendar

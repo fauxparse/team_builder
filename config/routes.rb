@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get '/calendar(/:year(/:month))' => 'calendar#index'
 
   resources :teams do
+    post :check, on: :collection
+
     resources :events
     resources :members
 
