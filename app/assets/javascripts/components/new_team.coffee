@@ -10,17 +10,23 @@ class NewTeam extends App.Components.Section
       m("div",
         m.component(App.Components.TeamEditor, team: @team),
         m("div",
-          m("button", { onclick: @createClicked }, "Create team")
+          @saveButton()
         )
       )
     )
+
+  saveButton: ->
+    if @team().saving()
+      m("button", { disabled: true }, "Saving…")
+    else
+      m("button", { onclick: @createClicked }, "Create team")
 
   createClicked: (e) =>
     m.computation =>
       @team().saving(true)
     setTimeout =>
       @team().save().then(@teamCreated, @teamCreationFailed)
-    , 0
+    , 150
 
   teamCreated: =>
     m.redraw()
