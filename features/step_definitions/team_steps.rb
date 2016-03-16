@@ -2,6 +2,15 @@ Given(/^I am a member of a team$/) do
   Member.create(user: user, team: team)
 end
 
+Given(/^I visit the new team page$/) do
+  visit new_team_path
+end
+
+Then(/^A new team should be created with the name "([^"]+)"$/) do |name|
+  @team = Team.find_by(name: name)
+  expect(@team).to be_present
+end
+
 Then(/^I should be on the team's page$/) do
   expect(current_path).to eql team_path(team)
 end

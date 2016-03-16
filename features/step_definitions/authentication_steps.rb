@@ -1,3 +1,8 @@
+Given(/^I am signed in as an existing user$/) do
+  visit root_path
+  step "I sign in"
+end
+
 When(/^I sign up$/) do
   click_link "Sign up"
   fill_in "Name", with: "New user"

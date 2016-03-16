@@ -45,12 +45,16 @@ class App.Model
 
   ajaxSuccess: (data = {}) =>
     @attributes(data)
-    @saving().resolve(this)
+    promise = @saving()
+    @saving(false)
+    promise.resolve(this)
     @saving(false)
 
   ajaxFailure: (data = {}) =>
     @errors(data.errors || [])
-    @saving().reject(this)
+    promise = @saving()
+    @saving(false)
+    promise.reject(this)
     @saving(false)
 
   asJSON: ->

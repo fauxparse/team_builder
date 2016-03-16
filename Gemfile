@@ -69,6 +69,7 @@ group :development, :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'rubocop'
+  gem 'poltergeist'
 end
 
 gem 'codeclimate-test-reporter', group: :test, require: nil

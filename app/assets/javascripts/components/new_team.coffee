@@ -3,7 +3,9 @@ class NewTeam extends App.Components.Section
     @team = m.prop(new App.Models.Team)
 
   view: ->
-    m("div", { class: "new-team" },
+    klass = "new-team"
+    klass += " saving" if @team().saving()
+    m("div", { class: klass },
       m.component(App.Components.Header, title: -> "New Team"),
       m("div",
         m.component(App.Components.TeamEditor, team: @team),
@@ -14,12 +16,15 @@ class NewTeam extends App.Components.Section
     )
 
   createClicked: (e) =>
-    @team().save().then(@teamCreated, @teamCreationFailed)
+    m.computation =>
+      @team().save().then(@teamCreated, @teamCreationFailed)
 
   teamCreated: =>
+    m.redraw()
     m.route(@team().url())
 
   teamCreationFailed: =>
+    m.redraw()
 
 App.Components.NewTeam =
   controller: (args...) ->
