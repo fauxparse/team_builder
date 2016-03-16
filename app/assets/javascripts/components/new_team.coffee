@@ -20,7 +20,7 @@ class NewTeam extends App.Components.Section
       @team().saving(true)
     setTimeout =>
       @team().save().then(@teamCreated, @teamCreationFailed)
-    , 0
+    , 250
 
   teamCreated: =>
     m.redraw()
