@@ -104,10 +104,10 @@ RSpec.describe TeamsController, type: :controller do
             "id" => nil,
             "name" => "",
             "slug" => "",
-            "errors" => [
-              "Name can't be blank",
-              "Slug can't be blank"
-            ]
+            "errors" => {
+              "name" => ["Name can't be blank"],
+              "slug" => ["Slug can't be blank"]
+            }
           })
         end
 
@@ -150,10 +150,10 @@ RSpec.describe TeamsController, type: :controller do
             "id" => nil,
             "name" => "",
             "slug" => "",
-            "errors" => [
-              "Name can't be blank",
-              "Slug can't be blank"
-            ]
+            "errors" => {
+              "name" => ["Name can't be blank"],
+              "slug" => ["Slug can't be blank"]
+            }
           })
         end
       end

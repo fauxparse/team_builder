@@ -27,6 +27,9 @@ class App.Model
     else
       @constructor.url()
 
+  errorsOn: (attr) ->
+    (@errors() || {})[attr] || []
+
   form: (attrs, contents...) ->
     defaults = { method: @formMethod(), url: @url() }
     m("form", $.extend(defaults, attrs), contents...)

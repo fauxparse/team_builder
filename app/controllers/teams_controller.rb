@@ -37,6 +37,7 @@ class TeamsController < ApplicationController
   private
 
   def team_params
+    return {} unless params[:team].present?
     params.require(:team).permit(:name, :slug)
   end
 

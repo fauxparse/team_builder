@@ -22,3 +22,7 @@ end
 Then(/^I should be on the new team page$/) do
   expect(current_path).to eql new_team_path
 end
+
+Then(/^no new team should be created$/) do
+  expect(Team.count).to eq 0
+end

@@ -13,17 +13,25 @@ class TeamEditor extends App.Components.Section
           value: @team().name() || ""
           oninput: @nameChanged
         )
+        @errorMessagesFor("name")
       ),
-      m("div", { class: "field url-field" },
-        m("label", { for: "team_slug" }, @teamsURL())
-        m("input",
-          id: "team_slug"
-          name: "team[slug]"
-          value: @team().slug() || ""
-          oninput: @slugChanged
+      m("div", { class: "field" },
+        m("div", { class: "url-field" },
+          m("label", { for: "team_slug" }, @teamsURL())
+          m("input",
+            id: "team_slug"
+            name: "team[slug]"
+            value: @team().slug() || ""
+            oninput: @slugChanged
+          )
         )
+        @errorMessagesFor("slug")
       )
     )
+
+  errorMessagesFor: (attr) ->
+    messages = @team().errorsOn(attr)
+    (m("p", { class: "block-error" }, message) for message in messages)
 
   teamsURL: ->
     "#{location.protocol}//#{location.host}#{App.Models.Team.url()}/"
