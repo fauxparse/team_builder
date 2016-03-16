@@ -31,34 +31,33 @@ class App.Model
     (@errors() || {})[attr] || []
 
   form: (attrs, contents...) ->
-    defaults = { method: @formMethod(), url: @url() }
+    defaults =
+      method: @formMethod()
+      url: @url()
+      onsubmit: (e) -> e.preventDefault()
     m("form", $.extend(defaults, attrs), contents...)
 
   formMethod: ->
     @id() && "PUT" || "POST"
 
   save: ->
-    @saving(m.deferred())
-
-    success = (data = {}) =>
-    m.request(url: @url(), method: @formMethod(), data: @asJSON())
-      .then(@ajaxSuccess, @ajaxFailure)
-
+    m.computation =>
+      @saving(m.deferred())
+      m.request(url: @url(), method: @formMethod(), data: @asJSON())
+        .then(@ajaxSuccess, @ajaxFailure)
     @saving().promise
 
   ajaxSuccess: (data = {}) =>
     @attributes(data)
     promise = @saving()
-    @saving(false)
+    m.computation => @saving(false)
     promise.resolve(this)
-    @saving(false)
 
   ajaxFailure: (data = {}) =>
     @errors(data.errors || [])
     promise = @saving()
-    @saving(false)
+    m.computation => @saving(false)
     promise.reject(this)
-    @saving(false)
 
   asJSON: ->
     @attributes()
