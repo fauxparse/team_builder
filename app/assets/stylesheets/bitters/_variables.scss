@@ -4,6 +4,7 @@ $heading-font-family: $base-font-family;
 
 // Font Sizes
 $base-font-size: .875rem;
+$small-font-size: .75rem;
 
 // Line height
 $base-line-height: 1.5;
@@ -32,6 +33,7 @@ $base-font-color: rgba(black, $text-opacity);
 $secondary-font-color: rgba(black, $secondary-opacity);
 $disabled-font-color: rgba(black, $disabled-opacity);
 $action-color: $pink;
+$error-color: $red;
 
 // Border
 $base-border-color: rgba(black, $border-opacity);

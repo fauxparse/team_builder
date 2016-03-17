@@ -5,26 +5,20 @@ class TeamEditor extends App.Components.Section
 
   view: ->
     @team().form({ class: "team-editor" },
-      m("div", { class: "field" },
-        m.component(App.Components.TextField,
-          "Team name",
-          @team().name,
-          name: "team[name]",
-          oninput: @nameChanged,
-          errors: @team().errorsOn("name")
-        )
+      m.component(App.Components.TextField,
+        "Team name",
+        @team().name,
+        name: "team[name]",
+        oninput: @nameChanged,
+        errors: => @team().errorsOn("name")
       ),
-      m("div", { class: "field" },
-        m("div", { class: "url-field" },
-          m("label", { for: "team_slug" }, @teamsURL())
-          m("input",
-            id: "team_slug"
-            name: "team[slug]"
-            value: @team().slug() || ""
-            oninput: @slugChanged
-          )
-        ),
-        @errorMessagesFor("slug")
+      m.component(App.Components.URLField,
+        "",
+        @team().slug,
+        name: "team[slug]",
+        root: @teamsURL(),
+        oninput: @slugChanged,
+        errors: => @team().errorsOn("slug")
       )
     )
 

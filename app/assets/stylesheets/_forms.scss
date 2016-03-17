@@ -1,0 +1,117 @@
+@mixin floating-label {
+  padding: 2rem 0 0;
+  position: relative;
+
+  > label {
+    @include position(absolute, 2rem null null 0rem);
+    line-height: 2rem;
+    vertical-align: middle;
+    @include transition(all $base-duration $base-timing);
+    font-weight: normal;
+    color: $secondary-font-color;
+  }
+
+  &.has-value > label,
+  > :focus ~ label {
+    top: 1rem;
+    font-size: $small-font-size;
+    line-height: 1rem;
+  }
+
+  input {
+    height: 2rem;
+    margin: 0 0 .5rem;
+    font-size: .875rem;
+    line-height: 1.75rem;
+    padding: .125rem 0 .0625rem;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    @include appearance(none);
+    border-bottom: .0625rem solid $base-border;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    @include transition(border-bottom-color $base-duration $base-timing);
+
+    &:hover {
+      border-bottom-color: $base-border-color;
+    }
+
+    &:focus {
+      padding-bottom: 0;
+      border-bottom-width: .125rem;
+      border-bottom-color: $action-color;
+    }
+  }
+
+  &.has-errors {
+    input {
+      border-bottom-color: $error-color;
+    }
+  }
+}
+
+@mixin url-field {
+  padding: .5rem 0 0;
+
+  .input-group {
+    @include display(flex);
+    @include flex-direction(row);
+    position: relative;
+    margin-bottom: .5rem;
+
+    label, input {
+      line-height: 2rem;
+      vertical-align: middle;
+      padding: 0;
+      border: 0;
+      margin: 0;
+      box-shadow: none;
+    }
+
+    label {
+      color: $secondary-font-color;
+      font-weight: normal;
+    }
+
+    input {
+      @include flex(1);
+    }
+
+    hr {
+      @include position(absolute, null 0rem 0rem 0rem);
+      border: none;
+      border-bottom: .0625rem solid $base-border-color;
+      margin: 0;
+      @include transition(border-color $base-duration $base-timing);
+    }
+
+    :focus ~ hr {
+      border-bottom: .125rem solid $action-color;
+    }
+  }
+
+  &.has-errors hr,
+  &.has-errors :focus ~ hr {
+    border-bottom-color: $error-color;
+  }
+}
+
+.field {
+  &.with-floating-label {
+    @include floating-label;
+  }
+
+  &.url-field {
+    @include url-field;
+  }
+
+  .error {
+    color: $error-color;
+    font-size: $small-font-size;
+    line-height: 1rem;
+    margin: 0 0 .5rem;
+  }
+}
+
