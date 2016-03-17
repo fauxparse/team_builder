@@ -6,14 +6,13 @@ class TeamEditor extends App.Components.Section
   view: ->
     @team().form({ class: "team-editor" },
       m("div", { class: "field" },
-        m("label", { for: "team_name" }, "Team name")
-        m("input",
-          id: "team_name"
-          name: "team[name]"
-          value: @team().name() || ""
-          oninput: @nameChanged
+        m.component(App.Components.TextField,
+          "Team name",
+          @team().name,
+          name: "team[name]",
+          oninput: @nameChanged,
+          errors: @team().errorsOn("name")
         )
-        @errorMessagesFor("name")
       ),
       m("div", { class: "field" },
         m("div", { class: "url-field" },
@@ -24,14 +23,14 @@ class TeamEditor extends App.Components.Section
             value: @team().slug() || ""
             oninput: @slugChanged
           )
-        )
+        ),
         @errorMessagesFor("slug")
       )
     )
 
   errorMessagesFor: (attr) ->
     messages = @team().errorsOn(attr)
-    (m("p", { class: "block-error" }, message) for message in messages)
+    (m("p", { class: "error" }, message) for message in messages)
 
   teamsURL: ->
     "#{location.protocol}//#{location.host}#{App.Models.Team.url()}/"
