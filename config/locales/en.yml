@@ -20,6 +20,24 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  common:
+    saving: "Saving…"
+
+  dashboard:
+    title: "Dashboard"
+
+  teams:
+    new:
+      title: "New team"
+      save: "Create team"
+
+  calendar:
+    title: "Calendar"
+
+  devise:
+    sessions:
+      sign_out: "Log out"
+
   activerecord:
     attributes:
       team:

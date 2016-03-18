@@ -6,7 +6,7 @@ class NewTeam extends App.Components.Section
     klass = "new-team"
     klass += " saving" if @team().saving()
     m("div", { class: klass },
-      m.component(App.Components.Header, title: -> "New Team"),
+      m.component(App.Components.Header, title: -> I18n.t("teams.new.title")),
       m("div", { class: "new-team-inner" },
         m.component(App.Components.TeamEditor, team: @team),
         m("div",
@@ -17,9 +17,9 @@ class NewTeam extends App.Components.Section
 
   saveButton: ->
     if @team().saving()
-      m("button", { disabled: true }, "Saving…")
+      m("button", { disabled: true }, I18n.t("common.saving"))
     else
-      m("button", { onclick: @createClicked }, "Create team")
+      m("button", { onclick: @createClicked }, I18n.t("teams.new.save"))
 
   createClicked: (e) =>
     m.computation =>

@@ -17,9 +17,9 @@ class Sidebar
       ),
       m("section",
         m("ul",
-          @link("/", "Dashboard", "home"),
-          @link("/calendar", "Calendar", "event"),
-          @link("/users/sign_out", "Log out", "exit_to_app",
+          @link("/", I18n.t("dashboard.title"), "home"),
+          @link("/calendar", I18n.t("calendar.title"), "event"),
+          @link("/users/sign_out", I18n.t("devise.sessions.sign_out"), "exit_to_app",
             { config: null, "data-method": "delete" })
         )
       )

@@ -3,7 +3,7 @@ class Dashboard extends App.Components.Section
 
   view: ->
     m("div", { class: "dashboard" },
-      m.component(App.Components.Header, title: -> "Dashboard"),
+      m.component(App.Components.Header, title: -> I18n.t("dashboard.title")),
       m("div", { class: "dashboard-inner" },
         m("h1", "Hello world")
       )
