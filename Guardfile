@@ -69,7 +69,7 @@ guard :rspec, cmd: "spring rspec" do
   end
 end
 
-guard :cucumber, cmd: "spring cucumber" do
+guard :cucumber, cmd: "spring cucumber", all_on_start: false do
   watch(%r{^features/.+\.feature$})
   watch(%r{^features/support/.+$})          { "features" }
 
