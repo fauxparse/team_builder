@@ -77,3 +77,7 @@ guard :cucumber, cmd: "spring cucumber" do
     Dir[File.join("**/#{m[1]}.feature")][0] || "features"
   end
 end
+
+guard :rake, task: "i18n:js:export" do
+  watch(%r{^config/locales/.*$})
+end

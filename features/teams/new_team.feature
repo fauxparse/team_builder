@@ -18,5 +18,5 @@ Feature: create a team
       And I wait for the save to complete
      Then no new team should be created
       And I should be on the new team page
-      And I should see "Name can't be blank"
-      And I should see "Slug can't be blank"
+      And I should see "Team name can’t be blank"
+      And I should see "URL can’t be blank"

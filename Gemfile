@@ -52,6 +52,8 @@ gem 'active_model_serializers', '>= 0.10.0.rc3'
 
 gem 'pundit'
 
+gem 'i18n-js', '>= 3.0.0.rc11'
+
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec', github: 'rspec/rspec'
@@ -84,6 +86,7 @@ group :development do
   gem 'letter_opener'
   gem 'guard-rspec'
   gem 'guard-cucumber'
+  gem 'guard-rake'
   gem 'byebug'
 end
 

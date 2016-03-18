@@ -6,7 +6,7 @@ class TeamEditor extends App.Components.Section
   view: ->
     @team().form({ class: "team-editor" },
       m.component(App.Components.TextField,
-        "Team name",
+        I18n.t("activerecord.attributes.team.name"),
         @team().name,
         name: "team[name]",
         oninput: @nameChanged,

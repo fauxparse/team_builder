@@ -10,6 +10,8 @@
 #= require mousewheel
 #= require throttle
 
+#= require i18n
+
 #= require_self
 #= require_tree ./lib
 #= require cable

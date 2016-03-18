@@ -212,6 +212,9 @@ GEM
       cucumber (~> 2.0)
       guard-compat (~> 1.0)
       nenv (~> 0.1)
+    guard-rake (1.0.0)
+      guard
+      rake
     guard-rspec (4.6.4)
       guard (~> 2.1)
       guard-compat (~> 1.1)
@@ -221,6 +224,8 @@ GEM
     hashie (3.4.3)
     htmlentities (4.3.4)
     i18n (0.7.0)
+    i18n-js (3.0.0.rc12)
+      i18n (~> 0.6, >= 0.6.6)
     ice_cube (0.13.3)
     jbuilder (2.4.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -421,8 +426,10 @@ DEPENDENCIES
   email_spec
   factory_girl_rails
   guard-cucumber
+  guard-rake
   guard-rspec
   haml
+  i18n-js (>= 3.0.0.rc11)
   ice_cube
   jbuilder (~> 2.0)
   jquery-rails
