@@ -86,7 +86,7 @@ group :development do
   gem 'letter_opener'
   gem 'guard-rspec'
   gem 'guard-cucumber'
-  gem 'guard-rake'
+  gem 'guard-i18n-js', git: 'https://github.com/fauxparse/guard-i18n-js.git'
   gem 'byebug'
 end
 

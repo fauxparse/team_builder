@@ -78,6 +78,6 @@ guard :cucumber, cmd: "spring cucumber", all_on_start: false do
   end
 end
 
-guard :rake, task: "i18n:js:export" do
-  watch(%r{^config/locales/.*$})
+guard 'i18n-js' do
+  watch(%r{config/locales/.+\.yml})
 end
