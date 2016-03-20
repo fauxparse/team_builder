@@ -1,7 +1,17 @@
 class MembersController < ApplicationController
   respond_to :html, :json
 
+  def index
+    respond_to do |format|
+      format.html { render_ui }
+      format.json { render team.members.sort_by(&:display_name) }
+    end
+  end
+
   def new
+    respond_to do |format|
+      format.html { render_ui }
+    end
   end
 
   def create

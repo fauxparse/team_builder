@@ -22,4 +22,8 @@ class ApplicationController < ActionController::Base
   def current_team
     @current_team ||= current_member.try(&:team)
   end
+
+  def render_ui
+    render "/ui"
+  end
 end

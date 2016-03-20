@@ -1,6 +1,4 @@
 class TeamsController < ApplicationController
-  respond_to :html, :json
-
   after_action :set_current_team, except: [:index, :destroy]
 
   def index
@@ -12,12 +10,18 @@ class TeamsController < ApplicationController
 
   def show
     @team = team_scope.find_by!(slug: params[:id])
-    respond_with @team
+    respond_to do |format|
+      format.html { render_ui }
+      format.json { render json: @team }
+    end
   end
 
   def new
     @team = Team.new
-    respond_with @team
+    respond_to do |format|
+      format.html { render_ui }
+      format.json { render json: @team }
+    end
   end
 
   def create
