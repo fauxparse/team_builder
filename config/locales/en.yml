@@ -56,6 +56,9 @@ en:
       team:
         name: "Team name"
         slug: "URL"
+    defaults:
+      role:
+        name: "participant"
     errors:
       messages:
         blank: "can’t be blank"

@@ -11,6 +11,7 @@ class CreateTeam
       begin
         @team = Team.new(@attributes)
         @team.save!
+        @team.roles.create!
         JoinTeam.new(@user, @team, true).call
         publish!(:success, @team)
       rescue
