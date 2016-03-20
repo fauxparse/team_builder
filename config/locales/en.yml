@@ -40,6 +40,10 @@ en:
         mixed: "%{succeeded} invitation(s) sent successfully, but %{failed} failed."
         failure: "%{failed} invitation(s) failed to send."
         nothing: "There was nothing to do."
+
+  members:
+    title: "Team members"
+
   calendar:
     title: "Calendar"
 

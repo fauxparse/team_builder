@@ -1,14 +1,37 @@
-.members {
-}
+.team-members {
+  .members {
+    @include action-list;
+    margin: 0;
+  }
 
-.member {
-  @include display(flex);
-  @include flex-direction(row);
+  li.member {
+    a i {
+      @include flex(0 0 2.5rem);
+      width: 2.5rem;
+      height: 2.5rem;
+      margin: .5rem 1rem;
+      background: $action-color;
+      color: rgba(white, $secondary-opacity);
+      border-radius: 50%;
+      padding: .5rem;
+      line-height: 1.5rem;
+      text-align: center;
+      vertical-align: middle;
+      font-style: normal;
+      font-size: 1.25rem;
+      font-weight: 300;
+    }
 
+    .name {
+      font-size: 1rem;
+    }
+  }
 }
 
 .invited.members {
   .member {
+    @include display(flex);
+    @include flex-direction(row);
     margin: 0 0 .5rem;
 
     i {

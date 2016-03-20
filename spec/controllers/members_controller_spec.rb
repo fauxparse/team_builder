@@ -7,6 +7,46 @@ RSpec.describe MembersController do
 
   login
 
+  describe 'GET /teams/:team_id' do
+    context 'as HTML' do
+      subject { response }
+
+      before { get :index, params: { team_id: team.slug } }
+
+      it { is_expected.to be_success }
+    end
+
+    context 'as JSON' do
+      subject { response }
+      let(:json) { ActiveSupport::JSON.decode(response.body) }
+
+      before { get :index, params: { team_id: team.slug, format: :json } }
+
+      it { is_expected.to be_success }
+
+      it 'returns the team members as JSON' do
+        expect(json).to eq [
+          {
+            "id" => member.id,
+            "name" => member.display_name,
+            "email" => member.email,
+            "admin" => false
+          }
+        ]
+      end
+    end
+  end
+
+  describe 'GET /teams/:team_id/members/new' do
+    context 'as HTML' do
+      subject { response }
+
+      before { get :new, params: { team_id: team.slug } }
+
+      it { is_expected.to be_success }
+    end
+  end
+
   describe 'POST /teams/:team_id/members' do
     let(:params) { { format: :json, members: data, team_id: team.slug } }
     let(:perform_request) { post :create, params: params }

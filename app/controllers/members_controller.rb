@@ -4,7 +4,7 @@ class MembersController < ApplicationController
   def index
     respond_to do |format|
       format.html { render_ui }
-      format.json { render team.members.sort_by(&:display_name) }
+      format.json { render json: team.members.sort_by(&:display_name) }
     end
   end
 
