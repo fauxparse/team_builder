@@ -9,6 +9,7 @@
 #= require transit
 #= require mousewheel
 #= require throttle
+#= require autosize.min
 
 #= require i18n
 

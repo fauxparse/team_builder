@@ -9,18 +9,18 @@ RSpec.describe MembersController do
 
   describe 'POST /teams/:team_id/members' do
     let(:params) { { format: :json, members: data, team_id: team.slug } }
-    let(:perform_request) { post :create, params: params } 
+    let(:perform_request) { post :create, params: params }
     let(:json) { ActiveSupport::JSON.decode(response.body) }
 
     context 'with good data' do
       let(:data) do
         <<~EOS
-          "Chewie" <chewie@resistance.org>        
+          "Chewie" <chewie@resistance.org>
         EOS
       end
 
       it 'creates the members' do
-        expect { perform_request } 
+        expect { perform_request }
           .to change { team.members.count }.by(1)
       end
 
@@ -45,7 +45,7 @@ RSpec.describe MembersController do
       end
 
       it 'does not create the members' do
-        expect { perform_request } 
+        expect { perform_request }
           .not_to change { team.members.count }
       end
 
@@ -57,9 +57,11 @@ RSpec.describe MembersController do
             "name" => "Chewie",
             "email" => "chewie",
             "admin" => false,
-            "errors" => [
-              "Email is invalid"
-            ]
+            "errors" => {
+              "email" => [
+                "Email is invalid"
+              ]
+            }
           }
         ]
       end

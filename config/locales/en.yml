@@ -30,7 +30,16 @@ en:
     new:
       title: "New team"
       save: "Create team"
-
+    invite:
+      title: "Add/invite members"
+      emails: "Names and email addresses (one per line)"
+      explanation: "e.g. \"Poe Dameron\" <poe@resistance.org>"
+      save: "Invite new members"
+      status:
+        success: "%{succeeded} invitation(s) sent successfully."
+        mixed: "%{succeeded} invitation(s) sent successfully, but %{failed} failed."
+        failure: "%{failed} invitation(s) failed to send."
+        nothing: "There was nothing to do."
   calendar:
     title: "Calendar"
 

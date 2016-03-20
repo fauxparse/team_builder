@@ -1,3 +1,28 @@
+@mixin material-design-input {
+  margin: 0 0 .5rem;
+  font-size: .875rem;
+  padding: .125rem 0 .0625rem;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  @include appearance(none);
+  border-bottom: .0625rem solid $base-border;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  @include transition(border-bottom-color $base-duration $base-timing);
+
+  &:hover {
+    border-bottom-color: $base-border-color;
+  }
+
+  &:focus {
+    padding-bottom: 0;
+    border-bottom-width: .125rem;
+    border-bottom-color: $action-color;
+  }
+}
+
 @mixin floating-label {
   padding: 2rem 0 0;
   position: relative;
@@ -19,34 +44,27 @@
   }
 
   input {
+    @include material-design-input;
     height: 2rem;
-    margin: 0 0 .5rem;
-    font-size: .875rem;
     line-height: 1.75rem;
-    padding: .125rem 0 .0625rem;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    @include appearance(none);
-    border-bottom: .0625rem solid $base-border;
-    border-radius: 0;
-    box-shadow: none;
-    outline: none;
-    @include transition(border-bottom-color $base-duration $base-timing);
+  }
 
-    &:hover {
-      border-bottom-color: $base-border-color;
-    }
+  textarea {
+    @include material-design-input;
+    line-height: 1.5rem;
+    padding-bottom: .5625rem;
 
     &:focus {
-      padding-bottom: 0;
-      border-bottom-width: .125rem;
-      border-bottom-color: $action-color;
+      padding-bottom: .5rem;
+    }
+
+    + label {
+      top: 1.875rem;
     }
   }
 
   &.has-errors {
-    input {
+    input, textarea {
       border-bottom-color: $error-color;
     }
   }
@@ -115,3 +133,6 @@
   }
 }
 
+p.explanation {
+  color: $secondary-font-color;
+}

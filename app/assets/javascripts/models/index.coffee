@@ -7,7 +7,7 @@ class App.Model
   constructor: (attrs = {}) ->
     @id = m.prop(attrs.id)
     @saving = m.prop(false)
-    @errors = m.prop([])
+    @errors = m.prop({})
     for attr in @constructor.attributes
       @[attr] = m.prop()
     @attributes(attrs)
@@ -26,6 +26,15 @@ class App.Model
       @constructor.url() + "/" + @toParam()
     else
       @constructor.url()
+
+  hasErrors: ->
+    !$.isEmptyObject(@errors() || {})
+
+  allErrors: ->
+    results = []
+    for own attr, errors of @errors()
+      results.splice(results.length, 0, errors...)
+    results
 
   errorsOn: (attr) ->
     (@errors() || {})[attr] || []

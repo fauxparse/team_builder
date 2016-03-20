@@ -7,7 +7,10 @@ class MemberSerializer < ActiveModel::Serializer
   end
 
   def errors
-    object.errors.full_messages
+    messages = object.errors.map do |attr, _|
+      [attr, object.errors.full_messages_for(attr)]
+    end
+    Hash[messages]
   end
 
   def has_errors?

@@ -1,6 +1,9 @@
 class MembersController < ApplicationController
   respond_to :html, :json
 
+  def new
+  end
+
   def create
     form = AddMembersForm.new(current_user, team, params).process
 

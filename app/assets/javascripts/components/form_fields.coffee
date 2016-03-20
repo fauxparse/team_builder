@@ -23,7 +23,7 @@ class TextField
   inputTag: ->
     options = $.extend({ oninput: @onInput }, @options)
     delete options.errors
-    if @type == "textarea"
+    if options.type == "textarea"
       delete options.type
       m("textarea", options, @value() || "")
     else

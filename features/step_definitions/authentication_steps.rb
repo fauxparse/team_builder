@@ -3,6 +3,12 @@ Given(/^I am signed in as an existing user$/) do
   step "I sign in"
 end
 
+Given(/^I am signed in as an admin user$/) do
+  @user = admin.user
+  visit root_path
+  step "I sign in"
+end
+
 When(/^I sign up$/) do
   click_link "Sign up"
   fill_in "Name", with: "New user"

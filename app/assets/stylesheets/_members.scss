@@ -1,0 +1,49 @@
+.members {
+}
+
+.member {
+  @include display(flex);
+  @include flex-direction(row);
+
+}
+
+.invited.members {
+  .member {
+    margin: 0 0 .5rem;
+
+    i {
+      margin: .5rem 2rem .5rem 0rem;
+    }
+
+    span {
+      display: block;
+    }
+
+    .name {
+      font-weight: bold;
+      line-height: 1.5rem;
+    }
+
+    .email {
+      font-size: $small-font-size;
+      line-height: 1rem;
+      color: $secondary-font-color;
+    }
+
+    &.successful i::after {
+      content: "done";
+      color: $green;
+    }
+
+    &.failed i::after {
+      content: "clear";
+      color: $red;
+    }
+
+    .error {
+      color: $red;
+      font-size: $small-font-size;
+      line-height: 1rem;
+    }
+  }
+}
