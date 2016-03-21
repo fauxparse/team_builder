@@ -1,0 +1,37 @@
+.team-roles-inner {
+  ul.roles {
+    li {
+      @include display(flex);
+      @include flex-direction(row);
+      @include align-items(flex-start);
+      padding: .5rem 1rem;
+      max-width: 40rem;
+
+      i:first-of-type {
+        margin: .5rem 2rem .5rem 0;
+      }
+
+      .field {
+        @include flex(1);
+        padding-top: 0;
+        margin-right: 1rem;
+      }
+
+      button {
+        &[rel="save"] {
+          color: $green;
+          &::after { content: "done"; }
+        }
+
+        &[rel="cancel"] {
+          color: $red;
+          &::after { content: "close"; }
+        }
+
+        &[rel="delete"] {
+          &::after { content: "delete"; }
+        }
+      }
+    }
+  }
+}

@@ -10,12 +10,13 @@ class TextField
   view: ->
     m("div", { class: @fieldClass() },
       @inputTag(),
-      m("label", { for: @options.id }, @label),
+      m("label", { for: @options.id }, @label) if @label,
       @errorMessages()
     )
 
   fieldClass: ->
-    klass = "field with-floating-label"
+    klass = "field"
+    klass += " with-floating-label" if @label
     klass += " has-value" if @value()
     klass += " has-errors" if @options.errors().length
     klass

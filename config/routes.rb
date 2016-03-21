@@ -12,10 +12,14 @@ Rails.application.routes.draw do
 
   resources :teams do
     post :check, on: :collection
+    post :check, on: :member
 
     resources :events
     resources :members
-    resources :roles, except: [:new, :edit]
+    resources :roles, except: [:new, :edit] do
+      post :check, on: :collection
+      post :check, on: :member
+    end
 
     get '/calendar(/:year(/:month))' => 'calendar#index'
   end

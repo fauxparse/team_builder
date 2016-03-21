@@ -44,6 +44,10 @@ en:
   members:
     title: "Team members"
 
+  roles:
+    title: "Roles"
+    add: "Add a role"
+
   calendar:
     title: "Calendar"
 
@@ -59,6 +63,7 @@ en:
     defaults:
       role:
         name: "participant"
+        plural: "participants"
     errors:
       messages:
         blank: "can’t be blank"

@@ -17,7 +17,7 @@ class App.Model
       (@[key] ?= m.prop())(value)
     @constructor.attributes.reduce (memo, attr) =>
       $.extend(memo, "#{attr}": @[attr]())
-    , {}
+    , { id: @id() }
 
   toParam: -> @id()
 

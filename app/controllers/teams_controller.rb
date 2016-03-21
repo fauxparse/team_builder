@@ -32,7 +32,7 @@ class TeamsController < ApplicationController
   end
 
   def check
-    @team = params[:id] && Team.find(:id) || Team.new
+    @team = params[:id] && Team.find(params[:id]) || Team.new
     @team.attributes = team_params
     @team.validate
     render json: @team, status: @team.valid? ? :ok : :unprocessable_entity

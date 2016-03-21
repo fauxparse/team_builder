@@ -1,0 +1,19 @@
+@mixin icon-button {
+  background: none;
+  font-size: 1.5rem;
+  padding: .33333333em;
+  width: 1.66666667em;
+  height: 1.66666667em;
+  border-radius: 50%;
+  color: $base-font-color;
+  outline: none;
+  box-shadow: none;
+
+  &:active {
+    background-color: rgba(black, .1);
+  }
+}
+
+button.material-icons {
+  @include icon-button;
+}

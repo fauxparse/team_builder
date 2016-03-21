@@ -1,4 +1,6 @@
 @mixin material-design-input {
+  height: 2rem;
+  line-height: 1.75rem;
   margin: 0 0 .5rem;
   font-size: .875rem;
   padding: .125rem 0 .0625rem;
@@ -20,6 +22,14 @@
     padding-bottom: 0;
     border-bottom-width: .125rem;
     border-bottom-color: $action-color;
+    outline: none;
+    box-shadow: none;
+  }
+
+  &.has-errors {
+    input, textarea {
+      border-bottom-color: $error-color;
+    }
   }
 }
 
@@ -44,9 +54,6 @@
   }
 
   input {
-    @include material-design-input;
-    height: 2rem;
-    line-height: 1.75rem;
   }
 
   textarea {
@@ -60,12 +67,6 @@
 
     + label {
       top: 1.875rem;
-    }
-  }
-
-  &.has-errors {
-    input, textarea {
-      border-bottom-color: $error-color;
     }
   }
 }
@@ -117,6 +118,10 @@
 }
 
 .field {
+  #{$all-text-inputs} {
+    @include material-design-input;
+  }
+
   &.with-floating-label {
     @include floating-label;
   }
