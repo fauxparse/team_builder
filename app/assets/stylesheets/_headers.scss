@@ -2,7 +2,7 @@
   @include flex(0 0 $header-height);
   @include display(flex);
   @include flex-direction(row);
-  @include align-items(center);
+  @include align-items(flex-start);
   height: $header-height;
   padding: .25rem;
   z-index: 10;
@@ -36,6 +36,7 @@
     margin: 0;
     font-size: 1.25rem;
     line-height: 1.5rem;
+    padding: .75rem 0;
     text-align: center;
 
     &:last-child {

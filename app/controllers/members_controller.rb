@@ -8,6 +8,13 @@ class MembersController < ApplicationController
     end
   end
 
+  def show
+    respond_to do |format|
+      format.html { render_ui }
+      format.json { render json: team.members.find(params[:id]) }
+    end
+  end
+
   def new
     respond_to do |format|
       format.html { render_ui }

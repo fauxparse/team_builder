@@ -70,3 +70,15 @@
     }
   }
 }
+
+.team-member {
+  > header {
+    @include flex-basis(10rem !important);
+
+    h2 {
+      text-align: left !important;
+      margin-left: 1.25rem !important;
+      @include align-self(flex-end);
+    }
+  }
+}

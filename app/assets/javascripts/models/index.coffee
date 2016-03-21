@@ -77,13 +77,20 @@ class App.Model
     @instances = m.prop([])
 
   @refresh: (data) ->
-    @instances(new this(attrs) for attrs in data)
-    @_fetch?.resolve(@instances())
-    @instances()
+    if $.isArray(data)
+      @instances(new this(attrs) for attrs in data)
+      @instances()
+    else
+      new this(data)
 
-  @fetch: ->
-    unless @_fetch
-      @_fetch = m.deferred()
-      m.request({ method: "get", url: @url() })
-        .then(@refresh.bind(this))
-    @_fetch.promise
+  @fetch: (id) ->
+    @_fetch ?= {}
+    key = id || "all"
+    unless @_fetch[key]
+      @_fetch[key] = m.deferred()
+      url = @url()
+      url += "/" + id if id?
+      m.request({ method: "get", url: url })
+        .then (data) =>
+          @_fetch[key].resolve(@refresh(data))
+    @_fetch[key].promise
