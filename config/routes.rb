@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
     resources :events
     resources :members
+    resources :roles, except: [:new, :edit]
 
     get '/calendar(/:year(/:month))' => 'calendar#index'
   end
