@@ -60,6 +60,9 @@ en:
       team:
         name: "Team name"
         slug: "URL"
+      member:
+        display_name: "Name"
+        email: "Email"
     defaults:
       role:
         name: "participant"

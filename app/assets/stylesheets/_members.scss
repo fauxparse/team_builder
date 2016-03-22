@@ -75,4 +75,21 @@
   > header {
     @include tall-header;
   }
+
+  .team-member-details {
+    li {
+      @include display(flex);
+      @include flex-direction(row);
+      @include align-items(flex-start);
+
+      i {
+        color: $secondary-font-color;
+        margin: 1rem 2rem 0 0;
+      }
+
+      .field {
+        @include flex(1);
+      }
+    }
+  }
 }
