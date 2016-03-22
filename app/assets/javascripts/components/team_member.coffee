@@ -6,7 +6,14 @@ class TeamMember extends App.Components.Section
   view: ->
     klass = "team-member"
     m("section", { class: klass },
-      m.component(App.Components.Header, title: => @member()?.name()),
+      m.component(App.Components.Header,
+        title: => @member()?.name()
+        content: =>
+          m("div", { class: "header-image" },
+            m("img", src: "/assets/placeholder/profile-header.jpg")
+            m("div", { class: "scrim" })
+          )
+      )
       m("div", { class: "team-member-inner", config: @setupScrolling.bind(this) }
         m("p", "In the vignettes and other embellishments of some ancient books you will at times meet with very curious touches at the whale, where all manner of spouts, jets d'eau, hot springs and cold, Saratoga and Baden-Baden, come bubbling up from his unexhausted brain. In the title-page of the original edition of the 'Advancement of Learning' you will find some curious whales.")
         m("p", "But quitting all these unprofessional attempts, let us glance at those pictures of leviathan purporting to be sober, scientific delineations, by those who know. In old Harris's collection of voyages there are some plates of whales extracted from a Dutch book of voyages, A.D. 1671, entitled 'A Whaling Voyage to Spitzbergen in the ship Jonas in the Whale, Peter Peterson of Friesland, master.' In one of those plates the whales, like great rafts of logs, are represented lying among ice-isles, with white bears running over their living backs. In another plate, the prodigious blunder is made of representing the whale with perpendicular flukes.")
@@ -23,11 +30,14 @@ class TeamMember extends App.Components.Section
     @scrollable = el
     @header = $(el).prev("header")
     @headerHeight = @header.outerHeight()
+    @minHeaderHeight = parseInt(@header.css("minHeight"), 10)
     el.addEventListener("scroll", @onscroll.bind(this), true)
 
   onscroll: (e) =>
     if e.target == @scrollable
-      @header.css("max-height", @headerHeight - e.target.scrollTop)
+      @header
+        .css("max-height", @headerHeight - e.target.scrollTop)
+        .find(".scrim").css("opacity", Math.min(e.target.scrollTop / (@headerHeight - @minHeaderHeight), 1))
 
 App.Components.TeamMember =
   controller: (args...) ->

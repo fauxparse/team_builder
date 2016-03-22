@@ -62,3 +62,39 @@
     padding-top: 11rem;
   }
 }
+
+.header-image {
+  @include position(absolute, 0rem 0rem 0rem 0rem);
+  overflow: hidden;
+  z-index: -1;
+
+  &::before {
+    content: "";
+    @include position(absolute, 0rem 0rem 0rem 0rem);
+    z-index: 1;
+    @include linear-gradient(to top, $header-background-color, rgba($header-background-color, 0));
+    background-color: transparent;
+  }
+
+  &::after {
+    content: "";
+    @include position(absolute, 0rem 0rem 0rem 0rem);
+    background-color: $header-background-color;
+    mix-blend-mode: soft-light;
+  }
+
+  img {
+    @include position(absolute, 0rem 0rem 0rem 0rem);
+    margin: auto;
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .scrim {
+    @include position(absolute, 0rem 0rem 0rem 0rem);
+    background-color: $header-background-color;
+    opacity: 0;
+  }
+}
