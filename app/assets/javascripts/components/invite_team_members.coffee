@@ -7,7 +7,7 @@ class InviteTeamMembers extends App.Components.Section
   view: ->
     klass = "invite-team-members"
     klass += " saving" if @saving()
-    m("div", { class: klass },
+    m("section", { class: klass },
       m.component(App.Components.Header, title: -> I18n.t("teams.invite.title")),
       m("div", { class: "new-team-inner" },
         @formOrResults(),

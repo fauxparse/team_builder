@@ -12,30 +12,6 @@ body {
     @include transition-timing-function($ease-out-cubic);
   }
 
-  main {
-    @include position(absolute, 0rem 0rem 0rem 0rem);
-    overflow: hidden;
-    
-    > div {
-      @include display(flex);
-      @include flex-direction(column);
-      @include position(absolute, 0rem 0rem 0rem 0rem);
-      
-      > header {
-        @include header;
-        
-        + div {
-          @include flex(1);
-        }
-      }
-    }
-  }
-
-  aside {
-    @include position(absolute, 0rem 100% 0rem null);
-    width: $sidebar-width;
-  }
-
   .sidebar-scrim {
     @include position(absolute, 0rem 0rem 0rem 0rem);
     margin: 0;
@@ -45,6 +21,29 @@ body {
     opacity: 0;
     @include transition(opacity 0.5s $base-timing);
   }
+}
+
+main {
+  @include position(absolute, 0rem 0rem 0rem 0rem);
+  overflow: hidden;
+
+  > section {
+    @include position(absolute, 0rem 0rem 0rem 0rem);
+
+    > header {
+      @include header;
+
+      + div {
+        @include position(absolute, 0rem 0rem 0rem 0rem);
+        overflow-y: auto;
+      }
+    }
+  }
+}
+
+aside {
+  @include position(absolute, 0rem 100% 0rem null);
+  width: $sidebar-width;
 }
 
 #show-sidebar {

@@ -5,7 +5,7 @@ class TeamRoles extends App.Components.Section
 
   view: ->
     klass = "team-roles"
-    m("div", { class: klass },
+    m("section", { class: klass },
       m.component(App.Components.Header, title: -> I18n.t("roles.title")),
       m("div", { class: "team-roles-inner" },
         m("ul", { class: "roles" },

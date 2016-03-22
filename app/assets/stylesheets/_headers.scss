@@ -1,14 +1,18 @@
 @mixin header {
-  @include flex(0 0 $header-height);
   @include display(flex);
   @include flex-direction(row);
   @include align-items(flex-start);
-  height: $header-height;
+  @include position(absolute, 0rem 0rem null 0rem);
+  min-height: $header-height;
   padding: .25rem;
   z-index: 10;
   background-color: $header-background-color;
   color: $header-color;
   -webkit-font-smoothing: antialiased;
+
+  + div {
+    padding: $header-height 1rem 1rem 1rem;
+  }
 
   button,
   .button {
@@ -33,7 +37,7 @@
   h2 {
     @include ellipsis;
     @include flex(1);
-    margin: 0;
+    margin: 0 .25rem;
     font-size: 1.25rem;
     line-height: 1.5rem;
     padding: .75rem 0;
@@ -42,5 +46,19 @@
     &:last-child {
       padding-right: ($header-height - .25rem);
     }
+  }
+}
+
+@mixin tall-header {
+  height: 10rem;
+
+  h2 {
+    margin-left: 1rem;
+    @include align-self(flex-end);
+    text-align: left;
+  }
+
+  + div {
+    padding-top: 11rem;
   }
 }

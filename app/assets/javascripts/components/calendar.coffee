@@ -14,8 +14,8 @@ class Calendar extends App.Components.Section
   view: ->
     @_today = moment().startOf("day")
     @updateSelected(@selected() || @weekAt(@index()))
-    
-    m("div", { class: "calendar" },
+
+    m("section", { class: "calendar" },
       m.component(App.Components.Header, title: @title)
       m("div",
         {

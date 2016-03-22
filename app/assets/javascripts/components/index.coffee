@@ -5,4 +5,4 @@ App.Components = {}
 
 class App.Components.Section
   onunload: ->
-    $("#show-sidebar").prop("checked", false)
+    document.getElementById("show-sidebar").checked = false

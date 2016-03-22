@@ -5,7 +5,7 @@ class NewTeam extends App.Components.Section
   view: ->
     klass = "new-team"
     klass += " saving" if @team().saving()
-    m("div", { class: klass },
+    m("section", { class: klass },
       m.component(App.Components.Header, title: -> I18n.t("teams.new.title")),
       m("div", { class: "new-team-inner" },
         m.component(App.Components.TeamEditor, team: @team),
