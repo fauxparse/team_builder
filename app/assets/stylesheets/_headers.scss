@@ -57,7 +57,7 @@
 }
 
 @mixin tall-header {
-  height: 10rem;
+  height: $tall-header-height;
 
   h2 {
     margin-left: 1.25rem;

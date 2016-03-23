@@ -27,6 +27,7 @@ en:
     title: "Dashboard"
 
   teams:
+    none: "No teams"
     new:
       title: "New team"
       save: "Create team"

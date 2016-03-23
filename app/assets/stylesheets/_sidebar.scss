@@ -1,12 +1,90 @@
 aside.sidebar {
-  @include scrollable;
-
   .profile {
-    height: 10rem;
+    @include position(absolute, 0rem 0rem null 0rem);
+    @include display(flex);
+    @include flex-direction(column);
+    @include justify-content(space-between);
+    @include align-items(flex-start);
+    height: $tall-header-height;
     background: $action-color;
+
+    .profile-photo {
+      margin: 1rem;
+      width: 4rem;
+      height: 4rem;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .team-selector {
+      width: 100%;
+      height: 2.5rem;
+      padding: 0 3rem 0 1rem;
+      position: relative;
+      @include display(flex);
+      @include flex-direction(column);
+      @include align-items(stretch);
+      color: white;
+
+      span {
+        @include ellipsis;
+        display: block;
+        line-height: 1rem;
+      }
+
+      .member-name {
+        line-height: 1rem;
+        font-size: $base-font-size;
+        font-weight: bold;
+      }
+
+      .team-name {
+        line-height: 1rem;
+        font-size: $small-font-size;
+      }
+
+      i {
+        padding: .5rem;
+        @include position(absolute, 0rem 0rem null null);
+        @include transition-property(transform);
+        @include transition-duration($base-duration);
+        @include transition-timing-function($ease-out-back);
+      }
+    }
+
+    &.show-teams {
+      .team-selector i {
+        @include transform(rotate(180deg));
+      }
+
+      ~ .team-links {
+        opacity: 0;
+      }
+
+      ~ .teams-list {
+        pointer-events: auto;
+        opacity: 1;
+
+        li {
+          margin-top: 0;
+        }
+      }
+    }
+
+    &:not(.show-teams) {
+      ~ .team-links {
+        li {
+          margin-top: 0;
+        }
+      }
+    }
   }
 
   section {
+    @include position(absolute, $tall-header-height 0rem 0rem 0rem);
+    @include scrollable;
+    @include transition(opacity .5s $base-timing);
+
     h3 {
       color: $secondary-font-color;
       font-weight: bold;
@@ -22,10 +100,20 @@ aside.sidebar {
 
     ul {
       @include action-list;
+
+      &:not(:last-child) {
+        border-bottom: $base-border;
+      }
     }
 
-    &:not(:last-child) {
-      border-bottom: $base-border;
+    li {
+      margin-top: -1rem;
+      @include transition(margin-top .3s $base-timing);
     }
+  }
+
+  .teams-list {
+    pointer-events: none;
+    opacity: 0;
   }
 }

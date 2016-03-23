@@ -90,6 +90,7 @@ class App.Model
       @_fetch[key] = m.deferred()
       url = @url()
       url += "/" + id if id?
+      console.log url, id
       m.request({ method: "get", url: url + "?_cache=false" })
         .then (data) =>
           @_fetch[key].resolve(@refresh(data))

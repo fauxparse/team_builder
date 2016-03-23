@@ -1,3 +1,9 @@
+@mixin base-transition($property) {
+  @include transition-property($property);
+  @include transition-duration($base-duration);
+  @include transition-timing-function($base-timing);
+}
+
 @mixin scrollable {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
