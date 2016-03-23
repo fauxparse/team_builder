@@ -11,6 +11,7 @@
         @include flex(0 0);
         @include align-self(flex-start);
         padding: .75rem 1rem;
+        color: $secondary-font-color;
       }
 
       > span {
