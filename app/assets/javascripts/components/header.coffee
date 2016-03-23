@@ -7,10 +7,12 @@ class Header
 
   view: ->
     m("header",
-      @left(),
-      m("h2", @title())
+      m("div", { class: "header-title" },
+        @left(),
+        m("h2", @title())
+        @right()
+      )
       @content?()
-      @right()
     )
 
   toggle: =>

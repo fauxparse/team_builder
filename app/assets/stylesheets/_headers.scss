@@ -1,14 +1,21 @@
 @mixin header {
-  @include display(flex);
-  @include flex-direction(row);
-  @include align-items(flex-start);
   @include position(absolute, 0rem 0rem null 0rem);
+  @include display(flex);
+  @include flex-direction(column);
+  @include align-items(stretch);
   min-height: $header-height;
-  padding: .25rem;
   z-index: 10;
   background-color: $header-background-color;
   color: $header-color;
   -webkit-font-smoothing: antialiased;
+
+  .header-title {
+    @include flex(1);
+    @include display(flex);
+    @include flex-direction(row);
+    @include align-items(flex-start);
+    padding: .25rem;
+  }
 
   + div {
     padding: $header-height 1rem 1rem 1rem;
@@ -44,7 +51,7 @@
     text-align: center;
 
     &:last-child {
-      padding-right: ($header-height - .25rem);
+      padding-right: $header-height;
     }
   }
 }
