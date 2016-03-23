@@ -14,11 +14,11 @@
   outline: none;
   @include transition(border-bottom-color $base-duration $base-timing);
 
-  &:hover {
+  &:hover:not([readonly]) {
     border-bottom-color: $base-border-color;
   }
 
-  &:focus {
+  &:focus:not([readonly]) {
     padding-bottom: 0;
     border-bottom-width: .125rem;
     border-bottom-color: $action-color;
