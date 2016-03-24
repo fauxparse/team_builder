@@ -20,7 +20,8 @@ module UserFromOauth
     private
 
     def find_or_create_user
-      if user = User.find_by(email: auth.info.email)
+      user = User.find_by(email: auth.info.email)
+      if user
         user.tap { |u| u.update_attributes!(user_attributes) }
       else
         create_user
