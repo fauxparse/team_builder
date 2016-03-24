@@ -10,7 +10,7 @@ class Event < ApplicationRecord
     limit: 32,
     scope: :team_id
 
-  before_validation :set_default_time_zone, unless: :time_zone_name?
+  before_validation :set_default_time_zone
 
   validates :name, :slug,
     presence: { allow_blank: false }
@@ -27,8 +27,7 @@ class Event < ApplicationRecord
   end
 
   def time_zone
-    @time_zone = nil if time_zone_name_changed?
-    @time_zone ||= ActiveSupport::TimeZone[time_zone_name]
+    ActiveSupport::TimeZone[time_zone_name]
   end
 
   def time_zone=(value)
@@ -77,7 +76,7 @@ class Event < ApplicationRecord
   private
 
   def set_default_time_zone
-    self.time_zone_name = Time.zone.name
+    self.time_zone = Time.zone unless time_zone_name?
   end
 
   def fix_occurrence_time_zones
