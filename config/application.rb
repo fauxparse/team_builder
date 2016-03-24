@@ -29,5 +29,7 @@ module TeamBuilder
     end
 
     Time.zone = "Wellington"
+
+    config.active_record.schema_format = :sql
   end
 end
