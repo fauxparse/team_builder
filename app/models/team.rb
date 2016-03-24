@@ -9,7 +9,7 @@ class Team < ApplicationRecord
     limit: 32
 
   validates :name, :slug,
-    presence: { allow_blank: false }
+    presence: true
 
   def to_param
     slug

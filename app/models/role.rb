@@ -9,7 +9,7 @@ class Role < ApplicationRecord
   before_validation :clear_plural_if_default
 
   validates :team_id, :name, :plural,
-    presence: { allow_blank: false }
+    presence: true
   validates :name, :plural,
     uniqueness: { scope: :team_id }
 

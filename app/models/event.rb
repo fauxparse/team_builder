@@ -13,10 +13,10 @@ class Event < ApplicationRecord
   before_validation :set_default_time_zone
 
   validates :name, :slug,
-    presence: { allow_blank: false }
+    presence: true
 
   validates :time_zone_name,
-    presence: { allow_blank: false },
+    presence: true,
     inclusion: { in: ActiveSupport::TimeZone::MAPPING.keys }
 
   before_update :fix_occurrence_time_zones, if: :time_zone_changed?

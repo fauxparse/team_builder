@@ -6,7 +6,7 @@ class Member < ApplicationRecord
   before_validation :sanitize_email, unless: :destroyed?
 
   validates :team_id, :display_name,
-    presence: { allow_blank: false }
+    presence: true
 
   validates :email,
     format: { with: Devise.email_regexp },

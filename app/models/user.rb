@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :members
   has_many :teams, through: :members
 
-  validates :name, presence: { allow_blank: false }
+  validates :name, presence: true
 
   before_destroy :save_attributes_on_associated_members
 

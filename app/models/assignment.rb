@@ -8,7 +8,7 @@ class Assignment < ApplicationRecord
   acts_as_list scope: [:allocation_id, :occurrence_id]
 
   validates :allocation_id, :occurrence_id, :member_id,
-    presence: { allow_blank: false }
+    presence: true
 
   validates :member_id,
     uniqueness: { scope: [:allocation_id, :occurrence_id] }

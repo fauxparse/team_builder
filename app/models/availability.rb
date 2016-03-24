@@ -5,5 +5,5 @@ class Availability < ApplicationRecord
   enum enthusiasm: [:unavailable, :possible, :available, :keen]
 
   validates :occurrence_id, :member_id, :enthusiasm,
-    presence: { allow_blank: false }
+    presence: true
 end

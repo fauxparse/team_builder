@@ -6,7 +6,7 @@ class Occurrence < ApplicationRecord
     class_name: "Member", source: :member
 
   validates :starts_at,
-    presence: { allow_blank: false },
+    presence: true,
     uniqueness: { scope: :event_id }
 
   scope :oldest_first, -> { order(starts_at: :asc) }
