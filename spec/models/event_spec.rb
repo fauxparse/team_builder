@@ -13,12 +13,11 @@ RSpec.describe Event, type: :model do
   end
 
   describe '#time_zone' do
-    context 'with the default timezone' do
-      subject(:event) { FactoryGirl.create(:event, time_zone_name: nil) }
+    context 'when the event is newly initialized' do
+      subject { Event.new.time_zone }
 
-      it 'is the same as the Rails default' do
-        expect(event.time_zone).to eq(Time.zone)
-      end
+      it { is_expected.to be_present }
+      it { is_expected.to eq Time.zone }
     end
 
     it 'can be set' do
@@ -30,6 +29,24 @@ RSpec.describe Event, type: :model do
       event.time_zone = ActiveSupport::TimeZone["Melbourne"]
       expect(event.time_zone_changed?).to be true
     end
+  end
+
+  describe '#time_zone?' do
+    context 'when the event is newly initialized' do
+      subject { Event.new.time_zone? }
+      it { is_expected.to be false }
+    end
+
+    context 'when a timezone has been assigned' do
+      subject { Event.new(time_zone_name: "Sydney").time_zone? }
+      it { is_expected.to be true }
+    end
+  end
+
+  describe '#time_zone_was' do
+    subject { event.time_zone_was }
+    before { event.time_zone = ActiveSupport::TimeZone["Melbourne"] }
+    it { is_expected.to eq Time.zone }
   end
 
   describe '#occurrences' do
@@ -47,9 +64,7 @@ RSpec.describe Event, type: :model do
     end
 
     context 'when some are saved' do
-      before do
-        occurrences.first.save!
-      end
+      before { occurrences.first.save! }
 
       it 'uses the saved versions' do
         expect(event.occurrences_between(start, stop).first)
@@ -57,9 +72,7 @@ RSpec.describe Event, type: :model do
       end
 
       context 'and the time zone is changed' do
-        before do
-          event.update!(time_zone_name: "Sydney")
-        end
+        before { event.update!(time_zone_name: "Sydney") }
 
         it 'fixes the saved occurrences’ time zones' do
           expect(occurrences.first.starts_at)
@@ -68,9 +81,7 @@ RSpec.describe Event, type: :model do
       end
 
       context 'and the start time is changed' do
-        before do
-          event.update!(starts_at: "2015-12-17 09:00:00 +1300")
-        end
+        before { event.update!(starts_at: "2015-12-17 09:00:00 +1300") }
 
         it 'fixes the occurrences’ times' do
           expect(occurrences.first.starts_at)
@@ -79,9 +90,7 @@ RSpec.describe Event, type: :model do
       end
 
       context 'and there are old occurrences hanging around' do
-        before do
-          event.occurrences.create(starts_at: event.starts_at - 1.week)
-        end
+        before { event.occurrences.create(starts_at: event.starts_at - 1.week) }
 
         it 'prunes them away' do
           expect { event.update!(starts_at: "2015-12-17 09:00:00 +1300") }

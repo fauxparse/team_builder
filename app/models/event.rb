@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  include CustomTimeZone
+
   belongs_to :team
   has_many :recurrence_rules, dependent: :destroy, autosave: true
   has_many :occurrences, dependent: :destroy
@@ -10,36 +12,14 @@ class Event < ApplicationRecord
     limit: 32,
     scope: :team_id
 
-  before_validation :set_default_time_zone
-
   validates :name, :slug,
     presence: true
-
-  validates :time_zone_name,
-    presence: true,
-    inclusion: { in: ActiveSupport::TimeZone::MAPPING.keys }
 
   before_update :fix_occurrence_time_zones, if: :time_zone_changed?
   before_update :fix_occurrence_times, if: :starts_at_changed?
 
   def to_param
     slug
-  end
-
-  def time_zone
-    ActiveSupport::TimeZone[time_zone_name]
-  end
-
-  def time_zone=(value)
-    self.time_zone_name = value.name
-  end
-
-  def time_zone_changed?
-    time_zone_name_changed?
-  end
-
-  def time_zone_was
-    ActiveSupport::TimeZone[time_zone_name_was]
   end
 
   def schedule(reload = false)
@@ -74,10 +54,6 @@ class Event < ApplicationRecord
   end
 
   private
-
-  def set_default_time_zone
-    self.time_zone = Time.zone unless time_zone_name?
-  end
 
   def fix_occurrence_time_zones
     occurrences.select(&:persisted?).each do |occurrence|
