@@ -25,6 +25,17 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: invitation_status; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE invitation_status AS ENUM (
+    'pending',
+    'accepted',
+    'declined'
+);
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -262,7 +273,7 @@ CREATE TABLE invitations (
     code character varying(40),
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    status integer
+    status invitation_status DEFAULT 'pending'::invitation_status
 );
 
 
@@ -1000,6 +1011,6 @@ ALTER TABLE ONLY roles
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20160205210203'), ('20160205212343'), ('20160205235102'), ('20160205235312'), ('20160206040344'), ('20160206080308'), ('20160207002803'), ('20160208012856'), ('20160209014508'), ('20160209023104'), ('20160212013725'), ('20160212035615'), ('20160212044636'), ('20160310003028'), ('20160310011855'), ('20160324002410');
+INSERT INTO schema_migrations (version) VALUES ('20160205210203'), ('20160205212343'), ('20160205235102'), ('20160205235312'), ('20160206040344'), ('20160206080308'), ('20160207002803'), ('20160208012856'), ('20160209014508'), ('20160209023104'), ('20160212013725'), ('20160212035615'), ('20160212044636'), ('20160310003028'), ('20160310011855'), ('20160324002410'), ('20160324214618');
 
 

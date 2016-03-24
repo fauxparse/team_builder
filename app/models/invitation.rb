@@ -3,7 +3,11 @@ class Invitation < ApplicationRecord
   belongs_to :sponsor, class_name: "Member"
   has_one :team, through: :member
 
-  enum status: [:pending, :accepted, :declined]
+  enum status: {
+    pending:  'pending',
+    accepted: 'accepted',
+    declined: 'declined'
+  }
 
   after_initialize :generate_unique_code, unless: :code?
 
