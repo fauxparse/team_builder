@@ -9,10 +9,14 @@ class TeamsController < ApplicationController
   end
 
   def show
-    @team = team_scope.find_by!(slug: params[:id])
-    respond_to do |format|
-      format.html { render_ui }
-      format.json { render json: @team }
+    @team = team_scope.find_by(slug: params[:id])
+    if @team
+      respond_to do |format|
+        format.html { render_ui }
+        format.json { render json: @team }
+      end
+    else
+      redirect_to new_team_path
     end
   end
 

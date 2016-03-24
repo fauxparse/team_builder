@@ -41,7 +41,8 @@ RSpec.describe TeamsController, type: :controller do
     before { team }
 
     context 'as HTML' do
-      before { get :show, params: { id: team.to_param } }
+      let(:team_id) { team.to_param }
+      before { get :show, params: { id: team_id } }
 
       it 'assigns the team' do
         expect(assigns(:team)).to eq team
@@ -49,6 +50,14 @@ RSpec.describe TeamsController, type: :controller do
 
       it 'sets the current team' do
         expect(cookies[:team_id]).to eq member.team_id.to_s
+      end
+
+      context 'when the team doesn’t exist' do
+        let(:team_id) { "broken" }
+
+        it 'redirects to the new team page' do
+          expect(response).to redirect_to new_team_path
+        end
       end
     end
   end
