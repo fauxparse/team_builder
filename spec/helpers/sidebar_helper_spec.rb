@@ -14,7 +14,8 @@ describe SidebarHelper do
               id: member.id,
               name: member.display_name,
               email: member.email,
-              admin: false
+              admin: false,
+              avatar: "https://placeimg.com/200/200/animals"
             },
             team: {
               id: team.id,

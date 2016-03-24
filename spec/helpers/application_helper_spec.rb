@@ -9,7 +9,8 @@ describe ApplicationHelper do
         id: member.id,
         admin: false,
         email: member.email,
-        name: member.display_name
+        name: member.display_name,
+        avatar: "https://placeimg.com/200/200/animals"
       }
     end
 

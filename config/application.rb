@@ -24,7 +24,7 @@ module TeamBuilder
 
     config.autoload_paths << Rails.root.join('lib')
 
-    %w(converters forms queries services).each do |dir|
+    %w(converters forms presenters queries services).each do |dir|
       config.autoload_paths << Rails.root.join('app', dir)
     end
 

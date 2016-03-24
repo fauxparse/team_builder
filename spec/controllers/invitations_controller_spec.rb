@@ -15,7 +15,8 @@ RSpec.describe InvitationsController, type: :controller do
         "id" => member.id,
         "name" => member.display_name,
         "email" => member.email,
-        "admin" => false
+        "admin" => false,
+        "avatar" => "https://placeimg.com/200/200/animals"
       }
     }
   end

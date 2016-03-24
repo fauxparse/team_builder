@@ -7,6 +7,12 @@ RSpec.describe MembersController do
 
   login
 
+  before do
+    allow_any_instance_of(Avatar)
+      .to receive(:url)
+      .and_return("https://placeimg.com/200/200/animals")
+  end
+
   describe 'GET /teams/:team_id/members' do
     context 'as HTML' do
       subject { response }
@@ -30,7 +36,8 @@ RSpec.describe MembersController do
             "id" => member.id,
             "name" => member.display_name,
             "email" => member.email,
-            "admin" => false
+            "admin" => false,
+            "avatar" => "https://placeimg.com/200/200/animals"
           }
         ]
       end
@@ -65,7 +72,8 @@ RSpec.describe MembersController do
           "id" => member.id,
           "name" => member.display_name,
           "email" => member.email,
-          "admin" => false
+          "admin" => false,
+          "avatar" => "https://placeimg.com/200/200/animals"
         })
       end
     end
@@ -105,7 +113,8 @@ RSpec.describe MembersController do
             "id" => Member.last.id,
             "name" => "Chewie",
             "email" => "chewie@resistance.org",
-            "admin" => false
+            "admin" => false,
+            "avatar" => "https://placeimg.com/200/200/animals"
           }
         ]
       end

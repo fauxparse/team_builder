@@ -17,7 +17,9 @@ class TeamMembers extends App.Components.Section
   member: (member) ->
     m("li", { class: "member" },
       m("a", { href: member.url(), config: m.route },
-        m("i", { class: "avatar" }, member.name().substr(0, 1)),
+        m("div", { class: "avatar" },
+          m("img", { src: member.avatar() })
+        )
         m("span", { class: "name" }, member.name())
       )
     )

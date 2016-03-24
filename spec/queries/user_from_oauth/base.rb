@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe UserFromOauth do
-  subject(:query) { UserFromOauth.new(auth) }
+describe UserFromOauth::Base do
+  subject(:query) { UserFromOauth::Base.new(auth) }
   let(:provider) { :google }
   let(:uid) { '0123456789ABCDEF'}
   let(:user_attributes) { FactoryGirl.attributes_for(:poe) }

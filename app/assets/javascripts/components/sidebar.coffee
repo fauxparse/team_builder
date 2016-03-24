@@ -10,7 +10,9 @@ class Sidebar
     klass += " show-teams" if @showTeams()
     [
       m("header", { class: klass },
-        m("div", { class: "profile-photo" })
+        m("div", { class: "profile-photo" },
+          m("img", { src: @member()?.avatar() })
+        )
         m("a", { class: "team-selector", href: "/teams", onclick: @toggleTeams },
           m("span", { class: "member-name" }, @member().name()) if @member()
           m("span", { class: "team-name" }, @team()?.name() || I18n.t("teams.none"))

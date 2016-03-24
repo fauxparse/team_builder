@@ -91,12 +91,7 @@
   }
 
   img {
-    @include position(absolute, 0rem 0rem 0rem 0rem);
-    margin: auto;
-    width: auto;
-    height: auto;
-    min-width: 100%;
-    min-height: 100%;
+    @include cropped-image;
   }
 
   .scrim {

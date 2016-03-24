@@ -7,6 +7,7 @@ FactoryGirl.define do
     sequence(:name) { |n| "User #{n}" }
     sequence(:email) { |n| "user-#{n}@resistance.org" }
     password "p4$$w0rd"
+    avatar_url "https://placeimg.com/200/200/animals"
 
     factory :poe do
       name "Poe Dameron"

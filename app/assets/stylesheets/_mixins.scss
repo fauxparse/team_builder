@@ -15,3 +15,12 @@
   -webkit-font-feature-settings: "onum";
   font-feature-settings: "onum";
 }
+
+@mixin cropped-image {
+  min-width: 100%;
+  min-height: 100%;
+  width: 100%;
+  height: auto;
+  margin: auto;
+  @include position(absolute, 0% 0% 0% 0%);
+}

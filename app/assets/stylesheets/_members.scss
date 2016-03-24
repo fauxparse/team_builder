@@ -5,21 +5,18 @@
   }
 
   li.member {
-    a i {
+    .avatar {
       @include flex(0 0 2.5rem);
       width: 2.5rem;
       height: 2.5rem;
       margin: .5rem 2rem .5rem 0;
-      background: $action-color;
-      color: rgba(white, $secondary-opacity);
       border-radius: 50%;
-      padding: .5rem;
-      line-height: 1.5rem;
-      text-align: center;
-      vertical-align: middle;
-      font-style: normal;
-      font-size: 1.25rem;
-      font-weight: 300;
+      overflow: hidden;
+      position: relative;
+
+      img {
+        @include cropped-image;
+      }
     }
 
     .name {

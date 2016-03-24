@@ -12,8 +12,13 @@ aside.sidebar {
       margin: 1rem;
       width: 4rem;
       height: 4rem;
-      background: white;
       border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+
+      img {
+        @include cropped-image;
+      }
     }
 
     .team-selector {
