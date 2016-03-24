@@ -26,6 +26,18 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 SET search_path = public, pg_catalog;
 
 --
+-- Name: availability_enthusiasm; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE availability_enthusiasm AS ENUM (
+    'unavailable',
+    'possible',
+    'available',
+    'keen'
+);
+
+
+--
 -- Name: invitation_status; Type: TYPE; Schema: public; Owner: -
 --
 
@@ -129,9 +141,9 @@ CREATE TABLE availabilities (
     id integer NOT NULL,
     occurrence_id integer,
     member_id integer,
-    enthusiasm integer DEFAULT 2,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    enthusiasm availability_enthusiasm DEFAULT 'available'::availability_enthusiasm
 );
 
 
@@ -1011,6 +1023,6 @@ ALTER TABLE ONLY roles
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20160205210203'), ('20160205212343'), ('20160205235102'), ('20160205235312'), ('20160206040344'), ('20160206080308'), ('20160207002803'), ('20160208012856'), ('20160209014508'), ('20160209023104'), ('20160212013725'), ('20160212035615'), ('20160212044636'), ('20160310003028'), ('20160310011855'), ('20160324002410'), ('20160324214618');
+INSERT INTO schema_migrations (version) VALUES ('20160205210203'), ('20160205212343'), ('20160205235102'), ('20160205235312'), ('20160206040344'), ('20160206080308'), ('20160207002803'), ('20160208012856'), ('20160209014508'), ('20160209023104'), ('20160212013725'), ('20160212035615'), ('20160212044636'), ('20160310003028'), ('20160310011855'), ('20160324002410'), ('20160324214618'), ('20160324220559');
 
 
