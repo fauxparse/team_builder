@@ -5,7 +5,7 @@ class Invitation < ApplicationRecord
 
   enum status: [:pending, :accepted, :declined]
 
-  before_validation :generate_unique_code, unless: :code?
+  after_initialize :generate_unique_code, unless: :code?
 
   validates :code, presence: true, uniqueness: true
   validates :member, :sponsor, presence: true
