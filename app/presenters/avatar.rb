@@ -17,6 +17,6 @@ class Avatar
   private
 
   def gravatar_url
-    GRAVATAR_BASE + Digest::MD5.hexdigest(email.strip.downcase) + "?s=50"
+    GRAVATAR_BASE + Digest::MD5.hexdigest(email.strip.downcase) + "?s=128"
   end
 end
