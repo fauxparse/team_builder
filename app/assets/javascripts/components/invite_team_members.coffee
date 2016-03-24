@@ -8,10 +8,10 @@ class InviteTeamMembers extends App.Components.Section
     klass = "invite-team-members"
     klass += " saving" if @saving()
     m("section", { class: klass },
-      m.component(App.Components.Header, title: -> I18n.t("teams.invite.title")),
-      m("div", { class: "new-team-inner" },
-        @formOrResults(),
+      m.component(App.Components.Header,
+        title: -> I18n.t("teams.invite.title")
       )
+      m("div", { class: "new-team-inner" }, @formOrResults())
     )
 
   formOrResults: ->
@@ -30,7 +30,7 @@ class InviteTeamMembers extends App.Components.Section
           type: "textarea"
           name: "emails"
           config: autosize
-          errors: => []
+          errors: -> []
         )
         m("p", { class: "explanation" }, I18n.t("teams.invite.explanation"))
         m("div",
@@ -49,12 +49,16 @@ class InviteTeamMembers extends App.Components.Section
       "failure"
     else
       "nothing"
-    I18n.t("teams.invite.status.#{status}", succeeded: succeeded.length, failed: failed.length)
+    I18n.t("teams.invite.status.#{status}",
+      succeeded: succeeded.length, failed: failed.length)
 
   renderMember: (member) ->
     success = !member.hasErrors()
     klass = "#{if success then "successful" else "failed"} member"
-    m("li", { class: klass, "data-name": member.name(), "data-email": member.email() },
+    m("li",
+      {
+        class: klass, "data-name": member.name(), "data-email": member.email()
+      }
       m("i", class: "material-icons")
       m("span",
         m("span", { class: "name" }, member.name())

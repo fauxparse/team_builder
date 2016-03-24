@@ -13,9 +13,14 @@ class Sidebar
         m("div", { class: "profile-photo" },
           m("img", { src: @member()?.avatar() })
         )
-        m("a", { class: "team-selector", href: "/teams", onclick: @toggleTeams },
+        m("a",
+          {
+            class: "team-selector", href: "/teams", onclick: @toggleTeams
+          },
           m("span", { class: "member-name" }, @member().name()) if @member()
-          m("span", { class: "team-name" }, @team()?.name() || I18n.t("teams.none"))
+          m("span", { class: "team-name" },
+            @team()?.name() || I18n.t("teams.none")
+          )
           m("i", { class: "material-icons" }, "arrow_drop_down")
         )
       )

@@ -14,7 +14,8 @@ class TeamMember extends App.Components.Section
             m("div", { class: "scrim" })
           )
       )
-      m("div", { class: "team-member-inner", config: @setupScrolling.bind(this) }
+      m("div",
+        { class: "team-member-inner", config: @setupScrolling.bind(this) },
         m("ul", { class: "team-member-details" }
           m("li", { rel: "name" },
             m("i", { class: "material-icons" }, "assignment_ind")
@@ -50,9 +51,13 @@ class TeamMember extends App.Components.Section
 
   onscroll: (e) =>
     if e.target == @scrollable
+      opacity = Math.min(
+        e.target.scrollTop / (@headerHeight - @minHeaderHeight),
+        1
+      )
       @header
         .css("max-height", @headerHeight - e.target.scrollTop)
-        .find(".scrim").css("opacity", Math.min(e.target.scrollTop / (@headerHeight - @minHeaderHeight), 1))
+        .find(".scrim").css("opacity", opacity)
 
 App.Components.TeamMember =
   controller: (args...) ->
