@@ -140,6 +140,7 @@ RSpec.describe MembersController do
             "name" => "Chewie",
             "email" => "chewie",
             "admin" => false,
+            "avatar" => "https://placeimg.com/200/200/animals",
             "errors" => {
               "email" => [
                 "Email is invalid"

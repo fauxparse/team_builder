@@ -1,8 +1,5 @@
 class MemberSerializer < ApplicationSerializer
-  attributes :id, :name, :email, :admin
-  attribute :avatar, if: :persisted?
-
-  delegate :persisted?, to: :object
+  attributes :id, :name, :email, :admin, :avatar
 
   def name
     object.display_name

@@ -16,7 +16,8 @@ class ApplicationController < ActionController::Base
   def current_member
     @current_member ||= cookies[:team_id] &&
       current_user.members.find_by(team_id: cookies[:team_id]) ||
-      current_user.members.first
+      current_user.members.first ||
+      current_user.members.build
   end
 
   def current_team
