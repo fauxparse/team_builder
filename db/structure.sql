@@ -48,6 +48,21 @@ CREATE TYPE invitation_status AS ENUM (
 );
 
 
+--
+-- Name: repeat_type; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE repeat_type AS ENUM (
+    'never',
+    'daily',
+    'weekly',
+    'monthly_by_day',
+    'monthly_by_week',
+    'yearly_by_date',
+    'yearly_by_day'
+);
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -173,14 +188,14 @@ ALTER SEQUENCE availabilities_id_seq OWNED BY availabilities.id;
 CREATE TABLE event_recurrence_rules (
     id integer NOT NULL,
     event_id integer,
-    repeat_type integer DEFAULT 0,
     "interval" integer DEFAULT 1,
     count integer,
     stops_at timestamp without time zone,
     weekdays integer[] DEFAULT '{}'::integer[],
     monthly_weeks integer[] DEFAULT '{}'::integer[],
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    repeat_type repeat_type DEFAULT 'never'::repeat_type
 );
 
 
@@ -1023,6 +1038,6 @@ ALTER TABLE ONLY roles
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20160205210203'), ('20160205212343'), ('20160205235102'), ('20160205235312'), ('20160206040344'), ('20160206080308'), ('20160207002803'), ('20160208012856'), ('20160209014508'), ('20160209023104'), ('20160212013725'), ('20160212035615'), ('20160212044636'), ('20160310003028'), ('20160310011855'), ('20160324002410'), ('20160324214618'), ('20160324220559');
+INSERT INTO schema_migrations (version) VALUES ('20160205210203'), ('20160205212343'), ('20160205235102'), ('20160205235312'), ('20160206040344'), ('20160206080308'), ('20160207002803'), ('20160208012856'), ('20160209014508'), ('20160209023104'), ('20160212013725'), ('20160212035615'), ('20160212044636'), ('20160310003028'), ('20160310011855'), ('20160324002410'), ('20160324214618'), ('20160324220559'), ('20160324221552');
 
 

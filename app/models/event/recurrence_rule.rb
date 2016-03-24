@@ -1,11 +1,15 @@
 class Event::RecurrenceRule < ApplicationRecord
   belongs_to :event
 
-  enum repeat_type: [
-    :never, :daily, :weekly,
-    :monthly_by_day, :monthly_by_week,
-    :yearly_by_date, :yearly_by_day
-  ]
+  enum repeat_type: {
+    never:           'never',
+    daily:           'daily',
+    weekly:          'weekly',
+    monthly_by_day:  'monthly_by_day',
+    monthly_by_week: 'monthly_by_week',
+    yearly_by_date:  'yearly_by_date',
+    yearly_by_day:   'yearly_by_day'
+  }
 
   validates :count,
     numericality: { greater_than: 0, only_integer: true },
