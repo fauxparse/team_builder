@@ -13,4 +13,8 @@ class Occurrence < ApplicationRecord
   scope :between, ->(start, stop) {
     where("starts_at >= ? AND starts_at < ?", start, stop)
   }
+
+  def stops_at
+    starts_at + event.duration.seconds
+  end
 end

@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
   include CustomTimeZone
 
-  belongs_to :team
+  belongs_to :team, inverse_of: :events
   has_many :recurrence_rules, dependent: :destroy, autosave: true
   has_many :occurrences, inverse_of: :event, dependent: :destroy
   has_many :allocations, dependent: :destroy, autosave: true

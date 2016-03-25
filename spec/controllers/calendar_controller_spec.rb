@@ -147,14 +147,20 @@ RSpec.describe CalendarController, type: :controller do
           let(:expected_json) do
             [
               {
-                "event_id"  => events.last.id,
+                "team"      => team.to_param,
+                "event"     => events.last.to_param,
                 "name"      => events.last.name,
-                "starts_at" => events.last.starts_at.iso8601
+                "starts_at" => events.last.starts_at.iso8601,
+                "stops_at"  => (events.last.starts_at + events.last.duration)
+                                 .iso8601
               },
               {
-                "event_id"  => events.first.id,
+                "team"      => team.to_param,
+                "event"     => events.first.to_param,
                 "name"      => events.first.name,
-                "starts_at" => events.first.starts_at.iso8601
+                "starts_at" => events.first.starts_at.iso8601,
+                "stops_at"  => (events.first.starts_at + events.last.duration)
+                                 .iso8601
               }
             ]
           end
