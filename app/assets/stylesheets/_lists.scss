@@ -24,3 +24,10 @@
     }
   }
 }
+
+@mixin list-header {
+  font-size: $small-font-size;
+  line-height: 1rem;
+  font-weight: bold;
+  color: $secondary-font-color;
+}

@@ -4,6 +4,7 @@ class Calendar extends App.Components.Section
     @offset = m.prop(0)
     @index = m.prop(0)
     @selected = m.prop(null)
+    @eventsForSelectedDate = m.prop([])
     @_window = 10
     @_rowHeight = 80
     @_weekAt = {}
@@ -37,8 +38,7 @@ class Calendar extends App.Components.Section
             style: "#{$.support.transform}: translateY(#{-@offset()}px);"
           }, @renderWeeks())
         )
-      ),
-      m.component(App.Components.NewEvent)
+      )
     )
 
   updateSelected: (selected) ->
@@ -104,18 +104,29 @@ class Calendar extends App.Components.Section
       dates.push d.clone()
       d.add(1, "day")
       break if d.day() == 1 || !d.isSame(date, "month")
+
+    selected = false
+    selected = true for d in dates when d.isSame(@selected())
     klass = "week"
-    klass += " selected" for d in dates when d.isSame(@selected())
+    klass += " selected" if selected
     monthStart = dates[0].date() == 1
+    selectedCount = selected &&
+      Math.min(@eventsForSelectedDate().length, 4) || 0
+
     if dates.length < 7 || monthStart
       klass += if monthStart then " month-start" else " month-end"
-    m("section", {
-      class: klass,
-      key: "W" + key,
-      style: "top: #{@verticalPosition(index)}px",
-      "data-start-date": key,
-      "data-index": index
-    }, (@renderDay(d) for d in dates))
+    m("section",
+      {
+        class: klass,
+        key: "W" + key,
+        style: "top: #{@verticalPosition(index)}px",
+        "data-start-date": key,
+        "data-index": index
+        "data-event-count": selectedCount
+      },
+      (@renderDay(d) for d in dates)
+      @renderEvents(selected)
+    )
 
   renderDay: (date) ->
     key = date.format("YYYY-MM-DD")
@@ -133,6 +144,39 @@ class Calendar extends App.Components.Section
     attrs["data-month-name"] = date.format("MMMM") if date.date() == 1
     m("article", attrs,
       m("span", { class: "number" }, date.date())
+    )
+
+  renderEvents: (selected) ->
+    contents = if selected
+      events = @eventsForSelectedDate().slice(0, 3)
+      [
+        m("h4", @selected().format(I18n.t("moment.long")))
+        m("ul",
+          (@renderEvent(event) for event in events)
+        )
+        m("p", I18n.t("calendar.empty_day")) unless events.length
+        m("p", { class: "more" },
+          I18n.t("calendar.more", count: @eventsForSelectedDate().length - 3)
+        ) if @eventsForSelectedDate().length > 3
+      ]
+    else
+      []
+
+    m("section", { class: "selected-events" }, contents)
+
+  renderEvent: (event) ->
+    m("li",
+      m("a", { href: "#" },
+        m("i", { class: "material-icons" }, "event")
+        m("span",
+          m("span", { class: "name" }, event.name)
+          m("span", { class: "times" },
+            moment(event.starts_at).format(I18n.t("moment.time"))
+            "–"
+            moment(event.stops_at).format(I18n.t("moment.time"))
+          )
+        )
+      )
     )
 
   scroll: (offset) ->
@@ -157,9 +201,6 @@ class Calendar extends App.Components.Section
     @_timestamp = Date.now()
     clearInterval(@_ticker)
     @_ticker = setInterval(@track, 100)
-    # e.preventDefault()
-    # e.stopPropagation()
-    # false
 
   touchMove: (e) =>
     if @_pressed
@@ -167,9 +208,6 @@ class Calendar extends App.Components.Section
       delta = @_reference - y
       @_reference = y
       @scroll(@offset() + delta)
-      # e.preventDefault()
-      # e.stopPropagation()
-      # false
 
   touchEnd: (e) =>
     @_pressed = false
@@ -179,9 +217,6 @@ class Calendar extends App.Components.Section
       @_target = Math.round(@offset() + @_amplitude)
       @_timestamp = Date.now()
       requestAnimationFrame(@autoScroll)
-    # e.preventDefault()
-    # e.stopPropagation()
-    # false
 
   track: =>
     now = Date.now()
@@ -211,10 +246,13 @@ class Calendar extends App.Components.Section
       if day.length
         e.preventDefault()
         e.stopPropagation()
+        @eventsForSelectedDate([])
         if day.is(".selected")
+          @_fetchEvents?.request().abort()
           @selected(null)
         else
           @selected(moment(day.data("date")))
+          @fetchEvents(@selected()).then(@eventsForSelectedDate)
 
   eventCount: (date) ->
     @_eventCounts ||= {}
@@ -222,18 +260,30 @@ class Calendar extends App.Components.Section
     if @_eventCounts[key]?
       @_eventCounts[key]
     else
-      @fetchEvents(date)
+      @fetchEventCounts(date)
       0
 
-  fetchEvents: (date) ->
-    @_fetchEvents ||= {}
-    @_fetchEvents[date.year() * 12 + date.month()] ||= m.request
+  fetchEventCounts: (date) ->
+    @_fetchEventCounts ||= {}
+    @_fetchEventCounts[date.year() * 12 + date.month()] ||= m.request
       method: "GET"
       url: "/calendar/#{date.format("YYYY/MM")}"
     .then (data) =>
       m.computation =>
         @_eventCounts ||= {}
         $.extend(@_eventCounts, data)
+
+  fetchEvents: (date) ->
+    key = date.format("YYYY/MM/DD")
+    unless @_fetchEvents?.key == key
+      @_fetchEvents?.request().abort()
+      request = m.prop()
+      @_fetchEvents = m.request(
+        url: "/calendar/#{key}"
+        config: request
+      )
+      @_fetchEvents.request = request
+    @_fetchEvents
 
 App.Components.Calendar =
   controller: (props = {}) ->

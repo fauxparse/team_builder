@@ -51,6 +51,12 @@ en:
 
   calendar:
     title: "Calendar"
+    more: "and %{count} more…"
+    empty_day: "(nothing planned)"
+
+  moment:
+    long: "dddd, D MMMM, YYYY"
+    time: "h:mm A"
 
   devise:
     sessions:
