@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       sessions: 'users/sessions'
     }
 
+  get '/calendar/:year/:month/:day' => 'calendar#show'
   get '/calendar(/:year(/:month))' => 'calendar#index'
 
   resources :teams do

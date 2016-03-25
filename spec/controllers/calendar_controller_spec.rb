@@ -112,4 +112,57 @@ RSpec.describe CalendarController, type: :controller do
       end
     end
   end
+
+  describe 'GET /calendar/:year/:month/:day' do
+    let(:params) do
+      {
+        year: events.first.starts_at.year,
+        month: events.first.starts_at.month,
+        day: events.first.starts_at.day,
+        team_id: team.to_param
+      }
+    end
+
+    context 'as JSON' do
+      before { get :show, params: params.merge(format: :json) }
+
+      context 'with two events' do
+        let(:events) do
+          [
+            FactoryGirl.create(:event, team: team,
+                               starts_at: "2015-12-17 10:00:00 +1300"),
+            FactoryGirl.create(:event, :weekly, team: team)
+          ]
+        end
+
+        describe '#response' do
+          subject { response }
+
+          it { is_expected.to be_success }
+        end
+
+        describe 'response#body' do
+          subject { ActiveSupport::JSON.decode(response.body) }
+
+          let(:expected_json) do
+            [
+              {
+                "event_id"  => events.last.id,
+                "name"      => events.last.name,
+                "starts_at" => events.last.starts_at.iso8601
+              },
+              {
+                "event_id"  => events.first.id,
+                "name"      => events.first.name,
+                "starts_at" => events.first.starts_at.iso8601
+              }
+            ]
+          end
+
+          it { is_expected.to have_exactly(2).items }
+          it { is_expected.to eq expected_json }
+        end
+      end
+    end
+  end
 end

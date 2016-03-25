@@ -11,6 +11,12 @@ class EventsBetween
     @events ||= scope.between(start_time, stop_time)
   end
 
+  def occurrences
+    @occurrences ||= events.flat_map do |event|
+      event.occurrences_between(start_time, stop_time)
+    end.sort_by(&:starts_at)
+  end
+
   def counts_by_day
     today = start_time.dup.beginning_of_day
     {}.tap do |results|

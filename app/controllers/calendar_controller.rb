@@ -9,17 +9,26 @@ class CalendarController < ApplicationController
     end
   end
 
+  def show
+    events = EventsBetween.new(*range, scope)
+    render json: events.occurrences
+  end
+
   private
 
   def range
-    start = if params[:month]
+    start = if params[:day]
+      Time.zone.local(params[:year], params[:month], params[:day])
+    elsif params[:month]
       Time.zone.local(params[:year], params[:month])
     elsif params[:year]
       Time.zone.local(params[:year])
     else
       Time.zone.now.beginning_of_month
     end
-    [start, start + 1.month]
+
+    period = params[:day] ? 1.day : 1.month
+    [start, start + period]
   end
 
   def scope

@@ -1,5 +1,5 @@
 class Occurrence < ApplicationRecord
-  belongs_to :event
+  belongs_to :event, inverse_of: :occurrences
   has_many :availabilities, dependent: :destroy, autosave: true
   has_many :assignments, dependent: :destroy, autosave: true
   has_many :available_members, through: :availabilities,
