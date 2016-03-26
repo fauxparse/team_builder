@@ -149,7 +149,7 @@ class Calendar extends App.Components.Section
   renderEvents: (selected) ->
     contents = if selected
       events = @eventsForSelectedDate().slice(0, 3)
-      [
+      m("div", { class: "selected-events-inner" },
         m("h4", @selected().format(I18n.t("moment.long")))
         m("ul",
           (@renderEvent(event) for event in events)
@@ -158,9 +158,9 @@ class Calendar extends App.Components.Section
         m("p", { class: "more" },
           I18n.t("calendar.more", count: @eventsForSelectedDate().length - 3)
         ) if @eventsForSelectedDate().length > 3
-      ]
+      )
     else
-      []
+      m("div", { class: "selected-events-inner" })
 
     m("section", { class: "selected-events" }, contents)
 
