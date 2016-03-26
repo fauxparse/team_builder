@@ -79,9 +79,9 @@ class App.Model
   asJSON: ->
     json = {}
     for own key, value of @attributes()
-      json[key] = if value.asJSON?
+      json[key] = if value?.asJSON?
         value.asJSON()
-      else if @_dateTimeAttributes[key]
+      else if @_dateTimeAttributes?[key]
         value.toISOString()
       else
         value
