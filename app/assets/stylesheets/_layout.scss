@@ -27,15 +27,21 @@ main {
   @include position(absolute, 0rem 0rem 0rem 0rem);
   overflow: hidden;
 
-  > section {
-    @include position(absolute, 0rem 0rem 0rem 0rem);
+  > .page {
+    @include position(absolute, 0rem null null 0rem);
+    width: 100%;
+    height: 100%;
 
-    > header {
-      @include header;
+    > section {
+      @include position(absolute, 0rem 0rem 0rem 0rem);
 
-      + div {
-        @include position(absolute, 0rem 0rem 0rem 0rem);
-        overflow-y: auto;
+      > header {
+        @include header;
+
+        + div {
+          @include position(absolute, 0rem 0rem 0rem 0rem);
+          overflow-y: auto;
+        }
       }
     }
   }

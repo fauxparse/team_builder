@@ -49,7 +49,7 @@ class Sidebar
 
   link: (route, title, icon, options = {}) ->
     m("li", { class: if m.route() == route then "current" else "" }
-      m("a", $.extend({ href: route, config: m.route }, options),
+      m("a", $.extend({ href: route, config: m.route.animate() }, options),
         m("i", { class: "material-icons" }, icon),
         m("span", title)
       )

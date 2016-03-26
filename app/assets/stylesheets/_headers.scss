@@ -65,8 +65,8 @@
     text-align: left;
   }
 
-  + div {
-    padding-top: 11rem;
+  main .page & + div {
+    padding-top: $tall-header-height;
   }
 }
 
