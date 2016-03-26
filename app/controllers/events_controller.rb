@@ -8,7 +8,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html { render_ui }
-      format.json { render json: @occurrence }
+      format.json { render json: event, occurrence: @occurrence }
     end
   end
 
@@ -23,7 +23,7 @@ class EventsController < ApplicationController
   end
 
   def date
-    Date.civil(params[:year], params[:month], params[:day])
+    Date.new *[params[:year], params[:month], params[:day]].map(&:to_i)
   rescue
     nil
   end

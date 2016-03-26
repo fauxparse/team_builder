@@ -17,4 +17,20 @@ class Occurrence < ApplicationRecord
   def stops_at
     starts_at + event.duration.seconds
   end
+
+  def first?
+    starts_at == event.starts_at
+  end
+
+  def last?
+    next_starts_at.nil?
+  end
+
+  def previous_starts_at
+    event.schedule.previous_occurrence(starts_at)
+  end
+
+  def next_starts_at
+    event.schedule.next_occurrence(stops_at)
+  end
 end

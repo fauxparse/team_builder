@@ -1,5 +1,9 @@
 class OccurrenceSerializer < ActiveModel::Serializer
-  attributes :team, :event, :name, :starts_at, :stops_at
+  attributes :team, :event, :name, :starts_at, :stops_at, :next, :previous
+
+  def name
+    object.event.name
+  end
 
   def team
     object.event.team.to_param
@@ -17,7 +21,11 @@ class OccurrenceSerializer < ActiveModel::Serializer
     object.stops_at.iso8601
   end
 
-  def name
-    object.event.name
+  def previous
+    object.previous_starts_at.try(&:iso8601)
+  end
+
+  def next
+    object.next_starts_at.try(&:iso8601)
   end
 end

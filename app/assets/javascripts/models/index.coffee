@@ -9,15 +9,23 @@ class App.Model
     @saving = m.prop(false)
     @errors = m.prop({})
     for attr in @constructor.attributes
-      @[attr] = m.prop()
+      @[attr] ||= m.prop()
     @attributes(attrs)
 
   attributes: (attrs = {}) ->
+    self = this
     for own key, value of attrs
-      (@[key] ?= m.prop())(value)
+      (@[key] ?= m.prop()).call(self, value)
     @constructor.attributes.reduce (memo, attr) =>
-      $.extend(memo, "#{attr}": @[attr]())
+      memo[attr] = @[attr]()
+      memo
     , { id: @id() }
+
+  dateTimeAttribute: (name) ->
+    cache = (@_dateTimeAttributes ||= {})[name] ||= m.prop()
+    @[name] = (value) ->
+      cache(moment(value)) if value?
+      cache()
 
   toParam: -> @id()
 
@@ -69,7 +77,15 @@ class App.Model
     promise.reject(this)
 
   asJSON: ->
-    @attributes()
+    json = {}
+    for own key, value of @attributes()
+      json[key] = if value.asJSON?
+        value.asJSON()
+      else if @_dateTimeAttributes[key]
+        value.toISOString()
+      else
+        value
+    json
 
   @configure: (name, attributes...) ->
     @name = name
@@ -83,14 +99,20 @@ class App.Model
     else
       new this(data)
 
-  @fetch: (id) ->
+  @fetch: (args...) ->
     @_fetch ?= {}
+    options = if args.length && $.isPlainObject(args[args.length - 1])
+      args.pop()
+    else
+      {}
+    id = args.shift()
     key = id || "all"
     unless @_fetch[key]
       @_fetch[key] = m.deferred()
-      url = @url()
+      url = options.url || @url()
       url += "/" + id if id?
-      m.request({ method: "get", url: url + "?_cache=false" })
+      url += "?_cache=false" unless options.allowCache
+      m.request({ method: "get", url: url })
         .then (data) =>
           @_fetch[key].resolve(@refresh(data))
     @_fetch[key].promise

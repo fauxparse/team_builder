@@ -43,7 +43,7 @@ class Calendar extends App.Components.Section
 
   updateSelected: (selected) ->
     @title(selected.format("MMMM YYYY"))
-    path = "/calendar/" + selected.format("YYYY/MM")
+    path = @url() + selected.format("/YYYY/MM")
     history.replaceState({}, "", @_path = path) unless @_path == path
 
   dateFromParams: ->
@@ -167,7 +167,7 @@ class Calendar extends App.Components.Section
   renderEvent: (event, date) ->
     ymd = date.format("YYYY/MM/DD")
     m("li",
-      m("a", { href: "/teams/#{event.team}/events/#{event.event}/#{ymd}", config: m.route },
+      m("a", { href: "/teams/#{event.team}/events/#{event.event}/#{ymd}", config: m.route.animate() },
         m("i", { class: "material-icons" }, "event")
         m("span",
           m("span", { class: "name" }, event.name)
@@ -287,8 +287,8 @@ class Calendar extends App.Components.Section
     @_fetchEvents
 
   url: ->
-    @_url ||= if m.route.param("team_id")
-      "/teams/#{m.route.param("team_id")}/calendar"
+    @_url ||= if m.route.param("team")
+      "/teams/#{m.route.param("team")}/calendar"
     else
       "/calendar"
 

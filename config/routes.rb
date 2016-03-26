@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     post :check, on: :collection
     post :check, on: :member
 
+    get '/calendar/:year/:month/:day' => 'calendar#show'
+    get '/calendar(/:year(/:month))' => 'calendar#index'
+
     resources :events do
       get '/:year/:month/:day' => :show, on: :member, as: :specific
     end

@@ -11,4 +11,8 @@ class ApplicationSerializer < ActiveModel::Serializer
   def has_errors?
     object.errors.any?
   end
+
+  def child(resource, options = {})
+    ActiveModel::SerializableResource.new(resource, options).as_json
+  end
 end

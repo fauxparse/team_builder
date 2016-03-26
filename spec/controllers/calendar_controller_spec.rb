@@ -152,7 +152,9 @@ RSpec.describe CalendarController, type: :controller do
                 "name"      => events.last.name,
                 "starts_at" => events.last.starts_at.iso8601,
                 "stops_at"  => (events.last.starts_at + events.last.duration)
-                                 .iso8601
+                                 .iso8601,
+                "next"      => "2015-12-24T00:01:00+13:00",
+                "previous"  => nil
               },
               {
                 "team"      => team.to_param,
@@ -160,7 +162,9 @@ RSpec.describe CalendarController, type: :controller do
                 "name"      => events.first.name,
                 "starts_at" => events.first.starts_at.iso8601,
                 "stops_at"  => (events.first.starts_at + events.last.duration)
-                                 .iso8601
+                                 .iso8601,
+                "next"      => nil,
+                "previous"  => nil
               }
             ]
           end

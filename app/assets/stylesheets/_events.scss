@@ -1,0 +1,9 @@
+.manage-event {
+  > header {
+    h2 small {
+      display: block;
+      font-size: $base-font-size;
+      font-weight: normal;
+    }
+  }
+}
