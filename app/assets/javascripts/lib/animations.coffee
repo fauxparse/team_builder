@@ -70,7 +70,7 @@ m.route.animate = (options = {}) ->
       e.preventDefault()
       oldRoute = m.route()
       newRoute = el.getAttribute("href")
-      m.route.animate.options = options.animation ||
+      m.route.animate.options = ANIMATION_OPTIONS[options.animation] ||
         animationOptionsFor(oldRoute, newRoute)
       m.route(newRoute)
       document.getElementById("show-sidebar").checked = false
