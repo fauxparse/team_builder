@@ -18,7 +18,7 @@ describe RecordAvailability do
         occurrence.availabilities.build(member: member,
           enthusiasm: :unavailable)
       end
-      let(:occurrence) { event.first_occurrence.tap(&:save) }
+      let(:occurrence) { event.first_occurrence.tap(&:save!) }
 
       before { availability.save! }
 

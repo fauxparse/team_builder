@@ -99,4 +99,10 @@ RSpec.describe Event, type: :model do
       end
     end
   end
+
+  describe '#first_occurrence' do
+    subject { event.first_occurrence }
+
+    it { is_expected.to be_valid }
+  end
 end

@@ -51,7 +51,7 @@ class Event < ApplicationRecord
   end
 
   def occurrence_at(time)
-    time = schedule.next_occurrence(time)
+    time = schedule.occurs_at?(time) ? time : schedule.next_occurrence(time)
     occurrences.find_by(starts_at: time) ||
       occurrences.build(starts_at: time)
   end
