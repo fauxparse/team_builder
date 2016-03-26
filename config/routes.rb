@@ -15,7 +15,10 @@ Rails.application.routes.draw do
     post :check, on: :collection
     post :check, on: :member
 
-    resources :events
+    resources :events do
+      get '/:year/:month/:day' => :show, on: :member, as: :specific
+    end
+
     resources :members
     resources :roles, except: [:new, :edit] do
       post :check, on: :collection

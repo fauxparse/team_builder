@@ -42,8 +42,22 @@ class Event < ApplicationRecord
     end
   end
 
+  def occurrence_on(date)
+    schedule.occurs_on?(date) && occurrence_at(date.beginning_of_day) || nil
+  end
+
+  def occurrence_on!(date)
+    occurrence_on(date) || raise(ActiveRecord::NotFound)
+  end
+
+  def occurrence_at(time)
+    time = schedule.next_occurrence(time)
+    occurrences.find_by(starts_at: time) ||
+      occurrences.build(starts_at: time)
+  end
+
   def first_occurrence
-    occurrences_between(starts_at, starts_at).first
+    occurrence_at(starts_at)
   end
 
   def self.between(start_time, stop_time)

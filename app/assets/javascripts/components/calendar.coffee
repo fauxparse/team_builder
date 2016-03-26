@@ -152,7 +152,7 @@ class Calendar extends App.Components.Section
       m("div", { class: "selected-events-inner" },
         m("h4", @selected().format(I18n.t("moment.long")))
         m("ul",
-          (@renderEvent(event) for event in events)
+          (@renderEvent(event, @selected()) for event in events)
         )
         m("p", I18n.t("calendar.empty_day")) unless events.length
         m("p", { class: "more" },
@@ -164,9 +164,10 @@ class Calendar extends App.Components.Section
 
     m("section", { class: "selected-events" }, contents)
 
-  renderEvent: (event) ->
+  renderEvent: (event, date) ->
+    ymd = date.format("YYYY/MM/DD")
     m("li",
-      m("a", { href: "#" },
+      m("a", { href: "/teams/#{event.team}/events/#{event.event}/#{ymd}", config: m.route },
         m("i", { class: "material-icons" }, "event")
         m("span",
           m("span", { class: "name" }, event.name)
@@ -267,7 +268,7 @@ class Calendar extends App.Components.Section
     @_fetchEventCounts ||= {}
     @_fetchEventCounts[date.year() * 12 + date.month()] ||= m.request
       method: "GET"
-      url: "/calendar/#{date.format("YYYY/MM")}"
+      url: @url() + "/#{date.format("YYYY/MM")}"
     .then (data) =>
       m.computation =>
         @_eventCounts ||= {}
@@ -279,11 +280,17 @@ class Calendar extends App.Components.Section
       @_fetchEvents?.request().abort()
       request = m.prop()
       @_fetchEvents = m.request(
-        url: "/calendar/#{key}"
+        url: @url() + "/#{key}"
         config: request
       )
       @_fetchEvents.request = request
     @_fetchEvents
+
+  url: ->
+    @_url ||= if m.route.param("team_id")
+      "/teams/#{m.route.param("team_id")}/calendar"
+    else
+      "/calendar"
 
 App.Components.Calendar =
   controller: (props = {}) ->
