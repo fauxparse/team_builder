@@ -1,4 +1,4 @@
-ANIMATION_OPTIONS =
+@ANIMATION_OPTIONS =
   none:
     in: { from: {}, to: {}, duration: 0, easing: "linear" }
     out: { from: {}, to: {}, duration: 0, easing: "linear" }

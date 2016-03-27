@@ -1,9 +1,35 @@
-.manage-event {
+.page .manage-event {
+  @include display(flex);
+  @include flex-direction(column);
+
   > header {
+    position: static;
+
     h2 small {
       display: block;
       font-size: $base-font-size;
       font-weight: normal;
+    }
+  }
+
+  .manage-event-inner {
+    @include flex(1);
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+
+    .pages {
+      @include position(absolute, 0% null 0% 0%);
+      width: 100%;
+    }
+
+    .occurrence {
+      @include position(absolute, 0% null 0% 0%);
+      width: 100%;
+
+      .loading {
+        background: $green;
+      }
     }
   }
 }

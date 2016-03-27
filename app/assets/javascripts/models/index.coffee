@@ -24,8 +24,13 @@ class App.Model
   dateTimeAttribute: (name) ->
     cache = (@_dateTimeAttributes ||= {})[name] ||= m.prop()
     @[name] = (value) ->
-      cache(moment(value)) if value?
+      if arguments.length
+        value = moment(value) if value && !moment.isMoment(value)
+        cache(value)
       cache()
+
+  dateTimeAttributes: (names...) ->
+    @dateTimeAttribute(name) for name in names
 
   toParam: -> @id()
 
@@ -82,7 +87,7 @@ class App.Model
       json[key] = if value?.asJSON?
         value.asJSON()
       else if @_dateTimeAttributes?[key]
-        value.toISOString()
+        value && value.toISOString()
       else
         value
     json

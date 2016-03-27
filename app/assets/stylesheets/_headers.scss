@@ -39,6 +39,11 @@
       width: 1.5rem;
       text-align: center;
     }
+
+    &:disabled {
+      opacity: $disabled-opacity;
+      cursor: not-allowed;
+    }
   }
 
   h2 {
