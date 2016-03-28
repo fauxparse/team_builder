@@ -44,17 +44,16 @@ class ManageEvent extends App.Components.Section
     if @_cache[index]
       m.component(App.Components.ManageEventOccurrence, {
         occurrence: @_cache[index]
+        event: @event
         index: index
         key: index
       })
 
   title: =>
-    if @occurrence()
+    if @event()
       [
         @event().name(),
-        m("small",
-          @occurrence().starts_at().format(I18n.t("moment.long"))
-        )
+        m("small", I18n.dateRange(@event().starts_at(), @event().stops_at()))
       ]
     else
      ""

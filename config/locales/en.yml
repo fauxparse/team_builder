@@ -55,8 +55,16 @@ en:
     empty_day: "(nothing planned)"
 
   moment:
+    full: "hh:mm A, dddd, D MMMM, YYYY"
     long: "dddd, D MMMM, YYYY"
-    time: "h:mm A"
+    short: "D MMMM, YYYY"
+    time: "hh:mm A"
+    range:
+      from: "From %{date}"
+      same_day: "%{d1} %{m1}, %{y1}"
+      same_month: "%{d1}–%{d2} %{m1}, %{y1}"
+      same_year: "%{d1} %{m1} – %{d2} %{m2}, %{y1}"
+      different: "%{d1} %{m1}, %{y1} – %{d2} %{m2}, %{y2}"
 
   devise:
     sessions:

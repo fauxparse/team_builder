@@ -1,5 +1,5 @@
 class EventSerializer < ApplicationSerializer
-  attributes :id, :name, :slug, :starts_at, :stops_at
+  attributes :id, :name, :slug, :starts_at, :stops_at, :duration
   attribute :occurrence, if: :include_occurrence?
 
   def occurrence

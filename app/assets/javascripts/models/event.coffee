@@ -1,5 +1,9 @@
 class App.Models.Event extends App.Model
-  @configure "Event", "name", "slug", "occurrence"
+  @configure "Event", "name", "slug", "occurrence", "starts_at", "stops_at"
+
+  constructor: (attrs) ->
+    @dateTimeAttributes "starts_at", "stops_at"
+    super(attrs)
 
   toParam: ->
     @slug()
