@@ -23,7 +23,7 @@ class EventsController < ApplicationController
   end
 
   def date
-    Date.new *[params[:year], params[:month], params[:day]].map(&:to_i)
+    Date.new(*[params[:year], params[:month], params[:day]].map(&:to_i))
   rescue
     nil
   end
