@@ -230,10 +230,10 @@ CREATE TABLE events (
     description text,
     starts_at timestamp without time zone,
     stops_at timestamp without time zone,
+    time_zone_name character varying,
     duration integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    time_zone_name character varying
+    updated_at timestamp without time zone NOT NULL
 );
 
 

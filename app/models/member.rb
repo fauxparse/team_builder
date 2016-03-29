@@ -39,7 +39,6 @@ class Member < ApplicationRecord
   private
 
   def sanitize_email
-    write_attribute(:email, read_attribute(:email).downcase) \
-      if read_attribute(:email).present?
+    self[:email].downcase! if self[:email].present?
   end
 end
