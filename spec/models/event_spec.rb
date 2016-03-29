@@ -105,4 +105,35 @@ RSpec.describe Event, type: :model do
 
     it { is_expected.to be_valid }
   end
+
+  describe '#occurrence_on' do
+    subject(:occurrence) { event.occurrence_on(date) }
+
+    context 'for the date the event starts' do
+      let(:date) { Date.new(2015, 12, 17) }
+
+      it { is_expected.to be_an_instance_of Occurrence }
+
+      it 'has the right time' do
+        expect(occurrence.starts_at).to eq event.starts_at
+      end
+    end
+
+    context 'for a bad date' do
+      let(:date) { Date.new(2015, 12, 12) }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'for a weekly event' do
+      let(:event) { FactoryGirl.create(:event, :weekly) }
+      let(:date) { Date.new(2015, 12, 24) }
+
+      it { is_expected.to be_an_instance_of Occurrence }
+
+      it 'has the right time' do
+        expect(occurrence.starts_at).to eq event.starts_at + 1.week
+      end
+    end
+  end
 end
