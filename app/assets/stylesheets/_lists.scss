@@ -2,25 +2,41 @@
   padding: .5rem 0;
 
   li {
-    a {
+    @include display(flex);
+    @include flex-direction(row);
+
+    > a {
+      @include flex(1);
       @include display(flex);
       @include flex-direction(row);
       color: $base-font-color;
 
-      > i {
-        @include flex(0 0);
-        @include align-self(flex-start);
-        padding: .75rem 1rem;
-        color: $secondary-font-color;
-      }
-
       > span {
-        @include ellipsis;
-        @include flex(1);
-        @include align-self(center);
-        line-height: 1.5rem;
         font-weight: bold;
       }
+    }
+
+    i {
+      @include flex(0 0);
+      @include align-self(flex-start);
+      padding: .75rem 1rem;
+      color: $secondary-font-color;
+    }
+
+    > i {
+      margin-right: 1rem;
+    }
+
+    > span, > a > span {
+      @include ellipsis;
+      @include flex(1);
+      @include align-self(center);
+      line-height: 1.5rem;
+    }
+
+    span span {
+      display: block;
+      line-height: 1.25rem;
     }
   }
 }

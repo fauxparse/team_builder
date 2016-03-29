@@ -22,14 +22,15 @@
       @include position(absolute, 0% null 0% 0%);
       width: 100%;
     }
+  }
 
-    .occurrence {
-      @include position(absolute, 0% null 0% 0%);
-      width: 100%;
+  .occurrence {
+    @include position(absolute, 0% null 0% 0%);
+    background: $base-background-color;
+    width: 100%;
 
-      .loading {
-        background: $green;
-      }
+    .details {
+      @include action-list;
     }
   }
 }
