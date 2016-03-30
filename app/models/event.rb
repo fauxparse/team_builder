@@ -46,10 +46,6 @@ class Event < ApplicationRecord
     schedule.occurs_on?(date) && occurrence_at(date.beginning_of_day) || nil
   end
 
-  def occurrence_on!(date)
-    occurrence_on(date) || raise(ActiveRecord::NotFound)
-  end
-
   def occurrence_at(time)
     time = schedule.occurs_at?(time) ? time : schedule.next_occurrence(time)
     occurrences.find_by(starts_at: time) ||
