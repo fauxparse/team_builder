@@ -27,6 +27,7 @@ $secondary-font-color: rgba(black, $secondary-opacity);
 $disabled-font-color: rgba(black, $disabled-opacity);
 $action-color: $pink;
 $error-color: $red;
+$secondary-color: $yellow;
 
 // Border
 $base-border-color: rgba(black, $border-opacity);
@@ -53,3 +54,5 @@ $header-color: white;
 $sidebar-width: (20rem - $header-height);
 
 $floating-action-button-size: 3.5rem;
+
+$tab-highlight-color: $secondary-color;

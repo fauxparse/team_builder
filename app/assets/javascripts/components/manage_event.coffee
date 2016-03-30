@@ -1,7 +1,13 @@
 class ManageEvent extends App.Components.Section
+  @TABS = [
+    [ "summary", "Summary" ]
+    [ "people", "People" ]
+  ]
+
   constructor: (props) ->
     @event = m.prop()
     @index = m.prop(0)
+    @tab = m.prop("summary")
     @_cache = {}
 
   view: ->
@@ -11,6 +17,7 @@ class ManageEvent extends App.Components.Section
         title: @title
         left: @backButton("/teams/#{m.route.param("team")}/calendar")
         right: @navigationButtons
+        content: @tabs
       )
       m("div", { class: "manage-event-inner", config: @config },
         m("div",
@@ -23,6 +30,9 @@ class ManageEvent extends App.Components.Section
         )
       )
     )
+
+  tabs: =>
+    m.component(App.Components.Tabs, tabs: @constructor.TABS, selected: @tab)
 
   config: (el, isInitialized) =>
     unless isInitialized
@@ -47,13 +57,14 @@ class ManageEvent extends App.Components.Section
         event: @event
         index: index
         key: index
+        tab: @tab
       })
 
   title: =>
     if @event()
       [
         @event().name(),
-        m("small", I18n.dateRange(@event().starts_at(), @event().stops_at()))
+        m("small", @_cache[@index()].starts_at().format(I18n.t("moment.long")))
       ]
     else
       ""

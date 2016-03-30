@@ -3,6 +3,7 @@ class ManageEventOccurrence
     @occurrence = m.prop(props.occurrence)
     @event = props.event
     @index = props.index
+    @tab = props.tab
 
   view: =>
     klass = "occurrence"
@@ -12,12 +13,7 @@ class ManageEventOccurrence
         style: "left: #{@index * 100}%",
         key: @occurrence().url()
       },
-      m("ul", { class: "details" },
-        m("li",
-          m("i", { class: "material-icons" }, "access_time")
-          m("span", @times())
-        )
-      )
+      @[@tab()]()
     )
 
   times: ->
@@ -36,6 +32,16 @@ class ManageEventOccurrence
         m("span", @occurrence().stops_at().format(I18n.t("moment.full")))
       ]
 
+  summary: ->
+    m("ul", { class: "details" },
+      m("li",
+        m("i", { class: "material-icons" }, "access_time")
+        m("span", @times())
+      )
+    )
+
+  people: ->
+    []
 
 App.Components.ManageEventOccurrence =
   controller: (args...) ->
