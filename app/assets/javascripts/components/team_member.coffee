@@ -8,7 +8,7 @@ class TeamMember extends App.Components.Section
     m("section", { class: klass },
       m.component(App.Components.Header,
         title: => @member()?.name()
-        content: =>
+        content: ->
           m("div", { class: "header-image" },
             m("img", src: "/assets/placeholder/profile-header.jpg")
             m("div", { class: "scrim" })

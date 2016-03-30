@@ -32,7 +32,7 @@ class NewTeam extends App.Components.Section
     m.redraw()
     m.route(@team().url())
 
-  teamCreationFailed: =>
+  teamCreationFailed: ->
     m.redraw()
 
 App.Components.NewTeam =

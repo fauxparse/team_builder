@@ -106,7 +106,7 @@ class Calendar extends App.Components.Section
       break if d.day() == 1 || !d.isSame(date, "month")
 
     selected = false
-    selected = true for d in dates when d.isSame(@selected())
+    (selected = true) for d in dates when d.isSame(@selected())
     klass = "week"
     klass += " selected" if selected
     monthStart = dates[0].date() == 1
@@ -167,7 +167,11 @@ class Calendar extends App.Components.Section
   renderEvent: (event, date) ->
     ymd = date.format("YYYY/MM/DD")
     m("li",
-      m("a", { href: "/teams/#{event.team}/events/#{event.event}/#{ymd}", config: m.route.animate() },
+      m("a",
+        {
+          href: "/teams/#{event.team}/events/#{event.event}/#{ymd}",
+          config: m.route.animate()
+        },
         m("i", { class: "material-icons" }, "event")
         m("span",
           m("span", { class: "name" }, event.name)

@@ -49,9 +49,9 @@ class RoleEditor
   save: =>
     @role.save()
 
-  cancel: =>
+  cancel: ->
 
-  destroy: =>
+  destroy: ->
 
   nameChanged: (e) =>
     @role.name(e.target.value)

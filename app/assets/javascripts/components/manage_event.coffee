@@ -56,7 +56,7 @@ class ManageEvent extends App.Components.Section
         m("small", I18n.dateRange(@event().starts_at(), @event().stops_at()))
       ]
     else
-     ""
+      ""
 
   navigationButtons: =>
     if @event()

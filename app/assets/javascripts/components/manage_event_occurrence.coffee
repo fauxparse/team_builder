@@ -6,7 +6,12 @@ class ManageEventOccurrence
 
   view: =>
     klass = "occurrence"
-    m("section", { class: klass, style: "left: #{@index * 100}%", key: @occurrence().url() },
+    m("section",
+      {
+        class: klass,
+        style: "left: #{@index * 100}%",
+        key: @occurrence().url()
+      },
       m("ul", { class: "details" },
         m("li",
           m("i", { class: "material-icons" }, "access_time")
