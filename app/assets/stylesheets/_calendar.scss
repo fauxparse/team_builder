@@ -155,31 +155,31 @@
     }
 
     .day.selected[data-day="1"] ~ .selected-events::after {
-      left: 1 * 100% / 14;
+      left: percentage(1/14);
     }
 
     .day.selected[data-day="2"] ~ .selected-events::after {
-      left: 3 * 100% / 14;
+      left: percentage(3/14);
     }
 
     .day.selected[data-day="3"] ~ .selected-events::after {
-      left: 5 * 100% / 14;
+      left: percentage(5/14);
     }
 
     .day.selected[data-day="4"] ~ .selected-events::after {
-      left: 7 * 100% / 14;
+      left: percentage(7/14);
     }
 
     .day.selected[data-day="5"] ~ .selected-events::after {
-      left: 9 * 100% / 14;
+      left: percentage(9/14);
     }
 
     .day.selected[data-day="6"] ~ .selected-events::after {
-      left: 11 * 100% / 14;
+      left: percentage(11/14);
     }
 
     .day.selected[data-day="0"] ~ .selected-events::after {
-      left: 13 * 100% / 14;
+      left: percentage(13/14);
     }
 
     &.selected {
