@@ -5,6 +5,7 @@ m.route document.querySelector("main"), "/",
   "/teams/:team/members/:id": App.Components.TeamMember
   "/teams/:team/members": App.Components.TeamMembers
   "/teams/:team/roles": App.Components.TeamRoles
+  "/teams/:team/calendar/:year/:month": App.Components.Calendar
   "/teams/:team/calendar": App.Components.Calendar
   "/teams/new": App.Components.NewTeam
   "/teams/:team": App.Components.ToDo
