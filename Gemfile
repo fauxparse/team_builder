@@ -87,6 +87,7 @@ group :development do
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'guard-i18n-js', git: 'https://github.com/fauxparse/guard-i18n-js.git'
+  gem 'guard-ctags-bundler'
   gem 'byebug'
 end
 
