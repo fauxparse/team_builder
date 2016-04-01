@@ -34,3 +34,42 @@
     }
   }
 }
+
+.my-availability {
+  @include display(flex);
+  @include flex-direction(row);
+  @include justify-content(space-around);
+  border-bottom: $base-border;
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  label {
+    text-align: center;
+    font-weight: normal;
+    color: $disabled-font-color;
+    @include base-transition(color);
+    padding: 1rem 1rem .5rem;
+    cursor: pointer;
+  }
+
+  small {
+    display: block;
+    font-size: .75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  :checked + label[data-value="unavailable"] {
+    color: $unavailable-color;
+  }
+
+  :checked + label[data-value="possible"] {
+    color: $possible-color;
+  }
+
+  :checked + label[data-value="available"] {
+    color: $available-color;
+  }
+}

@@ -33,11 +33,40 @@ class ManageEventOccurrence
       ]
 
   summary: ->
-    m("ul", { class: "details" },
-      m("li",
-        m("i", { class: "material-icons" }, "access_time")
-        m("span", @times())
+    [
+      @myAvailability(),
+      m("ul", { class: "details" },
+        m("li",
+          m("i", { class: "material-icons" }, "access_time")
+          m("span", @times())
+        )
       )
+    ]
+
+  myAvailability: ->
+    buttons = [
+      ["unavailable", "block"]
+      ["possible", "help"]
+      ["available", "check_circle"]
+    ]
+    selectedValue = @occurrence().availabilityFor(App.Models.Member.current())
+    makeButton = (value, icon) =>
+      id = "my-availability-#{value}"
+      [
+        m("input", {
+          type: "radio"
+          id: id
+          name: "my-availability"
+          value: value
+          checked: value == selectedValue
+        })
+        m("label", { for: id, "data-value": value },
+          m("i", { class: "material-icons" }, icon)
+          m("small", I18n.t("availability.#{value}"))
+        )
+      ]
+    m("div", { class: "my-availability" },
+      (makeButton(button...) for button in buttons)
     )
 
   people: ->

@@ -1,6 +1,6 @@
 class App.Models.Occurrence extends App.Model
   @configure "Occurrence", "team", "event", "starts_at", "stops_at",
-    "previous", "next"
+    "previous", "next", "availability"
 
   constructor: (attrs) ->
     @dateTimeAttributes "starts_at", "stops_at", "previous", "next"
@@ -34,3 +34,7 @@ class App.Models.Occurrence extends App.Model
 
   duration: (value) ->
     @stops_at().diff(@starts_at(), "seconds")
+
+  availabilityFor: (member) ->
+    (@availability() || {})[member.id()]
+
