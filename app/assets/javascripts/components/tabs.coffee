@@ -30,12 +30,22 @@ class Tabs
   positionHighlight: (el, isInitialized) =>
     @_highlight = el || @_highlight
     if @_highlight
-      selected = $(@_highlight).prev().find(".selected")
+      highlight = $(@_highlight)
+      selected = highlight.prev().find(".selected")
       if selected.length
-        $(@_highlight)
-          .css(left: selected.position().left, width: selected.outerWidth())
+        x1 = highlight.position().left
+        w1 = highlight.outerWidth()
+        x2 = selected.position().left
+        w2 = selected.outerWidth()
+        if x2 + w2 > x1 + w1
+          highlight.css(width: (x2 + w2) - x1)
+        else
+          highlight.css(left: x2, width: x1 + w1 - x2)
+        setTimeout =>
+          highlight.css(left: x2, width: w2)
+        , 250
       else
-        $(@_highlight).css(left: 0, width: 0)
+        highlight.css(left: 0, width: 0)
 
   click: (e) =>
     @selected($(e.target).closest("li").data("tab"))
