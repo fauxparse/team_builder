@@ -18,9 +18,6 @@ Rails.application.routes.draw do
     get '/calendar/:year/:month/:day' => 'calendar#show'
     get '/calendar(/:year(/:month))' => 'calendar#index'
 
-    resources :events do
-    end
-
     nested do
       resources :events do
         nested do
