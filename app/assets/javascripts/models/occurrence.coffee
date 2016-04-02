@@ -38,3 +38,16 @@ class App.Models.Occurrence extends App.Model
   availabilityFor: (member) ->
     (@availability() || {})[member.id()]
 
+  setAvailabilityFor: (member, availability) ->
+    hash = @availability() || {}
+    hash[member.id()] = availability
+    @availability(hash)
+    clearTimeout(@_updateAvailability)
+    @_updateAvailability = setTimeout(@updateAvailability, 250)
+
+  updateAvailability: =>
+    m.request({
+      method: "put"
+      url: @url() + "/availability"
+      data: { availability: @availability() || {} }
+    }).then(@availability)

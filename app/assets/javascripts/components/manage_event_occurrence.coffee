@@ -51,26 +51,35 @@ class ManageEventOccurrence
     ]
     selectedValue = @occurrence().availabilityFor(App.Models.Member.current())
     makeButton = (value, icon) =>
-      id = "my-availability-#{value}"
-      [
-        m("input", {
-          type: "radio"
-          id: id
-          name: "my-availability"
-          value: value
-          checked: value == selectedValue
-        })
-        m("label", { for: id, "data-value": value },
-          m("i", { class: "material-icons" }, icon)
-          m("small", I18n.t("availability.#{value}"))
-        )
-      ]
+      klass = "availability"
+      action = if value == selectedValue
+        klass += " selected"
+        @removeMyAvailability
+      else
+        @setMyAvailability
+      m("button",
+        {
+          class: klass,
+          "data-value": value,
+          onclick: m.withAttr("data-value", action)
+        }
+        m("i", { class: "material-icons" }, icon)
+        m("small", I18n.t("availability.#{value}"))
+      )
     m("div", { class: "my-availability" },
       (makeButton(button...) for button in buttons)
     )
 
   people: ->
     []
+
+  setMyAvailability: (level) =>
+    m.computation =>
+      @occurrence().setAvailabilityFor(App.Models.Member.current(), level)
+
+  removeMyAvailability: =>
+    m.computation =>
+      @occurrence().setAvailabilityFor(App.Models.Member.current(), null)
 
 App.Components.ManageEventOccurrence =
   controller: (args...) ->

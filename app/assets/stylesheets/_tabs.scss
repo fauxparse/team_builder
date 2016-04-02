@@ -37,7 +37,7 @@
 
   hr {
     @include position(absolute, null null 0rem 0rem);
-    @include transition(all .25s $base-timing);
+    @include transition(all .25s $ease-in-out-cubic);
     margin: 0;
     border: none;
     height: .125rem;

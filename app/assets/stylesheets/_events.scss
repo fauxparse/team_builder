@@ -41,35 +41,39 @@
   @include justify-content(space-around);
   border-bottom: $base-border;
 
-  input[type="radio"] {
-    display: none;
-  }
-
-  label {
+  button {
     text-align: center;
     font-weight: normal;
     color: $disabled-font-color;
     @include base-transition(color);
-    padding: 1rem 1rem .5rem;
+    padding: 1rem;
     cursor: pointer;
+    background: none;
+    outline: none;
+  }
+
+  i {
+    display: block;
+    margin-bottom: .5rem;
   }
 
   small {
     display: block;
+    line-height: 1rem;
     font-size: .75rem;
     font-weight: 500;
     text-transform: uppercase;
   }
 
-  :checked + label[data-value="unavailable"] {
+  .selected[data-value="unavailable"] {
     color: $unavailable-color;
   }
 
-  :checked + label[data-value="possible"] {
+  .selected[data-value="possible"] {
     color: $possible-color;
   }
 
-  :checked + label[data-value="available"] {
+  .selected[data-value="available"] {
     color: $available-color;
   }
 }
