@@ -1,8 +1,6 @@
 class AvailabilityController < ApplicationController
   include EventOccurrences
 
-  respond_to :json
-
   def show
     if occurrence.present?
       render json: AvailabilityHash.new(occurrence)
@@ -12,11 +10,8 @@ class AvailabilityController < ApplicationController
   end
 
   def update
-    if UpdateAvailability.new(occurrence, availability_params).call
-      render json: AvailabilityHash.new(occurrence)
-    else
-      head :unprocessable_entity
-    end
+    UpdateAvailability.new(occurrence, availability_params).call
+    render json: AvailabilityHash.new(occurrence)
   end
 
   private

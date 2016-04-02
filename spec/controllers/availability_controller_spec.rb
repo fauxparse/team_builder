@@ -49,6 +49,21 @@ RSpec.describe AvailabilityController, type: :controller do
           it { is_expected.to eq(member.id.to_s => "possible") }
         end
       end
+
+      context 'for a bad date' do
+        let(:params) do
+          {
+            team_id: team.to_param,
+            event_id: event.to_param,
+            format: :json,
+            year: 2015,
+            month: 12,
+            day: 18
+          }
+        end
+
+        it { is_expected.to be_not_found }
+      end
     end
   end
 
