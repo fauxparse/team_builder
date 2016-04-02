@@ -1,5 +1,6 @@
 class OccurrenceSerializer < ActiveModel::Serializer
   attributes :team, :event, :name, :starts_at, :stops_at, :next, :previous
+  attribute :availability, if: :include_availability?
 
   def name
     object.event.name
@@ -27,5 +28,13 @@ class OccurrenceSerializer < ActiveModel::Serializer
 
   def next
     object.next_starts_at.try(&:iso8601)
+  end
+
+  def include_availability?
+    !!instance_options[:include_availability]
+  end
+
+  def availability
+    AvailabilityHash.new(object).to_h
   end
 end

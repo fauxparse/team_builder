@@ -1,5 +1,5 @@
 class Availability < ApplicationRecord
-  belongs_to :occurrence
+  belongs_to :occurrence, inverse_of: :availabilities
   belongs_to :member
 
   enum enthusiasm: {
@@ -9,6 +9,6 @@ class Availability < ApplicationRecord
     keen:        'keen'
   }
 
-  validates :occurrence_id, :member_id, :enthusiasm,
+  validates :occurrence, :member_id, :enthusiasm,
     presence: true
 end

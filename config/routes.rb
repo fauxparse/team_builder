@@ -19,11 +19,23 @@ Rails.application.routes.draw do
     get '/calendar(/:year(/:month))' => 'calendar#index'
 
     resources :events do
-      get '/:year/:month/:day' => :show, on: :member, as: :specific
+    end
+
+    nested do
+      resources :events do
+        nested do
+          scope ':year/:month/:day' do
+            get 'availability' => 'availability#show'
+            put 'availability' => 'availability#update'
+          end
+
+          get ':year/:month/:day' => "events#show", as: :occurrence
+        end
+      end
     end
 
     resources :members
-    resources :roles, except: [:new, :edit] do
+    resources :roles, except: %i[new edit] do
       post :check, on: :collection
       post :check, on: :member
     end

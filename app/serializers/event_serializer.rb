@@ -3,7 +3,10 @@ class EventSerializer < ApplicationSerializer
   attribute :occurrence, if: :include_occurrence?
 
   def occurrence
-    child(instance_options[:occurrence] || object.first_occurrence)
+    child(
+      instance_options[:occurrence] || object.first_occurrence,
+      include_availability: true
+    )
   end
 
   def include_occurrence?
