@@ -12,7 +12,11 @@ module EventOccurrences
   end
 
   def event
-    @event ||= team.events.find_by!(slug: params[:event_id])
+    @event ||= team.events.find_by!(slug: event_id)
+  end
+
+  def event_id
+    params[:event_id]
   end
 
   def team

@@ -16,7 +16,7 @@ class EventsController < ApplicationController
 
   private
 
-  def event
-    @event ||= team.events.find_by!(slug: params[:id])
+  def event_id
+    params[:event_id] || params[:id]
   end
 end
