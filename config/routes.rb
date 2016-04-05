@@ -20,6 +20,9 @@ Rails.application.routes.draw do
 
     nested do
       resources :events do
+        post :check, on: :collection
+        post :check, on: :member
+
         nested do
           scope ':year/:month/:day' do
             get 'availability' => 'availability#show'

@@ -1,5 +1,6 @@
 m.route.mode = "pathname"
 m.route document.querySelector("main"), "/",
+  "/teams/:team/events/new": App.Components.NewEvent
   "/teams/:team/events/:id/:year/:month/:day": App.Components.ManageEvent
   "/teams/:team/members/new": App.Components.InviteTeamMembers
   "/teams/:team/members/:id": App.Components.TeamMember

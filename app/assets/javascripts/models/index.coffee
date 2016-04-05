@@ -92,6 +92,19 @@ class App.Model
         value
     json
 
+  check: (data = nil) ->
+    deferred = m.deferred()
+    callback = (attrs) =>
+      @errors({})
+      @attributes(attrs)
+      deferred.resolve(this)
+    m.request(
+      url: @url() + "/check"
+      method: "post"
+      data: data || @asJSON()
+    ).then(callback, callback)
+    deferred.promise
+
   @configure: (name, attributes...) ->
     @name = name
     @attributes = attributes

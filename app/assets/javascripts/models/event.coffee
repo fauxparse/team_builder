@@ -14,3 +14,9 @@ class App.Models.Event extends App.Model
     @_occurrence()
 
   @url: -> "/teams/#{m.route.param("team")}/events"
+
+  @blank: ->
+    new App.Models.Event(
+      starts_at: moment().startOf("hour").add(1, "hour"),
+      duration: 3600
+    )
