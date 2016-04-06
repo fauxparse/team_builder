@@ -28,7 +28,7 @@ class Event < ApplicationRecord
   end
 
   def starts_at
-    super.in_time_zone(time_zone)
+    super.try(:in_time_zone, time_zone)
   end
 
   def occurrences_between(start_time, stop_time)

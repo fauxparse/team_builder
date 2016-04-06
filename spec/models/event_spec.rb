@@ -12,6 +12,14 @@ RSpec.describe Event, type: :model do
     end
   end
 
+  describe '#starts_at' do
+    context 'for a new event' do
+      subject { Event.new.starts_at }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe '#time_zone' do
     context 'when the event is newly initialized' do
       subject { Event.new.time_zone }
