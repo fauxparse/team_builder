@@ -27,6 +27,10 @@ en:
         failure: "%{failed} invitation(s) failed to send."
         nothing: "There was nothing to do."
 
+  events:
+    new:
+      title: "New Event"
+
   members:
     title: "Team members"
 
@@ -59,6 +63,9 @@ en:
     attributes:
       team:
         name: "Team name"
+        slug: "URL"
+      event:
+        name: "Event name"
         slug: "URL"
       member:
         display_name: "Name"

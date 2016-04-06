@@ -14,6 +14,20 @@ class EventsController < ApplicationController
     end
   end
 
+  def new
+    @event = team.events.build
+    respond_to do |format|
+      format.html { render_ui }
+      format.json { render json: @event }
+    end
+  end
+
+  def check
+    @event = params[:id] && team.events.find(params[:id]) || team.events.build
+    @event.attributes = event_params
+    render json: @event, status: @event.valid? ? :ok : :unprocessable_entity
+  end
+
   private
 
   def event_id
@@ -22,5 +36,11 @@ class EventsController < ApplicationController
 
   def event_scope
     team.events.includes(allocations: :role)
+  end
+
+  def event_params
+    params
+      .require(:event)
+      .permit(:name, :slug, :starts_at, :duration, :time_zone_name)
   end
 end
