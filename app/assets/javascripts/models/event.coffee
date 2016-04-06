@@ -1,5 +1,6 @@
 class App.Models.Event extends App.Model
-  @configure "Event", "name", "slug", "occurrence", "starts_at", "stops_at"
+  @configure "Event", "name", "slug", "occurrence", "starts_at", "stops_at",
+    "allocations"
 
   constructor: (attrs) ->
     @dateTimeAttributes "starts_at", "stops_at"
@@ -12,5 +13,11 @@ class App.Models.Event extends App.Model
     @_occurrence ||= m.prop()
     @_occurrence(new App.Models.Occurrence(value)) if value?
     @_occurrence()
+
+  allocations: (values) ->
+    @_allocations ||= m.prop()
+    if values?
+      @_allocations(new App.Models.Allocation(value) for value in values)
+    @_allocations()
 
   @url: -> "/teams/#{m.route.param("team")}/events"

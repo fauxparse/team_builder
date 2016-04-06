@@ -19,4 +19,8 @@ class EventsController < ApplicationController
   def event_id
     params[:event_id] || params[:id]
   end
+
+  def event_scope
+    team.events.includes(allocations: :role)
+  end
 end

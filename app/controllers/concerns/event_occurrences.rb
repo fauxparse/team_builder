@@ -11,8 +11,12 @@ module EventOccurrences
     end
   end
 
+  def event_scope
+    team.events
+  end
+
   def event
-    @event ||= team.events.find_by!(slug: event_id)
+    @event ||= event_scope.find_by!(slug: event_id)
   end
 
   def event_id

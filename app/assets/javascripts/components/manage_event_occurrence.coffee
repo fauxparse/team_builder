@@ -71,7 +71,14 @@ class ManageEventOccurrence
     )
 
   people: ->
-    []
+    [
+      (@castingSection(allocation) for allocation in @event().allocations())
+    ]
+
+  castingSection: (allocation) ->
+    m("section",
+      m("h4", allocation.name())
+    )
 
   setMyAvailability: (level) =>
     m.computation =>
