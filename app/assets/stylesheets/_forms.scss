@@ -141,3 +141,10 @@
 p.explanation {
   color: $secondary-font-color;
 }
+
+.date-time-picker {
+  @include display(flex);
+  .field {
+    @include flex(1);
+  }
+}

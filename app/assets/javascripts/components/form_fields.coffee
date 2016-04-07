@@ -1,11 +1,11 @@
 class TextField
-  constructor: (label, prop, options) ->
+  constructor: (label, prop, options = {}) ->
     @label = label
     @value = prop
     @options = options
     @options.errors ||= -> []
     @options.type ||= "text"
-    @options.id ||= @options.name.replace(/\[/g, "_").replace(/\]/g, "")
+    @options.id ||= @options.name?.replace(/\[/g, "_").replace(/\]/g, "")
 
   view: ->
     m("div", { class: @fieldClass() },

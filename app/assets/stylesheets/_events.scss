@@ -77,3 +77,16 @@
     color: $available-color;
   }
 }
+
+.new-event {
+  .date-and-time {
+    @include display(flex);
+
+    .date-time-picker {
+      @include flex(2);
+      &:last-child {
+        @include flex(1);
+      }
+    }
+  }
+}

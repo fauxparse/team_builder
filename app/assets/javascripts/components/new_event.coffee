@@ -26,6 +26,19 @@ class NewEvent extends App.Components.Section
             root: @eventsURL(),
             oninput: @slugChanged,
             errors: => @event().errorsOn("slug")
+          ),
+          m("div", { class: "date-and-time" },
+            m.component(App.Components.DateTimePicker,
+              I18n.t("activerecord.attributes.event.starts_at"),
+              @event().starts_at,
+              errors: => @event().errorsOn("starts_at")
+            )
+            m.component(App.Components.DateTimePicker,
+              I18n.t("events.edit.until"),
+              @stopsAt,
+              errors: => []
+              showDate: false
+            )
           )
         )
       )
@@ -42,6 +55,16 @@ class NewEvent extends App.Components.Section
     @event().slug(e.target.value.trim())
     @_autoUpdateSlug = false
     @check()
+
+  stopsAt: (value) =>
+    start = @event().starts_at()
+    if value?
+      stop = start.clone()
+      stop.hour(value.hour())
+      stop.minute(value.minute())
+      stop.add(1, "day") while stop.isBefore(start)
+      @event().duration(stop.diff(start, "seconds"))
+    start.clone().add(@event().duration(), "seconds")
 
   check: ->
     clearTimeout(@_check)
