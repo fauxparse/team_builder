@@ -20,12 +20,12 @@ class EventSerializer < ApplicationSerializer
   end
 
   def repeat_type
-    recurrence_rule.repeat_type
+    recurrence_rule.try(:repeat_type) || "never"
   end
 
   private
 
   def recurrence_rule
-    @repeat_type ||= object.recurrence_rules.first
+    @recurrence_rule ||= object.recurrence_rules.first
   end
 end

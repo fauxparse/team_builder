@@ -12,8 +12,8 @@ class Event < ApplicationRecord
     limit: 32,
     scope: :team_id
 
-  validates :name, :slug,
-    presence: true
+  validates :name, :slug, presence: true
+  validates_associated :recurrence_rules
 
   before_update :fix_occurrence_time_zones, if: :time_zone_changed?
   before_update :fix_occurrence_times, if: :starts_at_changed?

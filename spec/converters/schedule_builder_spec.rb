@@ -6,6 +6,15 @@ describe ScheduleBuilder do
   let(:schedule) { builder.schedule }
   let(:occurrences) { schedule.all_occurrences }
 
+  def create_recurrence_rule(*traits)
+    attributes = FactoryGirl.attributes_for(
+      :recurrence_rule,
+      *traits,
+      event: event
+    ).except(:event)
+    event.recurrence_rules.create(attributes)
+  end
+
   context 'for an event that does not repeat' do
     context 'by default' do
       it 'has one occurrence' do
@@ -26,7 +35,7 @@ describe ScheduleBuilder do
 
   context 'for an event that repeats daily' do
     before do
-      FactoryGirl.create(:recurrence_rule, :daily, :three_times, event: event)
+      create_recurrence_rule(:daily, :three_times)
     end
 
     it 'happens on three consecutive days' do
@@ -36,7 +45,7 @@ describe ScheduleBuilder do
 
   context 'for an event that repeats on weekdays' do
     before do
-      FactoryGirl.create(:recurrence_rule, :weekdays, :three_times, event: event)
+      create_recurrence_rule(:weekdays, :three_times)
     end
 
     it 'skips the weekend' do
@@ -50,7 +59,7 @@ describe ScheduleBuilder do
 
   context 'for an event that repeats weekly' do
     before do
-      FactoryGirl.create(:recurrence_rule, :weekly, :three_times, event: event)
+      create_recurrence_rule(:weekly, :three_times)
     end
 
     it 'repeats each week' do
@@ -64,8 +73,7 @@ describe ScheduleBuilder do
 
   context 'for an event that repeats monthly' do
     before do
-      FactoryGirl.create(:recurrence_rule, :monthly_by_day,
-        :three_times, event: event)
+      create_recurrence_rule(:monthly_by_day, :three_times)
     end
 
     it 'repeats each month' do
@@ -79,8 +87,7 @@ describe ScheduleBuilder do
 
   context 'for an event that repeats monthly by week' do
     before do
-      FactoryGirl.create(:recurrence_rule, :monthly_by_week,
-        :three_times, event: event)
+      create_recurrence_rule(:monthly_by_week, :three_times)
     end
 
     it 'repeats on the third Thursday of each month' do
@@ -94,8 +101,7 @@ describe ScheduleBuilder do
 
   context 'for an event that repeats yearly by date' do
     before do
-      FactoryGirl.create(:recurrence_rule, :yearly_by_date,
-        :three_times, event: event)
+      create_recurrence_rule(:yearly_by_date, :three_times)
     end
 
     it 'repeats annually on the same date' do
@@ -109,8 +115,7 @@ describe ScheduleBuilder do
 
   context 'for an event that repeats yearly by day' do
     before do
-      FactoryGirl.create(:recurrence_rule, :yearly_by_day,
-        :three_times, event: event)
+      create_recurrence_rule(:yearly_by_day, :three_times)
     end
 
     it 'repeats annually on the same day' do
@@ -127,7 +132,7 @@ describe ScheduleBuilder do
 
     context 'for an event with no end date and no count' do
       before do
-        FactoryGirl.create(:recurrence_rule, :daily, event: event)
+        create_recurrence_rule(:daily)
       end
 
       it { is_expected.not_to be_terminating }
@@ -135,8 +140,7 @@ describe ScheduleBuilder do
 
     context 'for an event with a set end date' do
       before do
-        FactoryGirl.create(:recurrence_rule, :daily, :date_limited,
-          event: event)
+        create_recurrence_rule(:daily, :date_limited)
       end
 
       it 'has a limited number of occurrences' do
