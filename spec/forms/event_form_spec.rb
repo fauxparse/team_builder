@@ -22,7 +22,8 @@ describe EventForm do
     {
       event: {
         name: "",
-        duration: 86400
+        duration: 86400,
+        repeat_type: "sporadically"
       }
     }
   end
@@ -76,9 +77,24 @@ describe EventForm do
           form.save
         end
 
-        it 'has errors on name' do
+        it 'has an error on name' do
           form.save
-          expect(event).to have(1).error_on :name
+          expect(form.errors[:name]).to eq ["can’t be blank"]
+        end
+
+        it 'has an error on repeat_type' do
+          form.save
+          expect(form.errors[:repeat_type]).to eq ["is invalid"]
+        end
+
+        it 'generates full error messages' do
+          form.save
+          expect(form.as_json[:errors])
+            .to eq({
+              name: ["Event name can’t be blank"],
+              slug: ["URL can’t be blank"],
+              repeat_type: ["Repeat type is invalid"]
+            })
         end
       end
     end

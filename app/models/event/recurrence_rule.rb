@@ -31,17 +31,19 @@ class Event::RecurrenceRule < ApplicationRecord
 
   def weekdays
     super.tap do |days|
-      days << event.starts_at.wday if days.empty?
+      days << starts_at.wday if days.empty? && starts_at.present?
     end
   end
 
   def monthly_weeks
     super.tap do |weeks|
-      weeks << (event.starts_at.day / 7.0).ceil if weeks.empty?
+      weeks << (starts_at.day / 7.0).ceil if weeks.empty? && starts_at.present?
     end
   end
 
   private
+
+  delegate :starts_at, to: :event
 
   def validate_weekdays
     unless weekdays.all? { |d| (0..6).include?(d) }
