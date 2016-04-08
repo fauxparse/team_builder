@@ -35,7 +35,7 @@ class EventsController < ApplicationController
   end
 
   def event_scope
-    team.events.includes(allocations: :role)
+    super.includes(allocations: :role)
   end
 
   def event_params

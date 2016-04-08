@@ -10,7 +10,7 @@ class TextField
   view: ->
     m("div", { class: @fieldClass() },
       @inputTag(),
-      m("label", { for: @options.id }, @label) if @label,
+      m("label", { for: @options.id }, @labelText()) if @label,
       @errorMessages()
     )
 
@@ -20,6 +20,12 @@ class TextField
     klass += " has-value" if @value()
     klass += " has-errors" if @options.errors().length
     klass
+
+  labelText: ->
+    if typeof @label is "function"
+      @label()
+    else
+      @label
 
   inputTag: ->
     options = $.extend({ oninput: @onInput }, @options)
@@ -37,7 +43,7 @@ class TextField
     m.computation => @value(e.target.value)
 
 class URLField extends TextField
-  constructor: (label, prop, options) ->
+  constructor: (label, prop, options = {}) ->
     @root = options.root
     delete options.root
     super(label, prop, options)
@@ -56,6 +62,57 @@ class URLField extends TextField
       @errorMessages()
     )
 
+class Checkbox
+  constructor: (label, prop, options = {}) ->
+    @label = label
+    @prop = prop
+    @options = options
+
+  view: ->
+    m("div", { class: @fieldClass() },
+      m("label",
+        m("input", @inputOptions())
+        m("span", @labelText())
+      )
+    )
+
+  fieldClass: ->
+    "field checkbox-field"
+
+  labelText: ->
+    if typeof @label is "function"
+      @label()
+    else
+      @label
+
+  inputOptions: ->
+    {
+      type: "checkbox"
+      checked: @checked()
+      name: @options.name
+      value: @options.value
+      onchange: @changed
+    }
+
+  changed: (e) =>
+    @prop(e.target.checked)
+
+  checked: ->
+    @prop()
+
+class RadioButton extends Checkbox
+  fieldClass: ->
+    "field radio-button-field"
+
+  inputOptions: ->
+    $.extend(super, type: "radio")
+
+  changed: (e) =>
+    @prop(e.target.value) if e.target.checked
+
+  checked: ->
+    @prop() == @options.value
+
 App.Components.TextField =
   controller: (args...) ->
     new TextField(args...)
@@ -66,6 +123,20 @@ App.Components.TextField =
 App.Components.URLField =
   controller: (args...) ->
     new URLField(args...)
+
+  view: (controller) ->
+    controller.view()
+
+App.Components.Checkbox =
+  controller: (args...) ->
+    new Checkbox(args...)
+
+  view: (controller) ->
+    controller.view()
+
+App.Components.RadioButton =
+  controller: (args...) ->
+    new RadioButton(args...)
 
   view: (controller) ->
     controller.view()

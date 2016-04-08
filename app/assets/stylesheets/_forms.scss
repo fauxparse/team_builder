@@ -148,3 +148,56 @@ p.explanation {
     @include flex(1);
   }
 }
+
+.checkbox-field,
+.radio-button-field {
+  label {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    color: $base-font-color;
+  }
+
+  input {
+    display: none;
+  }
+
+  span {
+    display: block;
+    padding: .5rem 0 .5rem 2.5rem;
+    margin: 0 -.5rem;
+    line-height: 1.5rem;
+    vertical-align: middle;
+    position: relative;
+
+    &::before {
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      padding: .5rem;
+      text-align: center;
+      line-height: 1em;
+      font: normal 1.5rem/1.0 "Material Icons";
+      content: "check_box_outline_blank";
+      color: $secondary-font-color;
+    }
+  }
+
+  :checked + span::before {
+    color: $action-color;
+    content: "check_box";
+  }
+
+  input:disabled + span::before { color: $disabled-font-color; }
+
+  input[type="radio"] + span::before {
+    content: "radio_button_unchecked";
+  }
+
+  input[type="radio"]:checked + span::before {
+    content: "radio_button_checked";
+  }
+}

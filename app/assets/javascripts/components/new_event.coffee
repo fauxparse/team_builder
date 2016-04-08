@@ -40,6 +40,40 @@ class NewEvent extends App.Components.Section
               showDate: false
             )
           )
+          m.component(App.Components.Checkbox,
+            I18n.t("events.edit.repeat")
+            @event().repeats
+          )
+          m("div", { class: "repeat-options" },
+            m.component(App.Components.RadioButton,
+              I18n.t("events.edit.repeats.weekly")
+              @event().repeat_type
+              name: "repeat_type"
+              value: "weekly"
+            )
+            m.component(App.Components.RadioButton,
+              =>
+                I18n.t("events.edit.repeats.monthly_by_day",
+                  day: moment.localeData().ordinal(@event().starts_at().date())
+                )
+              @event().repeat_type
+              name: "repeat_type"
+              value: "monthly_by_day"
+            )
+            m.component(App.Components.RadioButton,
+              =>
+                I18n.t("events.edit.repeats.monthly_by_week",
+                  week: moment.localeData().ordinal(
+                    Math.ceil(@event().starts_at().date() / 7)
+                  ),
+                  day: @event().starts_at().format("dddd")
+                )
+              @event().repeat_type
+              name: "repeat_type"
+              value: "monthly_by_week"
+            )
+
+          ) if @event().repeats()
         )
       )
     )

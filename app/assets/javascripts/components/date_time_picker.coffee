@@ -42,20 +42,21 @@ class DateTimePicker
     @setDateOrTime(value, "time")
 
   setDateOrTime: (value, type) ->
-    datetime = if moment.isMoment(value)
-      delete @_cache[type]
-      value.clone()
-    else
-      @_cache[type] = value
-      @parseDate(value, I18n.t("moment.#{type}_picker.accepted"))
-    if datetime
-      fields = if type == "date"
-        ["hour", "minute"]
+    m.computation =>
+      datetime = if moment.isMoment(value)
+        delete @_cache[type]
+        value.clone()
       else
-        ["year", "month", "day"]
-      for field in fields
-        datetime[field](@value()[field]())
-      @value(datetime)
+        @_cache[type] = value
+        @parseDate(value, I18n.t("moment.#{type}_picker.accepted"))
+      if datetime
+        fields = if type == "date"
+          ["hour", "minute"]
+        else
+          ["year", "month", "day"]
+        for field in fields
+          datetime[field](@value()[field]())
+        @value(datetime)
 
   parseDate: (value, formats) ->
     return value if moment.isMoment(value)

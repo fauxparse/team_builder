@@ -12,7 +12,7 @@ module EventOccurrences
   end
 
   def event_scope
-    team.events
+    team.events.includes(:recurrence_rules)
   end
 
   def event

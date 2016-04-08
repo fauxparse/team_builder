@@ -32,6 +32,12 @@ en:
       title: "New Event"
     edit:
       until: "Until"
+      repeat: "Repeat…"
+      repeats:
+        weekly: "Weekly"
+        monthly_by_day: "Monthly on the %{day}"
+        monthly_by_week: "Monthly on the %{week} %{day}"
+        yearly: "Yearly"
 
   members:
     title: "Team members"
