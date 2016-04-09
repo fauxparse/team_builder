@@ -24,7 +24,7 @@ describe ScheduleBuilder do
 
     context 'explicitly' do
       before do
-        FactoryGirl.create(:recurrence_rule, :never_recurs, event: event)
+        event.recurrence_rules.create(repeat_type: "never")
       end
 
       it 'has one occurrence' do
