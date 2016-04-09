@@ -59,7 +59,7 @@ class EventForm
     @params.each_pair do |key, value|
       begin
         send :"#{key}=", value
-      rescue ArgumentError => e
+      rescue ArgumentError
         errors.add(key, :invalid)
       end
     end

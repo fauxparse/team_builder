@@ -36,7 +36,7 @@ class NewEvent extends App.Components.Section
             m.component(App.Components.DateTimePicker,
               I18n.t("events.edit.until"),
               @stopsAt,
-              errors: => []
+              errors: -> []
               showDate: false
             )
           )

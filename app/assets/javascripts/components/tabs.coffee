@@ -41,7 +41,7 @@ class Tabs
           highlight.css(width: (x2 + w2) - x1)
         else
           highlight.css(left: x2, width: x1 + w1 - x2)
-        setTimeout =>
+        setTimeout ->
           highlight.css(left: x2, width: w2)
         , 250
       else

@@ -12,6 +12,6 @@ class AvailabilityHash
   end
 
   def as_json(options = {})
-    to_h
+    to_h.as_json(options)
   end
 end
