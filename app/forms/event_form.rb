@@ -29,9 +29,9 @@ class EventForm
     end
   end
 
-  def as_json
+  def as_json(options = {})
     ActiveModel::SerializableResource.new(event)
-      .as_json
+      .as_json(options)
       .merge(errors: error_messages)
   end
 

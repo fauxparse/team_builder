@@ -85,6 +85,93 @@ RSpec.describe EventsController, type: :controller do
     end
   end
 
+  describe 'post #create' do
+    let(:request) { post :create, params: base_params.merge(params) }
+    let(:format) { :json }
+
+    context 'with good parameters' do
+      let(:params) do
+        {
+          event: {
+            name: "A fancy party",
+            starts_at: "2016-07-27T20:00:00+12:00",
+            duration: 7200,
+            repeat_type: "yearly_by_date"
+          }
+        }
+      end
+
+      it 'creates an event' do
+        expect { request }
+          .to change { Event.count }
+          .by(1)
+      end
+
+      it 'creates a recurrence rule' do
+        expect { request }
+          .to change { Event::RecurrenceRule.count }
+          .by(1)
+      end
+
+      describe '#response' do
+        before { request }
+        subject { response }
+
+        it { is_expected.to be_success }
+
+        describe '#body' do
+          let(:json) { ActiveSupport::JSON.decode(response.body) }
+
+          it 'has the right slug' do
+            expect(json["slug"]).to eq "a-fancy-party"
+          end
+        end
+      end
+    end
+
+    context 'with bad parameters' do
+      let(:params) do
+        {
+          event: {
+            name: "",
+            starts_at: "2016-07-27T20:00:00+12:00",
+            duration: 7200,
+            repeat_type: "sporadically"
+          }
+        }
+      end
+
+      it 'does not create an event' do
+        expect { request }
+          .not_to change { Event.count }
+      end
+
+      it 'does not create a recurrence rule' do
+        expect { request }
+          .not_to change { Event::RecurrenceRule.count }
+      end
+
+      describe '#response' do
+        before { request }
+        subject { response }
+
+        it { is_expected.to have_http_status(:unprocessable_entity) }
+
+        describe '#body' do
+          let(:json) { ActiveSupport::JSON.decode(response.body) }
+
+          it 'has errors' do
+            expect(json["errors"]).to eq({
+              "name" => ["Event name can’t be blank"],
+              "slug" => ["URL can’t be blank"],
+              "repeat_type" => ["Repeat type is invalid"]
+            })
+          end
+        end
+      end
+    end
+  end
+
   describe 'post #check' do
     subject { response }
 
