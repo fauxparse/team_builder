@@ -10,11 +10,13 @@ class DateTimePicker
       m.component(App.Components.TextField,
         @dateLabel()
         @dateValue
+        id: @options.id + "_date" if @options.id
         onblur: => m.computation => delete @_cache.date
       ) unless @options.showDate == false
       m.component(App.Components.TextField,
         @timeLabel()
         @timeValue
+        id: @options.id + "_time" if @options.id
         onblur: => m.computation => delete @_cache.time
       ) unless @options.showTime == false
     )
@@ -49,11 +51,11 @@ class DateTimePicker
       else
         @_cache[type] = value
         @parseDate(value, I18n.t("moment.#{type}_picker.accepted"))
-      if datetime
+      if datetime && datetime.isValid()
         fields = if type == "date"
           ["hour", "minute"]
         else
-          ["year", "month", "day"]
+          ["year", "month", "date"]
         for field in fields
           datetime[field](@value()[field]())
         @value(datetime)
