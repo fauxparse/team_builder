@@ -4,12 +4,10 @@ class NewEvent extends App.Components.Section
     @_autoUpdateSlug = !@event().id()
 
   view: ->
-    m("section", { class: "new-event" },
-      m.component(App.Components.Header,
-        {
-          title: -> I18n.t("events.new.title")
-        }
-      )
+    klass = "new-event"
+    klass += " saving" if @event().saving()
+    m("section", { class: klass },
+      m.component(App.Components.Header, title: -> I18n.t("events.new.title"))
       m("div", { class: "new-event-inner" },
         @event().form({ class: "event-editor" },
           m.component(App.Components.TextField,
@@ -31,13 +29,15 @@ class NewEvent extends App.Components.Section
             m.component(App.Components.DateTimePicker,
               I18n.t("activerecord.attributes.event.starts_at"),
               @event().starts_at,
+              id: "event_starts_at",
               errors: => @event().errorsOn("starts_at")
             )
             m.component(App.Components.DateTimePicker,
               I18n.t("events.edit.until"),
               @stopsAt,
-              errors: -> []
+              id: "event_stops_at",
               showDate: false
+              errors: -> []
             )
           )
           m.component(App.Components.Checkbox,
@@ -72,8 +72,8 @@ class NewEvent extends App.Components.Section
               name: "repeat_type"
               value: "monthly_by_week"
             )
-
           ) if @event().repeats()
+          m("button", { onclick: @createClicked }, I18n.t("events.new.save"))
         )
       )
     )
@@ -105,10 +105,22 @@ class NewEvent extends App.Components.Section
     @_check = setTimeout =>
       attrs = @event().asJSON()
       delete attrs.slug if @_autoUpdateSlug
-      @event().check(attrs).then =>
-        console.log(@event().slug())
+      @event().check(attrs).then ->
         m.redraw()
     , 250
+
+  createClicked: (e) =>
+    m.computation =>
+      @event().saving(true)
+    setTimeout =>
+      @event().save().then(@eventCreated, @eventCreationFailed)
+    , 150
+
+  eventCreated: =>
+    m.route(@event().firstOccurrenceUrl())
+
+  eventCreationFailed: ->
+    m.redraw()
 
 App.Components.NewEvent =
   controller: ->

@@ -1,9 +1,9 @@
-Given(/^I am signed in as an existing user$/) do
+Given(/^I am (?:signed|logged) in as an existing user$/) do
   visit root_path
   step "I sign in"
 end
 
-Given(/^I am signed in as an admin user$/) do
+Given(/^I am (?:signed|logged) in as an admin user$/) do
   @user = admin.user
   visit root_path
   step "I sign in"
@@ -18,7 +18,7 @@ When(/^I sign up$/) do
   click_button "Sign up"
 end
 
-When(/^I sign in$/) do
+When(/^I (?:sign|log) in$/) do
   fill_in "Email", with: user.email
   fill_in "Password", with: user.password
   click_button "Log in"

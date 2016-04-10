@@ -1,6 +1,6 @@
 class App.Models.Event extends App.Model
   @configure "Event", "name", "slug", "occurrence", "starts_at", "stops_at",
-    "repeat_type", "allocations"
+    "duration", "repeat_type", "allocations"
 
   constructor: (attrs) ->
     @dateTimeAttributes "starts_at", "stops_at"
@@ -32,6 +32,9 @@ class App.Models.Event extends App.Model
       else
         @repeat_type("never")
     @repeat_type() != "never"
+
+  firstOccurrenceUrl: ->
+    @url() + @starts_at().format("/YYYY/MM/DD")
 
   @url: -> "/teams/#{m.route.param("team")}/events"
 

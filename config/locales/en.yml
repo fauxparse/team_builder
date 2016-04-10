@@ -30,6 +30,7 @@ en:
   events:
     new:
       title: "New Event"
+      save: "Create event"
     edit:
       until: "Until"
       repeat: "Repeat…"

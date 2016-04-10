@@ -44,6 +44,8 @@ class ManageEvent extends App.Components.Section
         App.Models.Event.fetch(id).then (event) =>
           @event(event)
           @cache(0, event.occurrence())
+          unless m.route.param("day")
+            history.replaceState({}, "", event.occurrence().url())
 
   cache: (index, occurrence) ->
     @_cache[index] = occurrence
