@@ -35,7 +35,8 @@ class EventsController < ApplicationController
   end
 
   def check
-    @event = params[:id] && team.events.find(params[:id]) || team.events.build
+    @event = params[:id] && team.events.find_by(slug: params[:id]) ||
+      team.events.build
     @event.attributes = event_params
     render json: @event, status: @event.valid? ? :ok : :unprocessable_entity
   end
