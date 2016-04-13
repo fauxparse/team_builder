@@ -4,9 +4,8 @@
     %title TeamBuilder
     = csrf_meta_tags
     = action_cable_meta_tag
-    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:700,300,400,400italic", media: "all"
-    = stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons", media: "all"
-    = stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons", media: "all"
+    = google_fonts_link_tag "Roboto" => %w(300 400 400italic 500 700)
+    = material_icons_link_tag
     = stylesheet_link_tag "application", media: "all"
     %meta{name: "viewport", content: "width=device-width, initial-scale=1" }
   %body
