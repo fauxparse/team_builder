@@ -18,7 +18,7 @@ module FontsHelper
 
   def encode_font_name(family, weights = nil)
     if family.respond_to?(:keys)
-      family.map { |name, weights| encode_font_name(name, weights) }
+      family.map { |name, values| encode_font_name(name, values) }
     else
       # use CGI::escape to get + instead of %20
       CGI::escape(family).tap do |str|
