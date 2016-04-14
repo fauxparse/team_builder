@@ -10,10 +10,10 @@ Given(/^I am (?:signed|logged) in as an admin user$/) do
 end
 
 When(/^I sign up$/) do
-  click_link "Sign up"
+  click_link "Create an account"
   fill_in "Name", with: "New user"
   fill_in "Email", with: email
-  fill_in "Password", with: "p4$$w0rd"
+  fill_in "Password (8 characters minimum)", with: "p4$$w0rd"
   fill_in "Password confirmation", with: "p4$$w0rd"
   click_button "Sign up"
 end
