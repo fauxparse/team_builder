@@ -3,6 +3,10 @@ body {
   background: $base-background-color;
 }
 
+* {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
 .container {
   @include position(fixed, 0rem 0rem 0rem 0rem);
 

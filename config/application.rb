@@ -30,6 +30,8 @@ module TeamBuilder
 
     Time.zone = "Wellington"
 
+    Rails.application.config.assets.precompile += %w(devise.css devise.js)
+
     config.active_record.schema_format = :sql
   end
 end

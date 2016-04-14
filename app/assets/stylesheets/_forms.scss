@@ -8,7 +8,7 @@
   border-left: none;
   border-right: none;
   @include appearance(none);
-  border-bottom: .0625rem solid $base-border;
+  border-bottom: .0625rem solid $base-border-color;
   border-radius: 0;
   box-shadow: none;
   outline: none;
@@ -44,10 +44,16 @@
     @include transition(all $base-duration $base-timing);
     font-weight: normal;
     color: $secondary-font-color;
+
+    small {
+      font-size: 100%;
+      color: $secondary-font-color;
+    }
   }
 
   &.has-value > label,
-  > :focus ~ label {
+  > :focus ~ label,
+  > :-webkit-autofill ~ label {
     top: 1rem;
     font-size: $small-font-size;
     line-height: 1rem;
@@ -169,6 +175,7 @@ p.explanation {
     line-height: 1.5rem;
     vertical-align: middle;
     position: relative;
+    @include user-select(none);
 
     &::before {
       display: block;

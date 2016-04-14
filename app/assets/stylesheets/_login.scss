@@ -1,0 +1,56 @@
+body {
+  background: $blue-grey;
+}
+
+main {
+  @include position(absolute, 0rem 0rem 0rem 0rem);
+  @include display(flex);
+  overflow-y: auto;
+}
+
+.main-inner {
+  margin: auto;
+  width: 20rem;
+  background: $white;
+  border-radius: $base-border-radius;
+  box-shadow: 0 1rem 2rem rgba(black, .12);
+
+  h2 {
+    padding: 1rem;
+    font-size: 2rem;
+    font-weight: 300;
+    margin: 0;
+  }
+}
+
+form {
+  padding: 0 1rem;
+
+  button,
+  input[type="submit"] {
+    display: block;
+    width: 100%;
+    margin-top: .5rem;
+  }
+}
+
+.devise-links,
+.omniauth-links {
+  padding: 1rem;
+}
+
+.omniauth-links {
+  border-top: $base-border;
+  @include action-list;
+}
+
+.flash-messages {
+  border-top: $base-border;
+  border-bottom: $base-border;
+  padding: .5rem 1rem;
+  background: $yellow-200;
+
+  p {
+    margin: 0;
+  }
+}

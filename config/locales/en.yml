@@ -79,7 +79,23 @@ en:
 
   devise:
     sessions:
+      new:
+        title: "Log in."
       sign_out: "Log out"
+      remember_me: "Remember me next time"
+    registrations:
+      new:
+        title: "Sign up."
+        minimum_password_length: "(%{minimum} characters minimum)"
+    shared:
+      links:
+        sign_in: "Already have an account? Log in here!"
+        sign_up: "New around here? Create an account!"
+        forgot_password: "Forgot your password?"
+        no_confirmation: "Didn’t receive confirmation instructions?"
+        no_unlock: "Didn’t receive unlock instructions?"
+    oauth:
+      google_oauth2: "Log in with your Google account"
 
   activerecord:
     attributes:

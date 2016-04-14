@@ -6,7 +6,10 @@
     = action_cable_meta_tag
     = google_fonts_link_tag "Roboto" => %w(300 400 400italic 500 700)
     = material_icons_link_tag
-    = stylesheet_link_tag "application", media: "all"
+    = stylesheet_link_tag "devise", media: "all"
     %meta{name: "viewport", content: "width=device-width, initial-scale=1" }
   %body
-    = yield
+    %main
+      .main-inner
+        = yield
+    = javascript_include_tag "devise"

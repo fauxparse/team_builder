@@ -1,17 +1,17 @@
-%h2 Log in
+%h2= t(".title")
+= login_flash_messages
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
+  .field.with-floating-label
+    = f.email_field :email, autofocus: true, style: "-webkit-box-shadow: 0 0 0 50px #fff inset;"
     = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  .field
+  .field.with-floating-label
+    = f.password_field :password, autocomplete: "off", style: "-webkit-box-shadow: 0 0 0 50px #fff inset;"
     = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "off"
   - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
+    .field.checkbox-field
+      = f.label :remember_me do
+        = f.check_box :remember_me
+        %span= t("devise.sessions.remember_me")
   .actions
     = f.submit "Log in"
 = render "devise/shared/links"
