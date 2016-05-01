@@ -10,6 +10,8 @@
 #= require mousewheel
 #= require throttle
 #= require autosize.min
+#= require tether
+#= require drop
 
 #= require i18n
 
