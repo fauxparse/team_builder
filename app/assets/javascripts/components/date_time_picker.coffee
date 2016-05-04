@@ -12,7 +12,7 @@ class DateTimePicker
         @dateValue
         id: (@options.id + "_date" if @options.id)
         onblur: => m.computation => delete @_cache.date
-        config: @configureDatePopup
+        # config: @configureDatePopup
       ) unless @options.showDate == false
       m.component(App.Components.TextField,
         @timeLabel()
