@@ -12,7 +12,7 @@ class DateTimePicker
         @dateValue
         id: (@options.id + "_date" if @options.id)
         onblur: => m.computation => delete @_cache.date
-        # config: @configureDatePopup
+        config: @configureDatePopup
       ) unless @options.showDate == false
       m.component(App.Components.TextField,
         @timeLabel()
@@ -68,19 +68,22 @@ class DateTimePicker
       return date if date.isValid()
     undefined
 
-  configureDatePopup: (input) =>
-    @datePopup = new Drop
-      target: input
-      position: 'bottom left'
-      openOn: 'click'
-      remove: true
-      content: =>
-        container = document.createElement('div')
-        accessor = (value) =>
-          @setDate(value) if arguments.length
-          @value()
-        m.mount(container, m.component(Calendar, { value: accessor }))
-        container
+  configureDatePopup: (input, isInitialized) =>
+    unless isInitialized
+      datePopup = new Drop
+        target: input
+        position: 'bottom left'
+        openOn: 'click'
+        remove: true
+        content: =>
+          container = document.createElement('div')
+          accessor = (value) =>
+            @setDate(value) if arguments.length
+            @value()
+          m.mount(container, m.component(Calendar, { value: accessor }))
+          container
+      datePopup.on "open", -> input.focus()
+      $(datePopup.content).on "click", ".day", -> datePopup.close()
 
 Calendar =
   controller: (props) ->
@@ -90,12 +93,14 @@ Calendar =
     m("div", { class: "calendar-picker" },
       m("header",
         m("button", {
-          onclick: ->
+          onclick: (e) ->
+            e.stopPropagation()
             props.current(props.current().clone().subtract(1, "month"))
         }, m("i", { class: "material-icons" }, "chevron_left"))
         m("span", props.current().format("MMMM YYYY"))
         m("button", {
-          onclick: ->
+          onclick: (e) ->
+            e.stopPropagation()
             props.current(props.current().clone().add(1, "month"))
         }, m("i", { class: "material-icons" }, "chevron_right"))
       )
