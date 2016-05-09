@@ -27,9 +27,9 @@ class NewEvent extends App.Components.Section
           ),
           m("div", { class: "date-and-time" },
             m.component(App.Components.DateTimePicker,
-              I18n.t("activerecord.attributes.event.starts_at"),
-              @event().starts_at,
-              id: "event_starts_at",
+              I18n.t("activerecord.attributes.event.starts_at")
+              @event().starts_at
+              id: "event_starts_at"
               errors: => @event().errorsOn("starts_at")
             )
             m.component(App.Components.DateTimePicker,

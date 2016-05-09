@@ -10,17 +10,28 @@ class DateTimePicker
       m.component(App.Components.TextField,
         @dateLabel()
         @dateValue
-        id: (@options.id + "_date" if @options.id)
-        onblur: => m.computation => delete @_cache.date
-        config: @configureDatePopup
+        @dateInputOptions()
       ) unless @options.showDate == false
       m.component(App.Components.TextField,
         @timeLabel()
         @timeValue
-        id: (@options.id + "_time" if @options.id)
-        onblur: => m.computation => delete @_cache.time
+        @timeInputOptions()
       ) unless @options.showTime == false
     )
+
+  dateInputOptions: ->
+    $.extend {}, {
+      id: (@options.id + "_date" if @options.id)
+      onblur: => m.computation => delete @_cache.date
+      config: @configureDatePopup
+    }, @options.date
+
+  timeInputOptions: ->
+    $.extend {}, {
+      id: (@options.id + "_time" if @options.id)
+      onblur: => m.computation => delete @_cache.time
+      config: @configureTimePopup
+    }, @options.time
 
   dateLabel: -> @label
 
@@ -72,8 +83,7 @@ class DateTimePicker
     unless isInitialized
       datePopup = new Drop
         target: input
-        position: 'bottom left'
-        openOn: 'click'
+        openOn: "click"
         remove: true
         content: =>
           container = document.createElement('div')
@@ -82,15 +92,53 @@ class DateTimePicker
             @value()
           m.mount(container, m.component(Calendar, { value: accessor }))
           container
+        tetherOptions:
+          attachment: "top left"
+          targetAttachment: "bottom left"
+          constraints:
+            [
+              {
+                to: "scrollParent"
+                pin: ["left", "right"]
+                attachment: "together"
+              }
+            ]
       datePopup.on "open", -> input.focus()
       $(datePopup.content).on "click", ".day", -> datePopup.close()
+
+  configureTimePopup: (input, isInitialized) =>
+    unless isInitialized
+      timePopup = new Drop
+        target: input
+        openOn: "click"
+        remove: true
+        content: =>
+          container = document.createElement('div')
+          accessor = (value) =>
+            @setTime(value) if arguments.length
+            @value()
+          m.mount(container, m.component(Clock, { value: accessor }))
+          container
+        tetherOptions:
+          attachment: "top right"
+          targetAttachment: "bottom right"
+          constraints:
+            [
+              {
+                to: "scrollParent"
+                pin: ["left", "right"]
+                attachment: "together"
+              }
+            ]
+      timePopup.on "open", -> input.focus()
+      $(timePopup.content).on "click", ".day", -> timePopup.close()
 
 Calendar =
   controller: (props) ->
     props.current = m.prop(props.value().clone())
 
   view: (controller, props) ->
-    m("div", { class: "calendar-picker" },
+    m("div", { class: "date-time-popup calendar-picker" },
       m("header",
         m("button", {
           onclick: (e) ->
@@ -129,6 +177,30 @@ Calendar =
       }, d.date()))
       d.add(1, "day")
     result
+
+Clock =
+  controller: (props) ->
+    props.mode = m.prop("hours")
+
+  view: (controller, props) ->
+    time = props.value()
+    switchMode = m.withAttr("rel", props.mode)
+    m("div", { class: "date-time-popup clock-picker" },
+      m("header", { class: "#{props.mode()} #{time.format("a")}" },
+        m("button", { rel: "hours", onclick: switchMode }, time.format("h"))
+        m("span", ":")
+        m("button", { rel: "minutes", onclick: switchMode }, time.format("mm"))
+        m("button", { rel: "am", onclick: @ampm.bind(this, props, 0) }, "AM")
+        m("button", { rel: "pm", onclick: @ampm.bind(this, props, 12) }, "PM")
+      )
+      m("section")
+    )
+
+  ampm: (props, offset = 0) ->
+    m.computation ->
+      time = props.value().clone()
+      time.hours(time.hours() % 12 + offset)
+      props.value(time)
 
 App.Components.DateTimePicker =
   controller: (args...) ->

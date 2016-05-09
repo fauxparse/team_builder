@@ -18,7 +18,8 @@
     border-bottom-color: $base-border-color;
   }
 
-  &:focus:not([readonly]) {
+  &:focus:not([readonly]),
+  &.drop-enabled {
     padding-bottom: 0;
     border-bottom-width: .125rem;
     border-bottom-color: $action-color;
@@ -209,69 +210,90 @@ p.explanation {
   }
 }
 
-.calendar-picker {
+.date-time-popup {
   width: 18.5rem;
   background: $base-background-color;
   border-radius: $base-border-radius;
   box-shadow: 0 .25rem 1rem rgba($black, .25);
   padding: .5rem;
 
-  header {
-    @include display(flex);
-    @include align-items(center);
+  &.calendar-picker {
+    header {
+      @include display(flex);
+      @include align-items(center);
 
-    button {
-      background: none;
-      color: secondary-color();
-      padding: .5rem;
-      outline: none;
+      button {
+        background: none;
+        color: secondary-color();
+        padding: .5rem;
+        outline: none;
+      }
+
+      span {
+        @include flex(1);
+        text-align: center;
+      }
+
+      + section {
+        color: disabled-color();
+      }
     }
 
-    span {
-      @include flex(1);
-      text-align: center;
-    }
+    section {
+      @include display(flex);
+      @include flex-direction(row);
+      @include flex-wrap(wrap);
+      @include justify-content(flex-start);
+      font-size: .75rem;
 
-    + section {
-      color: disabled-color();
+      span {
+        @include flex(1 0 percentage(1/7));
+        line-height: 1em;
+        vertical-align: middle;
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: .875rem;
+        text-align: center;
+        cursor: pointer;
+
+        @for $i from 1 through 7 {
+          &[data-day="#{$i % 7}"] {
+            &:first-child { margin-left: ($i - 1) * percentage(1/7); }
+            &:last-child { margin-right: (7 - $i) * percentage(1/7); }
+          }
+        }
+
+        &.today {
+          color: $action-color;
+          font-weight: bold;
+        }
+
+        &.selected {
+          background: $action-color;
+          color: $white;
+          font-weight: bold;
+          border-radius: 50%
+        }
+      }
     }
   }
 
-  section {
-    @include display(flex);
-    @include flex-direction(row);
-    @include flex-wrap(wrap);
-    @include justify-content(flex-start);
-    font-size: .75rem;
-
-    span {
-      @include flex(1 0 percentage(1/7));
-      line-height: 1em;
-      vertical-align: middle;
-      width: 2.5rem;
-      height: 2.5rem;
-      padding: .875rem;
-      text-align: center;
-      cursor: pointer;
-
-      @for $i from 1 through 7 {
-        &[data-day="#{$i % 7}"] {
-          &:first-child { margin-left: ($i - 1) * percentage(1/7); }
-          &:last-child { margin-right: (7 - $i) * percentage(1/7); }
-        }
+  &.clock-picker {
+    header {
+      background: $action-color;
+      button, span {
+        background: none;
+        color: secondary-color($white);
+        outline: none;
       }
 
-      &.today {
-        color: $action-color;
-        font-weight: bold;
+      &.hours [rel="hours"],
+      &.minutes [rel="minutes"],
+      &.am [rel="am"],
+      &.pm [rel="pm"] {
+        color: text-color($white);
       }
 
-      &.selected {
-        background: $action-color;
-        color: $white;
-        font-weight: bold;
-        border-radius: 50%
-      }
     }
   }
 }
